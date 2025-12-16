@@ -29,9 +29,15 @@ func _unhandled_input(event):
 			elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
 				apply_zoom(-zoom_speed, event.position)
 
-func activer_vue_globale():
+func activer_vue_globale(target_position : Vector2 = Vector2.ZERO):
+
 	var tween = create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
-	tween.tween_property(self, "zoom", zoom_vue_globale, 0.8) # 0.8 secondes pour l'animation
+	
+	# IMPORTANT : set_parallel(true) permet de jouer le zoom ET le déplacement en même temps
+	tween.set_parallel(true)
+	
+	tween.tween_property(self, "zoom", zoom_vue_globale, 0.8)
+	tween.tween_property(self, "position", target_position, 0.8)
 
 # Fonction mathématique pour zoomer vers la souris
 func apply_zoom(amount: float, mouse_anchor: Vector2):

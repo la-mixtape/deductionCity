@@ -159,7 +159,7 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0.8279357, 0, 1)
 
-[node name="BoutonVueGlobale" type="Button" parent="FeedbackUI" node_paths=PackedStringArray("camera_scene")]
+[node name="BoutonVueGlobale" type="Button" parent="FeedbackUI" node_paths=PackedStringArray("camera_scene", "cible_a_centrer")]
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
@@ -173,6 +173,7 @@ grow_vertical = 0
 text = "Detective View"
 script = ExtResource("14_2nvyg")
 camera_scene = NodePath("../../Camera2D")
+cible_a_centrer = NodePath("../../Sprite2D")
 
 [connection signal="input_event" from="clueShopkeeper" to="clueShopkeeper" method="_on_input_event"]
 [connection signal="input_event" from="clueTXT" to="clueTXT" method="_on_input_event"]

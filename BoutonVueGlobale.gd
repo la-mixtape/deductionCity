@@ -1,22 +1,26 @@
 extends Button
 
-# MODIFICATION : On utilise @export pour relier la caméra manuellement
 @export var camera_scene : Camera2D
+@export var cible_a_centrer : Node2D # <-- NOUVEAU : L'objet à viser (votre Sprite2D)
 
 func _ready():
 	pressed.connect(_on_pressed)
 
 func _on_pressed():
-	# Petite sécurité : si la caméra n'est pas reliée, on affiche une erreur
 	if not camera_scene:
-		print("ERREUR : La caméra n'est pas reliée au bouton dans l'inspecteur !")
+		print("ERREUR : Caméra non reliée dans l'inspecteur")
 		return
 
-	# On lance le dézoom
-	if camera_scene.has_method("activer_vue_globale"):
-		camera_scene.activer_vue_globale()
+	# On récupère la position de la cible (ou (0,0) si oubliée)
+	var position_cible = Vector2.ZERO
+	if cible_a_centrer:
+		position_cible = cible_a_centrer.global_position
 	else:
-		print("ERREUR : Le script camera_2d.gd n'a pas la fonction 'activer_vue_globale'")
+		print("ATTENTION : Cible à centrer non reliée, on vise (0,0)")
+
+	# On appelle la fonction en lui donnant la destination
+	if camera_scene.has_method("activer_vue_globale"):
+		camera_scene.activer_vue_globale(position_cible)
 
 func declencher_feedback_positif():
 	var tween = create_tween()
