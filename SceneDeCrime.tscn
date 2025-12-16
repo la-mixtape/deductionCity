@@ -13,7 +13,7 @@
 [ext_resource type="Resource" uid="uid://s3xl7bc1hsnw" path="res://ded_FilsVoleur.tres" id="8_jx5qw"]
 [ext_resource type="Resource" uid="uid://6rkvbcbpo7ak" path="res://ded_filleBraquage.tres" id="9_m6jtr"]
 [ext_resource type="Resource" uid="uid://dy1oiglhjcj74" path="res://ded_nomShopkeeper.tres" id="10_2nvyg"]
-[ext_resource type="Texture2D" uid="uid://crid0robsrfth" path="res://new-svgrepo-com.svg" id="14_ckmj2"]
+[ext_resource type="Texture2D" uid="uid://bf736ns88skmr" path="res://arrow-up-svgrepo-com.svg" id="14_ckmj2"]
 [ext_resource type="Script" uid="uid://bn8nhvdtuwxlj" path="res://IndicateurDirection.gd" id="15_2lv5t"]
 
 [node name="SceneDeCrime" type="Node2D"]
@@ -162,7 +162,7 @@ color = Color(0, 0.8279357, 0, 1)
 visible = false
 offset_right = 800.0
 offset_bottom = 800.0
-scale = Vector2(0.2, 0.2)
+scale = Vector2(0.1, 0.1)
 pivot_offset = Vector2(64, 64)
 texture = ExtResource("14_ckmj2")
 script = ExtResource("15_2lv5t")
