@@ -7,6 +7,9 @@ var taille_max_police = 24
 var taille_min_police = 8
 var hauteur_max_disponible = 130 # 150px total - 20px de marges
 
+var is_dragging : bool = false
+var drag_offset : Vector2 = Vector2.ZERO
+
 func setup_postit(texte_a_afficher : String):
 	label.text = texte_a_afficher
 	
@@ -30,3 +33,32 @@ func est_trop_grand() -> bool:
 	var hauteur_reelle = label.get_line_count() * label.get_line_height()
 	
 	return hauteur_reelle > hauteur_max_disponible
+
+func _gui_input(event):
+	# 1. Clic gauche enfoncé ou relâché
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT:
+			if event.pressed:
+				# Début du drag
+				is_dragging = true
+				
+				# On calcule l'écart entre le coin haut-gauche du post-it et la souris
+				drag_offset = global_position - get_global_mouse_position()
+				
+				# Visuel : On met ce post-it au premier plan (devant les autres)
+				move_to_front()
+				
+				# Important : On dit au moteur "J'ai géré cet événement, ne le passe pas à la caméra"
+				accept_event()
+				
+			else:
+				# Fin du drag
+				is_dragging = false
+				accept_event()
+
+	# 2. Mouvement de la souris
+	elif event is InputEventMouseMotion:
+		if is_dragging:
+			# On applique la nouvelle position en respectant l'écart d'origine
+			global_position = get_global_mouse_position() + drag_offset
+			accept_event()
