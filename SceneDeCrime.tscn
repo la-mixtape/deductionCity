@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://c4hbk08v74jym"]
+[gd_scene load_steps=15 format=3 uid="uid://c4hbk08v74jym"]
 
 [ext_resource type="Script" uid="uid://bayrl448ggk5o" path="res://EnqueteManager.gd" id="2_lgg38"]
 [ext_resource type="Script" uid="uid://cles6vrihk2an" path="res://DonneeDeduction.gd" id="2_vpewm"]
@@ -13,8 +13,7 @@
 [ext_resource type="Resource" uid="uid://s3xl7bc1hsnw" path="res://ded_FilsVoleur.tres" id="8_jx5qw"]
 [ext_resource type="Resource" uid="uid://6rkvbcbpo7ak" path="res://ded_filleBraquage.tres" id="9_m6jtr"]
 [ext_resource type="Resource" uid="uid://dy1oiglhjcj74" path="res://ded_nomShopkeeper.tres" id="10_2nvyg"]
-[ext_resource type="Texture2D" uid="uid://bf736ns88skmr" path="res://arrow-up-svgrepo-com.svg" id="14_ckmj2"]
-[ext_resource type="Script" uid="uid://bn8nhvdtuwxlj" path="res://IndicateurDirection.gd" id="15_2lv5t"]
+[ext_resource type="Script" uid="uid://dk2f4vgxjet7f" path="res://BoutonVueGlobale.gd" id="14_2nvyg"]
 
 [node name="SceneDeCrime" type="Node2D"]
 position = Vector2(-6, 21)
@@ -27,11 +26,11 @@ offset_bottom = 2036.0
 mouse_filter = 2
 color = Color(0.52614474, 0.4183511, 0.27959567, 1)
 
-[node name="EnqueteManager" type="Node" parent="." node_paths=PackedStringArray("flash_visuel", "indicateur_fleche")]
+[node name="EnqueteManager" type="Node" parent="." node_paths=PackedStringArray("flash_visuel", "bouton_vue_globale")]
 script = ExtResource("2_lgg38")
 base_de_donnees_deductions = Array[ExtResource("2_vpewm")]([ExtResource("3_ccf6n"), ExtResource("4_2nvyg"), ExtResource("5_ckmj2"), ExtResource("6_2lv5t"), ExtResource("7_1t8x8"), ExtResource("8_jx5qw"), ExtResource("9_m6jtr"), ExtResource("10_2nvyg")])
 flash_visuel = NodePath("../FeedbackUI/FlashVert")
-indicateur_fleche = NodePath("../FeedbackUI/IndicateurFleche")
+bouton_vue_globale = NodePath("../FeedbackUI/BoutonVueGlobale")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(820, 522)
@@ -45,6 +44,8 @@ metadata/_edit_lock_ = true
 position = Vector2(807, 520)
 zoom = Vector2(0.6, 0.6)
 script = ExtResource("4_v12hc")
+min_zoom = 0.2
+max_zoom = 4.0
 
 [node name="clueShopkeeper" type="Area2D" parent="."]
 script = ExtResource("5_82bwi")
@@ -158,14 +159,19 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0.8279357, 0, 1)
 
-[node name="IndicateurFleche" type="TextureRect" parent="FeedbackUI"]
-visible = false
-offset_right = 800.0
-offset_bottom = 800.0
-scale = Vector2(0.1, 0.1)
-pivot_offset = Vector2(400, 400)
-texture = ExtResource("14_ckmj2")
-script = ExtResource("15_2lv5t")
+[node name="BoutonVueGlobale" type="Button" parent="FeedbackUI"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -99.5
+offset_top = -69.0
+offset_right = 99.5
+grow_horizontal = 2
+grow_vertical = 0
+text = "Vue d'ensemble"
+script = ExtResource("14_2nvyg")
 
 [connection signal="input_event" from="clueShopkeeper" to="clueShopkeeper" method="_on_input_event"]
 [connection signal="input_event" from="clueTXT" to="clueTXT" method="_on_input_event"]

@@ -10,6 +10,8 @@ extends Camera2D
 # Quel bouton de souris pour bouger la caméra ? (Ici : Clic Droit)
 @export var drag_button : MouseButton = MOUSE_BUTTON_RIGHT
 
+@export var zoom_vue_globale : Vector2 = Vector2(0.4, 0.4) # Plus le chiffre est petit, plus on voit loin
+
 func _unhandled_input(event):
 	# 1. Gestion du DEPLACEMENT (Panoramique)
 	if event is InputEventMouseMotion:
@@ -26,6 +28,10 @@ func _unhandled_input(event):
 				apply_zoom(zoom_speed, event.position)
 			elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
 				apply_zoom(-zoom_speed, event.position)
+
+func activer_vue_globale():
+	var tween = create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	tween.tween_property(self, "zoom", zoom_vue_globale, 0.8) # 0.8 secondes pour l'animation
 
 # Fonction mathématique pour zoomer vers la souris
 func apply_zoom(amount: float, mouse_anchor: Vector2):

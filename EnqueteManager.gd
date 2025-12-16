@@ -10,7 +10,8 @@ var nombre_indices_survoles : int = 0
 var input_bloque : bool = false
 
 @export var flash_visuel : ColorRect
-@export var indicateur_fleche : Control # On utilise Control pour accepter TextureRect
+
+@export var bouton_vue_globale : Button # Changez Control par Button si besoin
 
 # On charge la scène du post-it
 var post_it_scene = preload("res://post_it.tscn")
@@ -165,10 +166,10 @@ func valider_deduction(fiche_gagnante : DonneeDeduction):
 	# 2. SPAWN ET INDICATEUR
 	# On récupère l'instance du nouveau post-it pour la donner à la flèche
 	var nouveau_post_it = spawner_post_it(fiche_gagnante)
-	
-	if indicateur_fleche:
-		indicateur_fleche.definir_cible(nouveau_post_it, Color.GREEN)	
-	
+
+	if bouton_vue_globale:
+		bouton_vue_globale.declencher_feedback_positif()
+
 	await get_tree().create_timer(1.5).timeout
 	
 	tout_reset()
