@@ -9,6 +9,9 @@ var tous_les_indices : Array = []
 var nombre_indices_survoles : int = 0
 var input_bloque : bool = false
 
+@export var flash_visuel : ColorRect
+@export var indicateur_fleche : Control # On utilise Control pour accepter TextureRect
+
 # On charge la scène du post-it
 var post_it_scene = preload("res://post_it.tscn")
 
@@ -85,14 +88,15 @@ func trouver_position_libre_sur_table() -> Vector2:
 		
 	return Vector2.ZERO # Fallback si vraiment pas de place (peu probable)
 
-func spawner_post_it(fiche : DonneeDeduction):
+func spawner_post_it(fiche : DonneeDeduction) -> Node: 
 	var nouveau_post_it = post_it_scene.instantiate()
 	conteneur_post_its.add_child(nouveau_post_it)
 	nouveau_post_it.setup_postit(fiche.titre)
 	
-	# On utilise notre nouvel algo
 	nouveau_post_it.position = trouver_position_libre_sur_table()
-	nouveau_post_it.rotation_degrees = randf_range(-5, 5) # Rotation légère
+	nouveau_post_it.rotation_degrees = randf_range(-5, 5)
+	
+	return nouveau_post_it # <--- AJOUT IMPORTANT
 
 func _on_souris_entre_indice():
 	nombre_indices_survoles += 1
@@ -142,14 +146,28 @@ func verifier_hypotheses():
 func valider_deduction(fiche_gagnante : DonneeDeduction):
 	print("DÉDUCTION VALIDÉE : ", fiche_gagnante.titre)
 	PartieGlobale.ajouter_deduction(fiche_gagnante)
+	
 	input_bloque = true
-	# Feedback Visuel "Or"
+	
+	# 1. EFFET FLASH VERT
+	if flash_visuel:
+		var tween = create_tween()
+		# On fait monter l'alpha à 0.5 (semi-transparent) très vite, puis on redescend
+		tween.tween_property(flash_visuel, "color:a", 0.5, 0.1)
+		tween.tween_property(flash_visuel, "color:a", 0.0, 0.5)
+
+	# Feedback Visuel indices (votre code existant)
 	for indice in tous_les_indices:
 		if indice.id_indice in fiche_gagnante.indices_requis:
 			if indice.highlight_visuel:
 				indice.highlight_visuel.color = Color(0.0, 0.998, 0.065, 0.6)
 	
-	spawner_post_it(fiche_gagnante)
+	# 2. SPAWN ET INDICATEUR
+	# On récupère l'instance du nouveau post-it pour la donner à la flèche
+	var nouveau_post_it = spawner_post_it(fiche_gagnante)
+	
+	if indicateur_fleche:
+		indicateur_fleche.definir_cible(nouveau_post_it)
 	
 	await get_tree().create_timer(1.5).timeout
 	

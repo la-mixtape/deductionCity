@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://c4hbk08v74jym"]
+[gd_scene load_steps=16 format=3 uid="uid://c4hbk08v74jym"]
 
 [ext_resource type="Script" uid="uid://bayrl448ggk5o" path="res://EnqueteManager.gd" id="2_lgg38"]
 [ext_resource type="Script" uid="uid://cles6vrihk2an" path="res://DonneeDeduction.gd" id="2_vpewm"]
@@ -13,6 +13,8 @@
 [ext_resource type="Resource" uid="uid://s3xl7bc1hsnw" path="res://ded_FilsVoleur.tres" id="8_jx5qw"]
 [ext_resource type="Resource" uid="uid://6rkvbcbpo7ak" path="res://ded_filleBraquage.tres" id="9_m6jtr"]
 [ext_resource type="Resource" uid="uid://dy1oiglhjcj74" path="res://ded_nomShopkeeper.tres" id="10_2nvyg"]
+[ext_resource type="Texture2D" uid="uid://crid0robsrfth" path="res://new-svgrepo-com.svg" id="14_ckmj2"]
+[ext_resource type="Script" uid="uid://bn8nhvdtuwxlj" path="res://IndicateurDirection.gd" id="15_2lv5t"]
 
 [node name="SceneDeCrime" type="Node2D"]
 position = Vector2(-6, 21)
@@ -25,9 +27,11 @@ offset_bottom = 2036.0
 mouse_filter = 2
 color = Color(0.52614474, 0.4183511, 0.27959567, 1)
 
-[node name="EnqueteManager" type="Node" parent="."]
+[node name="EnqueteManager" type="Node" parent="." node_paths=PackedStringArray("flash_visuel", "indicateur_fleche")]
 script = ExtResource("2_lgg38")
 base_de_donnees_deductions = Array[ExtResource("2_vpewm")]([ExtResource("3_ccf6n"), ExtResource("4_2nvyg"), ExtResource("5_ckmj2"), ExtResource("6_2lv5t"), ExtResource("7_1t8x8"), ExtResource("8_jx5qw"), ExtResource("9_m6jtr"), ExtResource("10_2nvyg")])
+flash_visuel = NodePath("../FeedbackUI/FlashVert")
+indicateur_fleche = NodePath("../FeedbackUI/IndicateurFleche")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(820, 522)
@@ -141,6 +145,27 @@ polygon = PackedVector2Array(17, 1, 51, 20, 67, 29, 74, 118, -5, 84, -13, 32, -1
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="FeedbackUI" type="CanvasLayer" parent="."]
+
+[node name="FlashVert" type="ColorRect" parent="FeedbackUI"]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0.8279357, 0, 1)
+
+[node name="IndicateurFleche" type="TextureRect" parent="FeedbackUI"]
+visible = false
+offset_right = 800.0
+offset_bottom = 800.0
+scale = Vector2(0.2, 0.2)
+pivot_offset = Vector2(64, 64)
+texture = ExtResource("14_ckmj2")
+script = ExtResource("15_2lv5t")
 
 [connection signal="input_event" from="clueShopkeeper" to="clueShopkeeper" method="_on_input_event"]
 [connection signal="input_event" from="clueTXT" to="clueTXT" method="_on_input_event"]
