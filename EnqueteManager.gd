@@ -152,9 +152,9 @@ func valider_deduction(fiche_gagnante : DonneeDeduction):
 	# 1. EFFET FLASH VERT
 	if flash_visuel:
 		var tween = create_tween()
-		# On fait monter l'alpha à 0.5 (semi-transparent) très vite, puis on redescend
-		tween.tween_property(flash_visuel, "color:a", 0.5, 0.1)
-		tween.tween_property(flash_visuel, "color:a", 0.0, 0.5)
+		# On modifie "modulate:a" au lieu de "color:a"
+		tween.tween_property(flash_visuel, "modulate:a", 0.5, 0.1)
+		tween.tween_property(flash_visuel, "modulate:a", 0.0, 0.5)
 
 	# Feedback Visuel indices (votre code existant)
 	for indice in tous_les_indices:
