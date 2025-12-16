@@ -1,22 +1,25 @@
 extends TextureRect
 
+@export var couleur_fleche : Color = Color.RED 
 var cible : CanvasItem = null
 var temps_restant : float = 0.0
-var duree_affichage : float = 1.0 # Durée en secondes
+var duree_affichage : float = 1.0 
 
 func _ready():
 	visible = false
-	set_process(false) # On désactive le calcul pour économiser des ressources
+	set_process(false)
+	self_modulate = couleur_fleche
 
-func definir_cible(nouvelle_cible : CanvasItem):
+# IMPÉRATIF : Ajoutez bien le deuxième argument ici vvv
+func definir_cible(nouvelle_cible : CanvasItem, couleur : Color = Color.WHITE):
 	cible = nouvelle_cible
 	
-	# On réinitialise le timer et on lance la machine
+	# Maintenant "couleur" existe car il est déclaré au dessus
+	if couleur != Color.WHITE:
+		self_modulate = couleur
+	
 	temps_restant = duree_affichage
 	set_process(true)
-	
-	# Important : On centre le pivot de la flèche sur elle-même
-	# pour qu'elle tourne proprement autour de son centre
 	pivot_offset = size / 2.0
 
 func _process(delta):
@@ -45,10 +48,14 @@ func _process(delta):
 
 func actualiser_position_et_rotation(pos_cible : Vector2, rect_ecran : Rect2):
 	# --- POSITIONNEMENT ---
-	# On calcule une marge de sécurité basée sur la taille de la flèche
-	# (On prend la moitié de la plus grande dimension pour être sûr qu'elle rentre)
-	var marge_securite = max(size.x, size.y) * scale.x / 2.0 + 20.0
+	# On calcule la demi-taille de l'image pour qu'elle ne soit pas coupée
+	# (On prend la plus grande dimension pour gérer la rotation sans risque)
+	var demi_taille = max(size.x, size.y) * scale.x / 2.0
 	
+	# On ajoute une toute petite marge (ex: 2 pixels) pour ne pas toucher le pixel du bord
+	var marge_securite = demi_taille + 2.0 
+	
+	# On "bloque" la position x et y pour qu'elle reste dans l'écran
 	var x_bloque = clamp(pos_cible.x, marge_securite, rect_ecran.size.x - marge_securite)
 	var y_bloque = clamp(pos_cible.y, marge_securite, rect_ecran.size.y - marge_securite)
 	
@@ -58,8 +65,7 @@ func actualiser_position_et_rotation(pos_cible : Vector2, rect_ecran : Rect2):
 	var centre_ecran = rect_ecran.size / 2.0
 	var direction = pos_cible - centre_ecran
 	
-	# On ajoute +90 degrés (PI/2 radians) car votre asset pointe vers le HAUT
-	# et Godot considère que 0° est à DROITE.
+	# Rappel : on ajoute PI/2 (90°) car votre asset pointe vers le HAUT
 	rotation = direction.angle() + PI / 2
 
 func cacher_fleche():

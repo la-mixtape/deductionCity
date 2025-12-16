@@ -167,7 +167,7 @@ func valider_deduction(fiche_gagnante : DonneeDeduction):
 	var nouveau_post_it = spawner_post_it(fiche_gagnante)
 	
 	if indicateur_fleche:
-		indicateur_fleche.definir_cible(nouveau_post_it)
+		indicateur_fleche.definir_cible(nouveau_post_it, Color.GREEN)	
 	
 	await get_tree().create_timer(1.5).timeout
 	
