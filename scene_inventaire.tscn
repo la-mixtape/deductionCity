@@ -1,0 +1,46 @@
+[gd_scene load_steps=2 format=3 uid="uid://bb2pjuoda6chr"]
+
+[ext_resource type="Script" uid="uid://dnb8jv32ovie6" path="res://scene_inventaire.gd" id="1_onk6m"]
+
+[node name="SceneInventaire" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_onk6m")
+chemin_scene_jeu = "uid://c4hbk08v74jym"
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.37413925, 0.37413928, 0.37413922, 1)
+
+[node name="HFlowContainer" type="HFlowContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -71.0
+offset_top = -68.0
+offset_right = 71.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Retour à la scène"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

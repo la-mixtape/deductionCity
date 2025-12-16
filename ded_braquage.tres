@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="DonneeDeduction" load_steps=2 format=3 uid="uid://baq2ue4n7q5xa"]
+
+[ext_resource type="Script" uid="uid://cles6vrihk2an" path="res://DonneeDeduction.gd" id="1_qtuyp"]
+
+[resource]
+script = ExtResource("1_qtuyp")
+titre = "Ces hommes ont racketé ce commerçant"
+indices_requis = Array[String](["Shopkeeper", "Mafieux", "Moneypot"])
+description_victoire = "Ces hommes ont racketé ce commerçant"
+metadata/_custom_type_script = "uid://cles6vrihk2an"

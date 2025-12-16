@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="DonneeDeduction" load_steps=2 format=3 uid="uid://6rkvbcbpo7ak"]
+
+[ext_resource type="Script" uid="uid://cles6vrihk2an" path="res://DonneeDeduction.gd" id="1_htwv6"]
+
+[resource]
+script = ExtResource("1_htwv6")
+titre = "La fille a braqué le cercle de jeu des mafieux et caché l'argent sous sont lit"
+indices_requis = Array[String](["Fille", "Skimask", "Cashbag", "TXTmessage"])
+description_victoire = "La fille a braqué le cercle de jeu des mafieux et caché l'argent sous sont lit"
+metadata/_custom_type_script = "uid://cles6vrihk2an"

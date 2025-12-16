@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="DonneeDeduction" load_steps=2 format=3 uid="uid://bnqb0camuodf7"]
+
+[ext_resource type="Script" uid="uid://cles6vrihk2an" path="res://DonneeDeduction.gd" id="1_lp1vs"]
+
+[resource]
+script = ExtResource("1_lp1vs")
+titre = "Les mafieux se sont fait braqué par quelqu'un de cette famille"
+indices_requis = Array[String](["TXTmessage", "Cashbag"])
+description_victoire = "Les mafieux se sont fait braqué par quelqu'un de cette famille"
+metadata/_custom_type_script = "uid://cles6vrihk2an"

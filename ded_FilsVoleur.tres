@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="DonneeDeduction" load_steps=2 format=3 uid="uid://s3xl7bc1hsnw"]
+
+[ext_resource type="Script" uid="uid://cles6vrihk2an" path="res://DonneeDeduction.gd" id="1_vixtp"]
+
+[resource]
+script = ExtResource("1_vixtp")
+titre = "L'enfant a volé l'argent du commerçant pour s'acheter un jouet robot qu'il voulait"
+indices_requis = Array[String](["Fils", "Robot", "RobotAd", "Moneypot"])
+description_victoire = "L'enfant a volé l'argent du commerçant pour s'acheter un jouet robot qu'il voulait"
+metadata/_custom_type_script = "uid://cles6vrihk2an"

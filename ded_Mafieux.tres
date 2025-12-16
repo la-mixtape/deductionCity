@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="DonneeDeduction" load_steps=2 format=3 uid="uid://blj6q76t82kyx"]
+
+[ext_resource type="Script" uid="uid://cles6vrihk2an" path="res://DonneeDeduction.gd" id="1_rpchp"]
+
+[resource]
+script = ExtResource("1_rpchp")
+titre = "Ces hommes sont des mafieux"
+indices_requis = Array[String](["Mafieux", "TagMafia"])
+description_victoire = "Ces hommes sont des mafieux"
+metadata/_custom_type_script = "uid://cles6vrihk2an"

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="DonneeDeduction" load_steps=2 format=3 uid="uid://dy1oiglhjcj74"]
+
+[ext_resource type="Script" uid="uid://cles6vrihk2an" path="res://DonneeDeduction.gd" id="1_u5w3s"]
+
+[resource]
+script = ExtResource("1_u5w3s")
+titre = "Le commerçant s'appel Jean Lopez"
+indices_requis = Array[String](["Nom", "Shopkeeper"])
+description_victoire = "Le commerçant s'appel Jean Lopez"
+metadata/_custom_type_script = "uid://cles6vrihk2an"

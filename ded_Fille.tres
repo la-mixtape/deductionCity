@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="DonneeDeduction" load_steps=2 format=3 uid="uid://ct7dogfu7pucd"]
+
+[ext_resource type="Script" uid="uid://cles6vrihk2an" path="res://DonneeDeduction.gd" id="1_tdyuv"]
+
+[resource]
+script = ExtResource("1_tdyuv")
+titre = "Cette fille s'appel Julia Lopez"
+indices_requis = Array[String](["Fille", "Nom"])
+description_victoire = "Cette fille s'appel Julia Lopez"
+metadata/_custom_type_script = "uid://cles6vrihk2an"
