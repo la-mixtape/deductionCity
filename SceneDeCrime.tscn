@@ -163,7 +163,7 @@ visible = false
 offset_right = 800.0
 offset_bottom = 800.0
 scale = Vector2(0.1, 0.1)
-pivot_offset = Vector2(64, 64)
+pivot_offset = Vector2(400, 400)
 texture = ExtResource("14_ckmj2")
 script = ExtResource("15_2lv5t")
 
