@@ -4,7 +4,7 @@ extends Camera2D
 # Vitesse du zoom
 @export var zoom_speed : float = 0.1
 # Zoom minimum (dézoom max)
-@export var min_zoom : float = 0.5
+@export var min_zoom : float = 0.35
 # Zoom maximum (zoom max)
 @export var max_zoom : float = 3.0
 # Quel bouton de souris pour bouger la caméra ? (Ici : Clic Droit)
