@@ -3,7 +3,6 @@ extends Node
 # --- CONFIGURATION DANS L'INSPECTEUR ---
 # Au lieu d'écrire le code ici, on glissera nos fiches dans cette liste via l'Inspecteur
 @export var base_de_donnees_deductions : Array[DonneeDeduction] = []
-@export var bouton_inventaire : Button
 # --- VARIABLES D'ETAT ---
 var selection_actuelle : Array = []
 var tous_les_indices : Array = []
@@ -14,9 +13,13 @@ var input_bloque : bool = false
 var post_it_scene = preload("res://post_it.tscn")
 
 # Lien vers le conteneur qu'on vient de créer
-@onready var conteneur_post_its = $"../ConteneurPostIts" 
-# (Note: "../" suppose que le Manager est un enfant direct de la racine)
 
+@onready var conteneur_post_its = $"../ConteneurPostIts"
+@onready var sprite_scene = $"../Sprite2D" # Référence à l'image centrale
+
+# Configuration pour le placement
+var taille_post_it = Vector2(160, 160) # 150 + une petite marge de 10px
+var zones_occupees : Array[Rect2] = [] # On va stocker ici tout ce qui est déjà posé
 # Dimensions de votre image centrale (à ajuster selon votre image !)
 # Exemple pour une image 1920x1080
 var largeur_scene = 1920
@@ -35,45 +38,61 @@ func _ready():
 			spawner_post_it(fiche_existante)
 			
 func trouver_position_libre_sur_table() -> Vector2:
-	var random_side = randi() % 4 # 0:Haut, 1:Bas, 2:Gauche, 3:Droite
-	var pos = Vector2.ZERO
+	# 1. On définit la zone interdite (l'image centrale)
+	# On doit recalculer sa zone précise en tenant compte de son échelle
+	var taille_image = sprite_scene.texture.get_size() * sprite_scene.scale
+	var pos_image = sprite_scene.position - (taille_image / 2) # Coin haut-gauche
+	var rect_image = Rect2(pos_image, taille_image)
 	
-	# On ajoute un peu de hasard (variance) pour que ce ne soit pas trop aligné
-	var variance = randf_range(-50, 50)
+	# Si c'est le premier appel, on initialise la liste avec l'image
+	if zones_occupees.is_empty():
+		zones_occupees.append(rect_image)
+
+	# 2. Algorithme de recherche en spirale
+	var centre_table = sprite_scene.position
+	var angle = 0.0
+	var rayon = (taille_image.x + taille_image.y) / 4 # On commence juste au bord de l'image
+	var increment_rayon = 10.0 # On s'éloigne de 10px à chaque tour
+	var increment_angle = 0.5 # Environ 30 degrés par pas
 	
-	match random_side:
-		0: # HAUT
-			pos.x = randf_range(-largeur_scene/2, largeur_scene/2)
-			pos.y = -hauteur_scene/2 - marge_table + variance
-		1: # BAS
-			pos.x = randf_range(-largeur_scene/2, largeur_scene/2)
-			pos.y = hauteur_scene/2 + marge_table + variance
-		2: # GAUCHE
-			pos.x = -largeur_scene/2 - marge_table + variance
-			pos.y = randf_range(-hauteur_scene/2, hauteur_scene/2)
-		3: # DROITE
-			pos.x = largeur_scene/2 + marge_table + variance
-			pos.y = randf_range(-hauteur_scene/2, hauteur_scene/2)
+	# Sécurité pour ne pas boucler à l'infini (max 500 tentatives)
+	for i in range(500):
+		# Calcul de la position candidate (coordonnées polaires -> cartésiennes)
+		var offset = Vector2(cos(angle), sin(angle)) * rayon
+		var pos_candidate = centre_table + offset
+		
+		# On centre le post-it sur ce point (car pos_candidate est le centre souhaité)
+		var pos_haut_gauche = pos_candidate - (taille_post_it / 2)
+		
+		# On crée le rectangle virtuel de ce futur post-it
+		var rect_candidat = Rect2(pos_haut_gauche, taille_post_it)
+		
+		# 3. Vérification des collisions
+		var collision = false
+		for zone in zones_occupees:
+			if rect_candidat.intersects(zone):
+				collision = true
+				break
+		
+		# 4. Si c'est libre, on valide !
+		if not collision:
+			zones_occupees.append(rect_candidat)
+			return pos_haut_gauche # C'est cette position que le Node utilisera
 			
-	return pos
+		# Sinon, on continue de tourner et de s'éloigner
+		angle += increment_angle
+		rayon += increment_rayon * 0.1 # On augmente le rayon doucement
+		
+	return Vector2.ZERO # Fallback si vraiment pas de place (peu probable)
 
 func spawner_post_it(fiche : DonneeDeduction):
-	# 1. Création
 	var nouveau_post_it = post_it_scene.instantiate()
-	
-	# 2. Ajout à la scène (Table)
 	conteneur_post_its.add_child(nouveau_post_it)
-	
-	# 3. Configuration
 	nouveau_post_it.setup_postit(fiche.titre)
 	
-	# 4. Placement
-	# Attention : Les contrôles UI (PanelContainer) sont ancrés par défaut en haut à gauche (0,0).
-	# On doit centrer leur pivot pour que le placement soit joli.
+	# On utilise notre nouvel algo
 	nouveau_post_it.position = trouver_position_libre_sur_table()
-	
-	# Petit effet de rotation pour le réalisme (c'est posé en vrac)
-	nouveau_post_it.rotation_degrees = randf_range(-10, 10)
+	nouveau_post_it.rotation_degrees = randf_range(-5, 5) # Rotation légère
 
 func _on_souris_entre_indice():
 	nombre_indices_survoles += 1
@@ -124,16 +143,13 @@ func valider_deduction(fiche_gagnante : DonneeDeduction):
 	print("DÉDUCTION VALIDÉE : ", fiche_gagnante.titre)
 	PartieGlobale.ajouter_deduction(fiche_gagnante)
 	input_bloque = true
-	if bouton_inventaire:
-		bouton_inventaire.demarrer_clignotement()
 	# Feedback Visuel "Or"
 	for indice in tous_les_indices:
 		if indice.id_indice in fiche_gagnante.indices_requis:
 			if indice.highlight_visuel:
 				indice.highlight_visuel.color = Color(0.0, 0.998, 0.065, 0.6)
 	
-	for fiche_existante in PartieGlobale.inventaire_deductions:
-		spawner_post_it(fiche_existante)
+	spawner_post_it(fiche_gagnante)
 	
 	await get_tree().create_timer(1.5).timeout
 	
@@ -144,6 +160,7 @@ func tout_reset():
 	selection_actuelle.clear()
 	for indice in tous_les_indices:
 		indice.deselectionner()
+	
 
 # --- FONCTIONS UTILITAIRES ADAPTÉES ---
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://c4hbk08v74jym"]
+[gd_scene load_steps=14 format=3 uid="uid://c4hbk08v74jym"]
 
 [ext_resource type="Script" uid="uid://bayrl448ggk5o" path="res://EnqueteManager.gd" id="2_lgg38"]
 [ext_resource type="Script" uid="uid://cles6vrihk2an" path="res://DonneeDeduction.gd" id="2_vpewm"]
@@ -9,33 +9,25 @@
 [ext_resource type="Script" uid="uid://cothyd4jc55pm" path="res://Indice.gd" id="5_82bwi"]
 [ext_resource type="Resource" uid="uid://bnqb0camuodf7" path="res://ded_racket.tres" id="5_ckmj2"]
 [ext_resource type="Resource" uid="uid://blj6q76t82kyx" path="res://ded_Mafieux.tres" id="6_2lv5t"]
-[ext_resource type="Script" uid="uid://cgyh214qs0cq4" path="res://BoutonInventaire.gd" id="6_lgg38"]
 [ext_resource type="Resource" uid="uid://baq2ue4n7q5xa" path="res://ded_braquage.tres" id="7_1t8x8"]
 [ext_resource type="Resource" uid="uid://s3xl7bc1hsnw" path="res://ded_FilsVoleur.tres" id="8_jx5qw"]
 [ext_resource type="Resource" uid="uid://6rkvbcbpo7ak" path="res://ded_filleBraquage.tres" id="9_m6jtr"]
 [ext_resource type="Resource" uid="uid://dy1oiglhjcj74" path="res://ded_nomShopkeeper.tres" id="10_2nvyg"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2nvyg"]
-bg_color = Color(0.50623417, 0.44910628, 0.42424485, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
 [node name="SceneDeCrime" type="Node2D"]
 position = Vector2(-6, 21)
 
 [node name="TableBackground" type="ColorRect" parent="."]
-offset_left = -1242.0
-offset_top = -1534.0
-offset_right = 2758.0
-offset_bottom = 2466.0
+offset_left = -1072.0
+offset_top = -964.0
+offset_right = 2928.0
+offset_bottom = 2036.0
+mouse_filter = 2
 color = Color(0.52614474, 0.4183511, 0.27959567, 1)
 
-[node name="EnqueteManager" type="Node" parent="." node_paths=PackedStringArray("bouton_inventaire")]
+[node name="EnqueteManager" type="Node" parent="."]
 script = ExtResource("2_lgg38")
 base_de_donnees_deductions = Array[ExtResource("2_vpewm")]([ExtResource("3_ccf6n"), ExtResource("4_2nvyg"), ExtResource("5_ckmj2"), ExtResource("6_2lv5t"), ExtResource("7_1t8x8"), ExtResource("8_jx5qw"), ExtResource("9_m6jtr"), ExtResource("10_2nvyg")])
-bouton_inventaire = NodePath("../CanvasLayer/BoutonInventaire")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(820, 522)
@@ -150,18 +142,6 @@ polygon = PackedVector2Array(17, 1, 51, 20, 67, 29, 74, 118, -5, 84, -13, 32, -1
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="BoutonInventaire" type="Button" parent="CanvasLayer"]
-offset_left = 1031.0
-offset_top = 14.0
-offset_right = 1132.0
-offset_bottom = 53.0
-pivot_offset = Vector2(-6, -6)
-size_flags_horizontal = 8
-theme_override_styles/normal = SubResource("StyleBoxFlat_2nvyg")
-text = "INVENTAIRE"
-script = ExtResource("6_lgg38")
-metadata/_edit_use_anchors_ = true
-
 [connection signal="input_event" from="clueShopkeeper" to="clueShopkeeper" method="_on_input_event"]
 [connection signal="input_event" from="clueTXT" to="clueTXT" method="_on_input_event"]
 [connection signal="input_event" from="clueMobsters" to="clueMobsters" method="_on_input_event"]
@@ -174,4 +154,3 @@ metadata/_edit_use_anchors_ = true
 [connection signal="input_event" from="clueMoneypot" to="clueMoneypot" method="_on_input_event"]
 [connection signal="input_event" from="clueRobotAd" to="clueRobotAd" method="_on_input_event"]
 [connection signal="input_event" from="clueMafia" to="clueMafia" method="_on_input_event"]
-[connection signal="pressed" from="CanvasLayer/BoutonInventaire" to="CanvasLayer/BoutonInventaire" method="_on_pressed"]
