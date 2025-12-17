@@ -72,6 +72,24 @@ func actualiser_visuel():
 			# (Optionnel, mais plus propre)
 			#_mouse_enter() 
 
+func jouer_animation_validation():
+	if not highlight_visuel:
+		return
+		
+	# On s'assure que l'objet est visible pour l'animation
+	highlight_visuel.visible = true
+	
+	var tween = create_tween()
+	var vert_valid = Color(0.0, 1.0, 0.0, 0.6) # Vert semi-transparent
+	var transparent = Color(0.0, 1.0, 0.0, 0.0) # Invisible
+	
+	# Séquence de clignotement rapide (Flash -> Éteint -> Flash -> Reste allumé)
+	tween.tween_property(highlight_visuel, "color", vert_valid, 0.15)
+	tween.tween_property(highlight_visuel, "color", transparent, 0.15)
+	tween.tween_property(highlight_visuel, "color", vert_valid, 0.15)
+	tween.tween_property(highlight_visuel, "color", transparent, 0.15)
+	tween.tween_property(highlight_visuel, "color", vert_valid, 0.2)
+
 func deselectionner():
 	est_selectionne = false
 	actualiser_visuel()

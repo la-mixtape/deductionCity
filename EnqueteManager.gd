@@ -9,7 +9,6 @@ var tous_les_indices : Array = []
 var nombre_indices_survoles : int = 0
 var input_bloque : bool = false
 
-@export var flash_visuel : ColorRect
 
 @export var bouton_vue_globale : Button # Changez Control par Button si besoin
 
@@ -150,18 +149,11 @@ func valider_deduction(fiche_gagnante : DonneeDeduction):
 	
 	input_bloque = true
 	
-	# 1. EFFET FLASH VERT
-	if flash_visuel:
-		var tween = create_tween()
-		# On modifie "modulate:a" au lieu de "color:a"
-		tween.tween_property(flash_visuel, "modulate:a", 0.5, 0.1)
-		tween.tween_property(flash_visuel, "modulate:a", 0.0, 0.5)
-
 	# Feedback Visuel indices (votre code existant)
 	for indice in tous_les_indices:
-		if indice.id_indice in fiche_gagnante.indices_requis:
-			if indice.highlight_visuel:
-				indice.highlight_visuel.color = Color(0.0, 0.998, 0.065, 0.6)
+			if indice.id_indice in fiche_gagnante.indices_requis:
+				# Au lieu de juste changer la couleur, on lance l'animation
+				indice.jouer_animation_validation()
 	
 	# 2. SPAWN ET INDICATEUR
 	# On récupère l'instance du nouveau post-it pour la donner à la flèche

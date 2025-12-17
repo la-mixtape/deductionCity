@@ -26,10 +26,9 @@ offset_bottom = 2036.0
 mouse_filter = 2
 color = Color(0.52614474, 0.4183511, 0.27959567, 1)
 
-[node name="EnqueteManager" type="Node" parent="." node_paths=PackedStringArray("flash_visuel", "bouton_vue_globale")]
+[node name="EnqueteManager" type="Node" parent="." node_paths=PackedStringArray("bouton_vue_globale")]
 script = ExtResource("2_lgg38")
 base_de_donnees_deductions = Array[ExtResource("2_vpewm")]([ExtResource("3_ccf6n"), ExtResource("4_2nvyg"), ExtResource("5_ckmj2"), ExtResource("6_2lv5t"), ExtResource("7_1t8x8"), ExtResource("8_jx5qw"), ExtResource("9_m6jtr"), ExtResource("10_2nvyg")])
-flash_visuel = NodePath("../FeedbackUI/FlashVert")
 bouton_vue_globale = NodePath("../FeedbackUI/BoutonVueGlobale")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -148,16 +147,6 @@ polygon = PackedVector2Array(17, 1, 51, 20, 67, 29, 74, 118, -5, 84, -13, 32, -1
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="FeedbackUI" type="CanvasLayer" parent="."]
-
-[node name="FlashVert" type="ColorRect" parent="FeedbackUI"]
-modulate = Color(1, 1, 1, 0)
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-color = Color(0, 0.8279357, 0, 1)
 
 [node name="BoutonVueGlobale" type="Button" parent="FeedbackUI" node_paths=PackedStringArray("camera_scene", "cible_a_centrer")]
 anchors_preset = 7
