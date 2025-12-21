@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://bayrl448ggk5o" path="res://EnqueteManager.gd" id="2_lgg38"]
 [ext_resource type="Script" uid="uid://cles6vrihk2an" path="res://DonneeDeduction.gd" id="2_vpewm"]
 [ext_resource type="Resource" uid="uid://cjhmjb0obix0l" path="res://ded_Fils.tres" id="3_ccf6n"]
-[ext_resource type="Texture2D" uid="uid://4eiug8cq5o03" path="res://scenePOC_nb_wip.png" id="3_lgg38"]
 [ext_resource type="Resource" uid="uid://ct7dogfu7pucd" path="res://ded_Fille.tres" id="4_2nvyg"]
 [ext_resource type="Script" uid="uid://vxf03rhy3pb4" path="res://camera_2d.gd" id="4_v12hc"]
 [ext_resource type="Script" uid="uid://cothyd4jc55pm" path="res://Indice.gd" id="5_82bwi"]
@@ -13,16 +12,17 @@
 [ext_resource type="Resource" uid="uid://s3xl7bc1hsnw" path="res://ded_FilsVoleur.tres" id="8_jx5qw"]
 [ext_resource type="Resource" uid="uid://6rkvbcbpo7ak" path="res://ded_filleBraquage.tres" id="9_m6jtr"]
 [ext_resource type="Resource" uid="uid://dy1oiglhjcj74" path="res://ded_nomShopkeeper.tres" id="10_2nvyg"]
+[ext_resource type="Texture2D" uid="uid://daf7x3fkkufy1" path="res://scene_7k.png" id="11_2nvyg"]
 [ext_resource type="Script" uid="uid://dk2f4vgxjet7f" path="res://BoutonVueGlobale.gd" id="14_2nvyg"]
 
 [node name="SceneDeCrime" type="Node2D"]
 position = Vector2(-6, 21)
 
 [node name="TableBackground" type="ColorRect" parent="."]
-offset_left = -1072.0
-offset_top = -964.0
-offset_right = 2928.0
-offset_bottom = 2036.0
+offset_left = -1455.0
+offset_top = -1362.0
+offset_right = 3510.3335
+offset_bottom = 2362.0
 mouse_filter = 2
 color = Color(0.52614474, 0.4183511, 0.27959567, 1)
 
@@ -32,16 +32,15 @@ base_de_donnees_deductions = Array[ExtResource("2_vpewm")]([ExtResource("3_ccf6n
 bouton_vue_globale = NodePath("../FeedbackUI/BoutonVueGlobale")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(820, 522)
+position = Vector2(968.00006, 630)
 scale = Vector2(0.44124347, 0.4391276)
-texture = ExtResource("3_lgg38")
-metadata/_edit_lock_ = true
+texture = ExtResource("11_2nvyg")
 
 [node name="ConteneurPostIts" type="Node2D" parent="."]
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(807, 520)
-zoom = Vector2(0.6, 0.6)
+position = Vector2(930, 565)
+zoom = Vector2(0.3, 0.3)
 script = ExtResource("4_v12hc")
 min_zoom = 0.2
 max_zoom = 4.0
