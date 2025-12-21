@@ -19,10 +19,10 @@
 position = Vector2(-6, 21)
 
 [node name="TableBackground" type="ColorRect" parent="."]
-offset_left = -1455.0
-offset_top = -1362.0
-offset_right = 3510.3335
-offset_bottom = 2362.0
+offset_left = -1473.0
+offset_top = -1374.0
+offset_right = 3492.3335
+offset_bottom = 2350.0
 mouse_filter = 2
 color = Color(0.52614474, 0.4183511, 0.27959567, 1)
 
@@ -35,6 +35,7 @@ bouton_vue_globale = NodePath("../FeedbackUI/BoutonVueGlobale")
 position = Vector2(968.00006, 630)
 scale = Vector2(0.44124347, 0.4391276)
 texture = ExtResource("11_2nvyg")
+metadata/_edit_lock_ = true
 
 [node name="ConteneurPostIts" type="Node2D" parent="."]
 
@@ -50,7 +51,8 @@ script = ExtResource("5_82bwi")
 id_indice = "Shopkeeper"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="clueShopkeeper"]
-position = Vector2(313, 702)
+position = Vector2(-75.00006, 989)
+scale = Vector2(1.96, 1.96)
 polygon = PackedVector2Array(140, 257, 158, 86, 104, 22, 108, -3, 94, -38, 65, -43, 51, -32, 36, 1, 39, 30, 7, 50, -15, 102, 6, 254, 67, 227)
 
 [node name="clueTXT" type="Area2D" parent="."]
@@ -58,7 +60,8 @@ script = ExtResource("5_82bwi")
 id_indice = "TXTmessage"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="clueTXT"]
-position = Vector2(1020, 608)
+position = Vector2(1385, 815)
+scale = Vector2(1.96, 1.96)
 polygon = PackedVector2Array(396, 198, 395, 217, 399, 249, 413, 245, 426, 205)
 
 [node name="clueMobsters" type="Area2D" parent="."]
@@ -66,7 +69,8 @@ script = ExtResource("5_82bwi")
 id_indice = "Mafieux"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="clueMobsters"]
-position = Vector2(1311, 688)
+position = Vector2(1953.696, 964.604)
+scale = Vector2(1.96, 1.96)
 polygon = PackedVector2Array(-13, 39, -17, 76, -86, 100, -106, 167, -88, 361, 90, 355, 85, 266, 141, 227, 153, 357, 318, 356, 328, 104, 253, 54, 244, -18, 214, -39, 153, -20, 157, 60, 145, 92, 132, 105, 142, 145, 108, 184, 100, 124, 75, 91, 96, 2, 85, -22, 54, -39, 23, -32, 1, -12)
 
 [node name="clueFils" type="Area2D" parent="."]
@@ -74,7 +78,8 @@ script = ExtResource("5_82bwi")
 id_indice = "Fils"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="clueFils"]
-position = Vector2(485, 3)
+position = Vector2(296, -404)
+scale = Vector2(1.96, 1.96)
 polygon = PackedVector2Array(0, -4, 23, -5, 39, 3, 45, 29, 37, 46, 61, 58, 65, 78, -13, 78, -4, 47, -9, 14)
 
 [node name="clueSkimask" type="Area2D" parent="."]
@@ -82,7 +87,8 @@ script = ExtResource("5_82bwi")
 id_indice = "Skimask"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="clueSkimask"]
-position = Vector2(397, 320)
+position = Vector2(115, 223)
+scale = Vector2(1.96, 1.96)
 polygon = PackedVector2Array(0, -4, 14, -9, 27, 2, 35, 24, 39, 72, 22, 91, 0, 96, -15, 81, -13, 55, -9, 14)
 
 [node name="clueDaughter" type="Area2D" parent="."]
@@ -90,7 +96,8 @@ script = ExtResource("5_82bwi")
 id_indice = "Fille"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="clueDaughter"]
-position = Vector2(801, 711)
+position = Vector2(940, 1007)
+scale = Vector2(1.96, 1.96)
 polygon = PackedVector2Array(7, -7, 16, -11, 30, -10, 43, -2, 40, 16, 43, 42, 47, 61, 53, 77, 63, 121, 67, 137, 53, 150, 46, 118, 47, 147, 41, 170, 28, 214, 23, 239, 23, 264, 32, 275, 38, 285, 27, 286, 11, 281, 1, 275, 1, 265, 4, 251, 6, 229, 0, 232, 0, 258, -4, 262, -12, 256, -18, 241, -18, 228, -16, 223, -3, 202, -8, 169, -9, 147, -10, 140, -12, 98, -28, 122, -31, 141, -38, 118, -32, 96, -10, 60, -17, 59, -21, 48, -19, 36, -15, 34, -9, 25, -10, 15, -1, 0)
 
 [node name="clueName" type="Area2D" parent="."]
@@ -98,15 +105,17 @@ script = ExtResource("5_82bwi")
 id_indice = "Nom"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="clueName"]
-position = Vector2(610, 696)
-polygon = PackedVector2Array(5, 0, 36, -1, 34, 9, 1, 9, -2, -1)
+position = Vector2(544, 977)
+scale = Vector2(1.96, 1.96)
+polygon = PackedVector2Array(5, 0, 39.285706, 0.5102234, 39.285706, 16.836731, -0.5102234, 18.877563, -2, -1)
 
 [node name="clueCashbag" type="Area2D" parent="."]
 script = ExtResource("5_82bwi")
 id_indice = "Cashbag"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="clueCashbag"]
-position = Vector2(753, 378)
+position = Vector2(839, 304)
+scale = Vector2(1.96, 1.96)
 polygon = PackedVector2Array(16, -1, 16, 9, 12, 13, 0, 14, 1, -1)
 
 [node name="clueRobot" type="Area2D" parent="."]
@@ -114,7 +123,8 @@ script = ExtResource("5_82bwi")
 id_indice = "Robot"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="clueRobot"]
-position = Vector2(435, 44)
+position = Vector2(196, -322)
+scale = Vector2(1.96, 1.96)
 polygon = PackedVector2Array(12, -7, 26, 3, 31, 16, 40, 38, -12, 37, -4, 15, 1, -1)
 
 [node name="clueMoneypot" type="Area2D" parent="."]
@@ -122,7 +132,8 @@ script = ExtResource("5_82bwi")
 id_indice = "Moneypot"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="clueMoneypot"]
-position = Vector2(517, 746)
+position = Vector2(362, 1077)
+scale = Vector2(1.96, 1.96)
 polygon = PackedVector2Array(-13, -10, 4, -11, 11, -6, 10, 5, 8, 20, -16, 17, -16, -3)
 
 [node name="clueRobotAd" type="Area2D" parent="."]
@@ -130,7 +141,8 @@ script = ExtResource("5_82bwi")
 id_indice = "RobotAd"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="clueRobotAd"]
-position = Vector2(55, 676)
+position = Vector2(-560, 934)
+scale = Vector2(1.96, 1.96)
 polygon = PackedVector2Array(-28, 19, -7, 21, 18, 23, 18, 197, -17, 206, -44, 208, -42, 20)
 
 [node name="clueMafia" type="Area2D" parent="."]
@@ -138,8 +150,36 @@ script = ExtResource("5_82bwi")
 id_indice = "TagMafia"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="clueMafia"]
-position = Vector2(84, 256)
+position = Vector2(-497.00006, 100)
+scale = Vector2(1.96, 1.96)
 polygon = PackedVector2Array(17, 1, 51, 20, 67, 29, 74, 118, -5, 84, -13, 32, -13, -18)
+
+[node name="clueEcoles" type="Area2D" parent="."]
+script = ExtResource("5_82bwi")
+id_indice = "PosterEcole"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="clueEcoles"]
+position = Vector2(1139, 96)
+scale = Vector2(1.96, 1.96)
+polygon = PackedVector2Array(5.102051, -8.67347, 5.6122437, 10.204079, -9.183655, 9.18367, -8.163269, -9.693878)
+
+[node name="clueBudget" type="Area2D" parent="."]
+script = ExtResource("5_82bwi")
+id_indice = "PosterBudget"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="clueBudget"]
+position = Vector2(1188, 110)
+scale = Vector2(1.96, 1.96)
+polygon = PackedVector2Array(5.6122437, -9.18367, 5.102051, 7.653061, -9.183655, 7.653061, -8.163269, -9.693878)
+
+[node name="cluePosterFoot" type="Area2D" parent="."]
+script = ExtResource("5_82bwi")
+id_indice = "PosterFoot"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="cluePosterFoot"]
+position = Vector2(1188, 110)
+scale = Vector2(1.96, 1.96)
+polygon = PackedVector2Array(5.6122437, -9.18367, 5.102051, 7.653061, -9.183655, 7.653061, -8.163269, -9.693878)
 
 [node name="Area2D" type="Area2D" parent="."]
 
@@ -175,3 +215,6 @@ cible_a_centrer = NodePath("../../Sprite2D")
 [connection signal="input_event" from="clueMoneypot" to="clueMoneypot" method="_on_input_event"]
 [connection signal="input_event" from="clueRobotAd" to="clueRobotAd" method="_on_input_event"]
 [connection signal="input_event" from="clueMafia" to="clueMafia" method="_on_input_event"]
+[connection signal="input_event" from="clueEcoles" to="clueEcoles" method="_on_input_event"]
+[connection signal="input_event" from="clueBudget" to="clueBudget" method="_on_input_event"]
+[connection signal="input_event" from="cluePosterFoot" to="cluePosterFoot" method="_on_input_event"]
