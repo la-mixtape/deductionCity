@@ -9,7 +9,7 @@
 [ext_resource type="Resource" uid="uid://bnqb0camuodf7" path="res://ded_racket.tres" id="5_ckmj2"]
 [ext_resource type="Resource" uid="uid://blj6q76t82kyx" path="res://ded_Mafieux.tres" id="6_2lv5t"]
 [ext_resource type="Resource" uid="uid://baq2ue4n7q5xa" path="res://ded_braquage.tres" id="7_1t8x8"]
-[ext_resource type="Resource" uid="uid://s3xl7bc1hsnw" path="res://ded_FilsVoleur.tres" id="8_jx5qw"]
+[ext_resource type="Resource" uid="uid://s3xl7bc1hsnw" path="res://ded_Foot.tres" id="8_jx5qw"]
 [ext_resource type="Resource" uid="uid://6rkvbcbpo7ak" path="res://ded_filleBraquage.tres" id="9_m6jtr"]
 [ext_resource type="Resource" uid="uid://dy1oiglhjcj74" path="res://ded_nomShopkeeper.tres" id="10_2nvyg"]
 [ext_resource type="Texture2D" uid="uid://daf7x3fkkufy1" path="res://scene_7k.png" id="11_2nvyg"]
@@ -19,9 +19,9 @@
 position = Vector2(-6, 21)
 
 [node name="TableBackground" type="ColorRect" parent="."]
-offset_left = -1473.0
+offset_left = -1385.0
 offset_top = -1374.0
-offset_right = 3492.3335
+offset_right = 3580.3335
 offset_bottom = 2350.0
 mouse_filter = 2
 color = Color(0.52614474, 0.4183511, 0.27959567, 1)
@@ -51,9 +51,18 @@ script = ExtResource("5_82bwi")
 id_indice = "Shopkeeper"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="clueShopkeeper"]
-position = Vector2(-75.00006, 989)
+position = Vector2(-41, 989)
 scale = Vector2(1.96, 1.96)
 polygon = PackedVector2Array(140, 257, 158, 86, 104, 22, 108, -3, 94, -38, 65, -43, 51, -32, 36, 1, 39, 30, 7, 50, -15, 102, 6, 254, 67, 227)
+
+[node name="clueBlackEye" type="Area2D" parent="."]
+script = ExtResource("5_82bwi")
+id_indice = "BlackEye"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="clueBlackEye"]
+position = Vector2(-41, 989)
+scale = Vector2(1.96, 1.96)
+polygon = PackedVector2Array(95.408165, -1.5305786, 94.89796, -7.6530457, 92.85714, -13.265289, 88.77551, -16.326508, 83.16327, -15.816315, 82.65306, -3.0612183, 87.7551, 3.5714722, 93.36735, 3.5714722)
 
 [node name="clueTXT" type="Area2D" parent="."]
 script = ExtResource("5_82bwi")
@@ -64,6 +73,42 @@ position = Vector2(1385, 815)
 scale = Vector2(1.96, 1.96)
 polygon = PackedVector2Array(396, 198, 395, 217, 399, 249, 413, 245, 426, 205)
 
+[node name="clueListe" type="Area2D" parent="."]
+script = ExtResource("5_82bwi")
+id_indice = "TXTmessage"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="clueListe"]
+position = Vector2(1472, 1053)
+scale = Vector2(1.96, 1.96)
+polygon = PackedVector2Array(389.2857, 197.95917, 386.73468, 217.34692, 403.57147, 221.93878, 408.16327, 222.95917, 409.18365, 194.38776)
+
+[node name="clueRecu" type="Area2D" parent="."]
+script = ExtResource("5_82bwi")
+id_indice = "Recu"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="clueRecu"]
+position = Vector2(767.00006, 992)
+scale = Vector2(1.96, 1.96)
+polygon = PackedVector2Array(421.93878, 233.67346, 435.20404, 243.87756, 440.3061, 251.53058, 448.46936, 247.44897, 432.653, 229.0816)
+
+[node name="clueBallon" type="Area2D" parent="."]
+script = ExtResource("5_82bwi")
+id_indice = "Ballon"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="clueBallon"]
+position = Vector2(165, 864)
+scale = Vector2(1.96, 1.96)
+polygon = PackedVector2Array(373.9796, 187.7551, 377.04083, 216.3265, 397.95917, 216.3265, 409.69385, 206.63266, 413.26532, 191.3265, 407.65308, 179.08163, 395.91833, 170.40817, 387.24487, 169.89798, 379.59186, 171.93875)
+
+[node name="clueNote" type="Area2D" parent="."]
+script = ExtResource("5_82bwi")
+id_indice = "Note"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="clueNote"]
+position = Vector2(676, 1085.0001)
+scale = Vector2(1.96, 1.96)
+polygon = PackedVector2Array(410.2041, 243.36731, 424.4898, 254.5918, 449.4898, 237.24481, 451.0204, 225.51013, 431.12244, 226.53058)
+
 [node name="clueMobsters" type="Area2D" parent="."]
 script = ExtResource("5_82bwi")
 id_indice = "Mafieux"
@@ -71,7 +116,7 @@ id_indice = "Mafieux"
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="clueMobsters"]
 position = Vector2(1953.696, 964.604)
 scale = Vector2(1.96, 1.96)
-polygon = PackedVector2Array(-13, 39, -17, 76, -86, 100, -106, 167, -88, 361, 90, 355, 85, 266, 141, 227, 153, 357, 318, 356, 328, 104, 253, 54, 244, -18, 214, -39, 153, -20, 157, 60, 145, 92, 132, 105, 142, 145, 108, 184, 100, 124, 75, 91, 96, 2, 85, -22, 54, -39, 23, -32, 1, -12)
+polygon = PackedVector2Array(-13, 39, -17, 76, -86, 100, -106, 167, -88, 361, 86.88971, 366.52856, 85, 266, 117.502014, 260.40613, 141, 227, 172.09381, 232.34491, 168.5224, 270.09998, 140.46124, 272.651, 140.46124, 317.03876, 152.70612, 362.95715, 317.502, 363.97754, 320.05304, 91.01837, 290.97137, 70.099976, 253, 54, 256.27753, 5.304077, 236.88971, -31.940826, 205.25714, -43.675537, 153, -20, 157, 60, 140.46124, 87.95715, 132, 105, 152.70612, 123.161194, 142, 145, 131.27753, 183.3653, 108, 184, 96.073425, 175.71222, 92.502014, 136.9367, 100, 124, 75, 91, 96, 2, 85, -22, 54, -39, 23, -32, 1, -12)
 
 [node name="clueFils" type="Area2D" parent="."]
 script = ExtResource("5_82bwi")
@@ -96,9 +141,9 @@ script = ExtResource("5_82bwi")
 id_indice = "Fille"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="clueDaughter"]
-position = Vector2(940, 1007)
+position = Vector2(938, 1011)
 scale = Vector2(1.96, 1.96)
-polygon = PackedVector2Array(7, -7, 16, -11, 30, -10, 43, -2, 40, 16, 43, 42, 47, 61, 53, 77, 63, 121, 67, 137, 53, 150, 46, 118, 47, 147, 41, 170, 28, 214, 23, 239, 23, 264, 32, 275, 38, 285, 27, 286, 11, 281, 1, 275, 1, 265, 4, 251, 6, 229, 0, 232, 0, 258, -4, 262, -12, 256, -18, 241, -18, 228, -16, 223, -3, 202, -8, 169, -9, 147, -10, 140, -12, 98, -28, 122, -31, 141, -38, 118, -32, 96, -10, 60, -17, 59, -21, 48, -19, 36, -15, 34, -9, 25, -10, 15, -1, 0)
+polygon = PackedVector2Array(8.673462, -10.714233, 16.326538, -11.73468, 30, -10, 38.775513, -2.5509644, 40, 16, 43, 42, 47, 61, 53, 77, 63, 121, 67, 137, 53, 150, 46, 118, 47, 147, 41, 170, 28, 214, 23, 239, 23, 264, 32, 275, 38, 285, 27, 286, 11, 281, 1, 275, 1, 265, 4, 251, 6, 229, 0, 232, 0, 258, -4, 262, -12, 256, -18, 241, -18, 228, -16, 223, -3, 202, -8, 169, -9, 147, -8.673462, 146.42859, 25.510223, 135.2041, 21.428589, 96.93878, -2.040802, 90.816345, -16.836731, 95.918396, -26.020416, 126.53064, -20.918365, 142.85718, -34.69388, 140.30615, -43.877533, 115.30615, -35.714264, 89.285706, -10, 60, -17, 59, -21, 48, -19, 36, -15, 34, -9, 25, -10, 15, -3.0612183, -4.591797)
 
 [node name="clueName" type="Area2D" parent="."]
 script = ExtResource("5_82bwi")
@@ -204,7 +249,12 @@ camera_scene = NodePath("../../Camera2D")
 cible_a_centrer = NodePath("../../Sprite2D")
 
 [connection signal="input_event" from="clueShopkeeper" to="clueShopkeeper" method="_on_input_event"]
+[connection signal="input_event" from="clueBlackEye" to="clueBlackEye" method="_on_input_event"]
 [connection signal="input_event" from="clueTXT" to="clueTXT" method="_on_input_event"]
+[connection signal="input_event" from="clueListe" to="clueListe" method="_on_input_event"]
+[connection signal="input_event" from="clueRecu" to="clueRecu" method="_on_input_event"]
+[connection signal="input_event" from="clueBallon" to="clueBallon" method="_on_input_event"]
+[connection signal="input_event" from="clueNote" to="clueNote" method="_on_input_event"]
 [connection signal="input_event" from="clueMobsters" to="clueMobsters" method="_on_input_event"]
 [connection signal="input_event" from="clueFils" to="clueFils" method="_on_input_event"]
 [connection signal="input_event" from="clueSkimask" to="clueSkimask" method="_on_input_event"]
