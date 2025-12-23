@@ -19,10 +19,10 @@
 position = Vector2(-6, 21)
 
 [node name="TableBackground" type="ColorRect" parent="."]
-offset_left = -1269.0
-offset_top = -1916.0
-offset_right = 3696.3335
-offset_bottom = 1808.0
+offset_left = -1505.0
+offset_top = -1379.0
+offset_right = 3460.3335
+offset_bottom = 2345.0
 mouse_filter = 2
 color = Color(0.52614474, 0.4183511, 0.27959567, 1)
 
@@ -39,12 +39,14 @@ metadata/_edit_lock_ = true
 
 [node name="ConteneurPostIts" type="Node2D" parent="."]
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("cible_image")]
 position = Vector2(930, 565)
 zoom = Vector2(0.3, 0.3)
 script = ExtResource("4_v12hc")
 min_zoom = 0.2
-max_zoom = 4.0
+zoom_vue_globale = Vector2(0.2, 0.2)
+zoom_palier_image = 0.35
+cible_image = NodePath("../Sprite2D")
 
 [node name="clueShopkeeper" type="Area2D" parent="."]
 script = ExtResource("5_82bwi")
