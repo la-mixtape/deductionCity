@@ -3,12 +3,19 @@ extends PanelContainer
 @onready var label = $LabelTitre
 
 # Configuration
-var taille_max_police = 24
+var taille_max_police = 50
 var taille_min_police = 8
-var hauteur_max_disponible = 130 # 150px total - 20px de marges
+var hauteur_max_disponible = 230 # 150px total - 20px de marges
 
 var is_dragging : bool = false
 var drag_offset : Vector2 = Vector2.ZERO
+
+func definir_taille(nouvelle_taille : Vector2):
+	custom_minimum_size = nouvelle_taille
+	size = nouvelle_taille # On force la mise à jour immédiate
+	
+	# Si vous avez un Label à l'intérieur, assurez-vous qu'il est en mode "Autowrap"
+	# pour que le texte s'adapte à la nouvelle largeur.
 
 func setup_postit(texte_a_afficher : String):
 	label.text = texte_a_afficher
@@ -62,3 +69,22 @@ func _gui_input(event):
 			# On applique la nouvelle position en respectant l'écart d'origine
 			global_position = get_global_mouse_position() + drag_offset
 			accept_event()
+			
+func changer_couleur(nouvelle_couleur : Color):
+	# On récupère le style actuel (le fond jaune)
+	var style_actuel = get_theme_stylebox("panel")
+	
+	if style_actuel:
+		# IMPORTANT : On le duplique pour que le changement soit unique à CE post-it
+		# Sinon, tous les post-its du jeu changeraient de couleur !
+		var nouveau_style = style_actuel.duplicate()
+		
+		# On vérifie si c'est bien une couleur unie (StyleBoxFlat)
+		if nouveau_style is StyleBoxFlat:
+			nouveau_style.bg_color = nouvelle_couleur
+			
+			# On applique ce nouveau style vert uniquement à ce nœud
+			add_theme_stylebox_override("panel", nouveau_style)
+		else:
+			# Fallback : Si vous utilisez une image (Texture), on la teinte
+			self_modulate = nouvelle_couleur

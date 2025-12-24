@@ -3,11 +3,19 @@ extends Node
 # --- CONFIGURATION DANS L'INSPECTEUR ---
 # Au lieu d'écrire le code ici, on glissera nos fiches dans cette liste via l'Inspecteur
 @export var base_de_donnees_deductions : Array[DonneeDeduction] = []
+
+@export_multiline var objectifs_initiaux : Array[String] = [
+	"Qui a tué la victime ?",
+    "Quelle est l'arme du crime ?"
+]
+
 # --- VARIABLES D'ETAT ---
 var selection_actuelle : Array = []
 var tous_les_indices : Array = []
 var nombre_indices_survoles : int = 0
 var input_bloque : bool = false
+
+
 
 
 @export var bouton_vue_globale : Button # Changez Control par Button si besoin
@@ -21,7 +29,10 @@ var post_it_scene = preload("res://post_it.tscn")
 @onready var sprite_scene = $"../Sprite2D" # Référence à l'image centrale
 
 # Configuration pour le placement
-var taille_post_it = Vector2(160, 160) # 150 + une petite marge de 10px
+@export_group("Configuration Post-Its")
+@export var taille_post_it_jaune : Vector2 = Vector2(160, 160)
+@export var taille_post_it_vert : Vector2 = Vector2(250, 100) # Souvent plus large pour les questions
+
 var zones_occupees : Array[Rect2] = [] # On va stocker ici tout ce qui est déjà posé
 # Dimensions de votre image centrale (à ajuster selon votre image !)
 # Exemple pour une image 1920x1080
@@ -40,7 +51,63 @@ func _ready():
 	for fiche_existante in PartieGlobale.inventaire_deductions:
 			spawner_post_it(fiche_existante)
 			
-func trouver_position_libre_sur_table() -> Vector2:
+	call_deferred("spawner_post_its_objectifs")
+
+# Version simplifiée pour créer un post-it juste avec du texte
+# On ajoute un deuxième argument optionnel "pos_forcee"
+func spawner_post_it_virtuel(texte : String, taille_a_utiliser : Vector2, pos_forcee = null) -> Node:
+	var nouveau_post_it = post_it_scene.instantiate()
+	conteneur_post_its.add_child(nouveau_post_it)
+	nouveau_post_it.setup_postit(texte)
+	
+	# 1. On applique la taille visuelle
+	nouveau_post_it.definir_taille(taille_a_utiliser)
+	
+	if pos_forcee != null:
+		# Cas A : Position imposée (Objectifs Verts)
+		nouveau_post_it.position = pos_forcee
+		
+		# On enregistre la zone occupée avec la bonne taille
+		var rect = Rect2(pos_forcee, taille_a_utiliser)
+		zones_occupees.append(rect)
+	else:
+		# Cas B : Placement auto (Post-its Jaunes)
+		# On demande à l'algo de chercher une place pour CETTE taille
+		nouveau_post_it.position = trouver_position_libre_sur_table(taille_a_utiliser)
+	
+	nouveau_post_it.rotation_degrees = randf_range(-3, 3)
+	return nouveau_post_it
+
+func spawner_post_its_objectifs():
+	var vert_objectif = Color(0.6, 0.9, 0.6)
+	
+	# 1. Calculs de géométrie pour trouver le bord gauche
+	var taille_image = sprite_scene.texture.get_size() * sprite_scene.scale
+	# On part du centre (position) et on retire la moitié de la largeur
+	var bord_gauche_image = sprite_scene.position.x - (taille_image.x / 2)
+	
+	# On se décale encore de 200 pixels vers la gauche pour ne pas toucher l'image
+	var x_cible = bord_gauche_image - 250.0 
+	
+	# On commence un peu plus haut que le centre vertical
+	var y_depart = sprite_scene.position.y - 150.0
+	
+	# 2. Création des post-its
+	for i in range(objectifs_initiaux.size()):
+		var question = objectifs_initiaux[i]
+		
+		# On calcule une position en colonne (l'un sous l'autre)
+		# On ajoute 180px verticalement entre chaque post-it
+		var pos_calculee = Vector2(x_cible, y_depart + (i * 180.0))
+		
+		# On ajoute un petit décalage aléatoire pour faire "naturel"
+		var decalage_random = Vector2(randf_range(-10, 10), randf_range(-10, 10))
+		
+		# Appel avec la position forcée
+		var post_it = spawner_post_it_virtuel(question, taille_post_it_vert, pos_calculee + decalage_random)
+		post_it.changer_couleur(vert_objectif)
+		
+func trouver_position_libre_sur_table(taille_objet : Vector2) -> Vector2:
 	# 1. On définit la zone interdite (l'image centrale)
 	# On doit recalculer sa zone précise en tenant compte de son échelle
 	var taille_image = sprite_scene.texture.get_size() * sprite_scene.scale
@@ -51,52 +118,39 @@ func trouver_position_libre_sur_table() -> Vector2:
 	if zones_occupees.is_empty():
 		zones_occupees.append(rect_image)
 
-	# 2. Algorithme de recherche en spirale
+# Algorithme spirale (inchangé sauf l'utilisation de taille_objet)
 	var centre_table = sprite_scene.position
 	var angle = 0.0
-	var rayon = (taille_image.x + taille_image.y) / 4 # On commence juste au bord de l'image
-	var increment_rayon = 10.0 # On s'éloigne de 10px à chaque tour
-	var increment_angle = 0.5 # Environ 30 degrés par pas
+	var rayon = (taille_image.x + taille_image.y) / 4
+	var increment_rayon = 10.0
+	var increment_angle = 0.5
 	
-	# Sécurité pour ne pas boucler à l'infini (max 500 tentatives)
 	for i in range(500):
-		# Calcul de la position candidate (coordonnées polaires -> cartésiennes)
 		var offset = Vector2(cos(angle), sin(angle)) * rayon
 		var pos_candidate = centre_table + offset
 		
-		# On centre le post-it sur ce point (car pos_candidate est le centre souhaité)
-		var pos_haut_gauche = pos_candidate - (taille_post_it / 2)
+		# ICI : On utilise la taille spécifique passée en argument
+		var pos_haut_gauche = pos_candidate - (taille_objet / 2)
+		var rect_candidat = Rect2(pos_haut_gauche, taille_objet)
 		
-		# On crée le rectangle virtuel de ce futur post-it
-		var rect_candidat = Rect2(pos_haut_gauche, taille_post_it)
-		
-		# 3. Vérification des collisions
 		var collision = false
 		for zone in zones_occupees:
 			if rect_candidat.intersects(zone):
 				collision = true
 				break
 		
-		# 4. Si c'est libre, on valide !
 		if not collision:
 			zones_occupees.append(rect_candidat)
-			return pos_haut_gauche # C'est cette position que le Node utilisera
+			return pos_haut_gauche
 			
-		# Sinon, on continue de tourner et de s'éloigner
 		angle += increment_angle
-		rayon += increment_rayon * 0.1 # On augmente le rayon doucement
+		rayon += increment_rayon * 0.1
 		
-	return Vector2.ZERO # Fallback si vraiment pas de place (peu probable)
-
-func spawner_post_it(fiche : DonneeDeduction) -> Node: 
-	var nouveau_post_it = post_it_scene.instantiate()
-	conteneur_post_its.add_child(nouveau_post_it)
-	nouveau_post_it.setup_postit(fiche.titre)
-	
-	nouveau_post_it.position = trouver_position_libre_sur_table()
-	nouveau_post_it.rotation_degrees = randf_range(-5, 5)
-	
-	return nouveau_post_it # <--- AJOUT IMPORTANT
+	return Vector2.ZERO
+func spawner_post_it(fiche : DonneeDeduction) -> Node:
+	# On appelle le virtuel en passant la taille JAUNE et "null" pour la position forcée
+	var nouveau_post_it = spawner_post_it_virtuel(fiche.titre, taille_post_it_jaune, null)
+	return nouveau_post_it
 
 func _on_souris_entre_indice():
 	nombre_indices_survoles += 1
