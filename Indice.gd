@@ -3,6 +3,10 @@ class_name Indice
 
 @export var id_indice : String = ""
 
+@export_group("Données Comic Book")
+@export var image_bd : Texture2D # L'image à afficher dans la case
+@export_multiline var texte_bd : String = "Description..." # Le texte de la case
+
 # Couleur du survol (Blanc semi-transparent)
 var couleur_survol = Color(0.0, 0.596, 0.596, 0.427)
 # Couleur de sélection (Vert semi-transparent)

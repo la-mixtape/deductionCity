@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://c4hbk08v74jym"]
+[gd_scene load_steps=16 format=3 uid="uid://c4hbk08v74jym"]
 
 [ext_resource type="Script" uid="uid://bayrl448ggk5o" path="res://EnqueteManager.gd" id="2_lgg38"]
 [ext_resource type="Script" uid="uid://cles6vrihk2an" path="res://DonneeDeduction.gd" id="2_vpewm"]
@@ -14,6 +14,10 @@
 [ext_resource type="Resource" uid="uid://dy1oiglhjcj74" path="res://ded_nomShopkeeper.tres" id="10_2nvyg"]
 [ext_resource type="Texture2D" uid="uid://daf7x3fkkufy1" path="res://scene_7k.png" id="11_2nvyg"]
 [ext_resource type="Script" uid="uid://dk2f4vgxjet7f" path="res://BoutonVueGlobale.gd" id="14_2nvyg"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2nvyg"]
+atlas = ExtResource("11_2nvyg")
+region = Rect2(1280.37, 2929.0986, 822.86804, 1462.2588)
 
 [node name="SceneDeCrime" type="Node2D"]
 position = Vector2(-6, 21)
@@ -53,6 +57,7 @@ cible_image = NodePath("../Sprite2D")
 [node name="clueShopkeeper" type="Area2D" parent="."]
 script = ExtResource("5_82bwi")
 id_indice = "Shopkeeper"
+image_bd = SubResource("AtlasTexture_2nvyg")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="clueShopkeeper"]
 position = Vector2(6, 953)
@@ -232,6 +237,22 @@ text = "Detective View"
 script = ExtResource("14_2nvyg")
 camera_scene = NodePath("../../Camera2D")
 cible_a_centrer = NodePath("../../Sprite2D")
+
+[node name="ColonneBD" type="ScrollContainer" parent="FeedbackUI"]
+custom_minimum_size = Vector2(400, 0)
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -509.0
+offset_top = -3.0
+offset_right = 307.0
+offset_bottom = -3.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="FeedbackUI/ColonneBD"]
+layout_mode = 2
 
 [connection signal="input_event" from="clueShopkeeper" to="clueShopkeeper" method="_on_input_event"]
 [connection signal="input_event" from="clueBlackEye" to="clueBlackEye" method="_on_input_event"]
