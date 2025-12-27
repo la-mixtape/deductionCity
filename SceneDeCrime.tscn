@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://c4hbk08v74jym"]
+[gd_scene load_steps=21 format=3 uid="uid://c4hbk08v74jym"]
 
 [ext_resource type="Script" uid="uid://bayrl448ggk5o" path="res://EnqueteManager.gd" id="2_lgg38"]
 [ext_resource type="Script" uid="uid://cles6vrihk2an" path="res://DonneeDeduction.gd" id="2_vpewm"]
@@ -18,6 +18,26 @@
 [sub_resource type="AtlasTexture" id="AtlasTexture_2nvyg"]
 atlas = ExtResource("11_2nvyg")
 region = Rect2(1280.37, 2929.0986, 822.86804, 1462.2588)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ckmj2"]
+atlas = ExtResource("11_2nvyg")
+region = Rect2(1664.0001, 3099.5698, 182.72742, 145.45459)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2lv5t"]
+atlas = ExtResource("11_2nvyg")
+region = Rect2(2179.9673, 3320.4973, 170.8877, 220.25513)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1t8x8"]
+atlas = ExtResource("11_2nvyg")
+region = Rect2(5063.8467, 4221.872, 153.94873, 134.46143)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jx5qw"]
+atlas = ExtResource("11_2nvyg")
+region = Rect2(3449.9995, 3658.1155, 245, 252.00024)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m6jtr"]
+atlas = ExtResource("11_2nvyg")
+region = Rect2(4807.126, 4402.9263, 191.00049, 154)
 
 [node name="SceneDeCrime" type="Node2D"]
 position = Vector2(-6, 21)
@@ -66,6 +86,7 @@ polygon = PackedVector2Array(209, 549, 273, 220, 186, 97, 159, 59, 156, 9, 136, 
 [node name="clueBlackEye" type="Area2D" parent="."]
 script = ExtResource("5_82bwi")
 id_indice = "BlackEye"
+image_bd = SubResource("AtlasTexture_ckmj2")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="clueBlackEye"]
 position = Vector2(39, 976)
@@ -74,6 +95,7 @@ polygon = PackedVector2Array(110, 18, 110, 2, 104, -12, 90, -18, 82, -17, 82, -2
 [node name="clueMoneypot" type="Area2D" parent="."]
 script = ExtResource("5_82bwi")
 id_indice = "Moneypot"
+image_bd = SubResource("AtlasTexture_2lv5t")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="clueMoneypot"]
 position = Vector2(362, 1077)
@@ -82,6 +104,7 @@ polygon = PackedVector2Array(-14, -22, 6, -21, 20, -13, 19, 8, 17, 39, -31, 36, 
 [node name="clueRecu" type="Area2D" parent="."]
 script = ExtResource("5_82bwi")
 id_indice = "Recu"
+image_bd = SubResource("AtlasTexture_1t8x8")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="clueRecu"]
 position = Vector2(1173, 1217)
@@ -90,6 +113,7 @@ polygon = PackedVector2Array(421.93878, 233.67346, 447, 255, 455, 269, 473, 262,
 [node name="clueBallon" type="Area2D" parent="."]
 script = ExtResource("5_82bwi")
 id_indice = "Ballon"
+image_bd = SubResource("AtlasTexture_jx5qw")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="clueBallon"]
 position = Vector2(532, 1041)
@@ -99,6 +123,7 @@ metadata/_edit_lock_ = true
 [node name="clueNote" type="Area2D" parent="."]
 script = ExtResource("5_82bwi")
 id_indice = "Note"
+image_bd = SubResource("AtlasTexture_m6jtr")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="clueNote"]
 position = Vector2(1079, 1310)
@@ -246,8 +271,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -509.0
 offset_top = -3.0
-offset_right = 307.0
-offset_bottom = -3.0
+offset_right = 223.0
+offset_bottom = 1026.0
 grow_horizontal = 0
 grow_vertical = 2
 
