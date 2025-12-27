@@ -6,7 +6,7 @@ extends Node
 
 @export_multiline var objectifs_initiaux : Array[String] = [
 	"Qui a tué la victime ?",
-    "Quelle est l'arme du crime ?"
+	"Quelle est l'arme du crime ?"
 ]
 
 # --- VARIABLES D'ETAT ---
@@ -27,7 +27,10 @@ var post_it_scene = preload("res://post_it.tscn")
 
 @onready var conteneur_post_its = $"../ConteneurPostIts"
 @onready var sprite_scene = $"../Sprite2D" # Référence à l'image centrale
-
+@onready var conteneur_cases = $"../FeedbackUI/ColonneBD/VBoxContainer" # Vérifie le chemin exact !
+var scene_case_bd = preload("res://CaseBD.tscn")
+# Dictionnaire pour garder une trace des cases créées {id_indice : noeud_case}
+var cases_actives = {}
 # Configuration pour le placement
 @export_group("Configuration Post-Its")
 @export var taille_post_it_jaune : Vector2 = Vector2(160, 160)
@@ -152,6 +155,33 @@ func spawner_post_it(fiche : DonneeDeduction) -> Node:
 	var nouveau_post_it = spawner_post_it_virtuel(fiche.titre, taille_post_it_jaune, null)
 	return nouveau_post_it
 
+func ajouter_case_bd(id_indice: String, texture: Texture2D, texte: String):
+	# Si la case existe déjà ou si pas d'image définie, on ignore
+	if id_indice in cases_actives: return
+	
+	var nouvelle_case = scene_case_bd.instantiate()
+	conteneur_cases.add_child(nouvelle_case)
+	
+	# On configure la case
+	nouvelle_case.setup_case(texture, texte)
+	
+	# On stocke la référence pour pouvoir la supprimer plus tard
+	cases_actives[id_indice] = nouvelle_case
+	
+	# Petit scroll automatique vers le bas pour voir la nouvelle case
+	await get_tree().process_frame
+	var scroll_container = conteneur_cases.get_parent()
+	if scroll_container is ScrollContainer:
+		scroll_container.scroll_vertical = scroll_container.get_v_scroll_bar().max_value
+
+func retirer_case_bd(id_indice: String):
+	if id_indice in cases_actives:
+		var case_a_supprimer = cases_actives[id_indice]
+		cases_actives.erase(id_indice)
+		
+		# Animation de sortie (optionnel) ou suppression directe
+		case_a_supprimer.queue_free()
+
 func _on_souris_entre_indice():
 	nombre_indices_survoles += 1
 
@@ -172,19 +202,27 @@ func _on_indice_clique(indice_obj : Indice):
 	var id = indice_obj.id_indice
 	
 	if indice_obj.est_selectionne:
-		# Vérification prédictive avec la nouvelle structure de données
+		# --- GESTION ANCIENNE (Logique déduction) ---
 		var test_selection = selection_actuelle.duplicate()
 		test_selection.append(id)
 		
 		if est_combinaison_potentielle(test_selection):
 			selection_actuelle.append(id)
+			
+			# --- NOUVEAU : AFFICHER LA CASE BD ---
+			ajouter_case_bd(id, indice_obj.image_bd, indice_obj.texte_bd)			# -------------------------------------
+			
 			verifier_hypotheses()
 		else:
 			print("Incohérence détectée avec l'objet : ", id)
 			tout_reset()
 	else:
+		# Désélection
 		if id in selection_actuelle:
 			selection_actuelle.erase(id)
+			# --- NOUVEAU : RETIRER LA CASE BD ---
+			retirer_case_bd(id)
+			# ------------------------------------
 
 func verifier_hypotheses():
 	# On parcourt nos fiches de données configurées dans l'inspecteur
@@ -225,6 +263,7 @@ func tout_reset():
 	selection_actuelle.clear()
 	for indice in tous_les_indices:
 		indice.deselectionner()
+		retirer_case_bd(indice.id_indice)
 	
 
 # --- FONCTIONS UTILITAIRES ADAPTÉES ---
