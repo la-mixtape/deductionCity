@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://c4hbk08v74jym"]
+[gd_scene load_steps=36 format=3 uid="uid://c4hbk08v74jym"]
 
 [ext_resource type="Script" uid="uid://bayrl448ggk5o" path="res://EnqueteManager.gd" id="2_lgg38"]
 [ext_resource type="Script" uid="uid://cles6vrihk2an" path="res://DonneeDeduction.gd" id="2_vpewm"]
@@ -12,87 +12,90 @@
 [ext_resource type="Resource" uid="uid://s3xl7bc1hsnw" path="res://ded_Foot.tres" id="8_jx5qw"]
 [ext_resource type="Resource" uid="uid://6rkvbcbpo7ak" path="res://ded_filleBraquage.tres" id="9_m6jtr"]
 [ext_resource type="Resource" uid="uid://dy1oiglhjcj74" path="res://ded_nomShopkeeper.tres" id="10_2nvyg"]
-[ext_resource type="Texture2D" uid="uid://daf7x3fkkufy1" path="res://scene_7k.png" id="11_2nvyg"]
+[ext_resource type="Texture2D" uid="uid://b1ky22y0hkd5x" path="res://scenePOC_nb_wip-(2).png" id="11_2nvyg"]
 [ext_resource type="Script" uid="uid://dk2f4vgxjet7f" path="res://BoutonVueGlobale.gd" id="14_2nvyg"]
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ckmj2"]
+load_path = "res://.godot/imported/scene_7k.png-1941c31858474541204527e8a47da9e0.ctex"
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_2nvyg"]
-atlas = ExtResource("11_2nvyg")
+atlas = SubResource("CompressedTexture2D_ckmj2")
 region = Rect2(1280.37, 2929.0986, 822.86804, 1462.2588)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ckmj2"]
-atlas = ExtResource("11_2nvyg")
+atlas = SubResource("CompressedTexture2D_ckmj2")
 region = Rect2(1664.0001, 3099.5698, 182.72742, 145.45459)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2lv5t"]
-atlas = ExtResource("11_2nvyg")
+atlas = SubResource("CompressedTexture2D_ckmj2")
 region = Rect2(2179.9673, 3320.4973, 170.8877, 220.25513)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1t8x8"]
-atlas = ExtResource("11_2nvyg")
+atlas = SubResource("CompressedTexture2D_ckmj2")
 region = Rect2(5063.8467, 4221.872, 153.94873, 134.46143)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jx5qw"]
-atlas = ExtResource("11_2nvyg")
+atlas = SubResource("CompressedTexture2D_ckmj2")
 region = Rect2(3449.9995, 3658.1155, 245, 252.00024)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_m6jtr"]
-atlas = ExtResource("11_2nvyg")
+atlas = SubResource("CompressedTexture2D_ckmj2")
 region = Rect2(4807.126, 4402.9263, 191.00049, 154)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vumj8"]
-atlas = ExtResource("11_2nvyg")
+atlas = SubResource("CompressedTexture2D_ckmj2")
 region = Rect2(5545.1685, 2756.3806, 1789.5171, 982.2163)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_k7alu"]
-atlas = ExtResource("11_2nvyg")
+atlas = SubResource("CompressedTexture2D_ckmj2")
 region = Rect2(6344.4375, 3759.8247, 152.89258, 167.7688)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_octlv"]
-atlas = ExtResource("11_2nvyg")
+atlas = SubResource("CompressedTexture2D_ckmj2")
 region = Rect2(6531.0884, 4222.041, 93.163086, 120.21045)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1l2ey"]
-atlas = ExtResource("11_2nvyg")
+atlas = SubResource("CompressedTexture2D_ckmj2")
 region = Rect2(2059.78, 3.5632257, 401.7207, 401.72064)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vf6i7"]
-atlas = ExtResource("11_2nvyg")
+atlas = SubResource("CompressedTexture2D_ckmj2")
 region = Rect2(1842.0919, 158.43826, 255.31042, 248.05038)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dkvav"]
-atlas = ExtResource("11_2nvyg")
+atlas = SubResource("CompressedTexture2D_ckmj2")
 region = Rect2(7.498169, 3136.1704, 263.1671, 572.2842)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fgxhj"]
-atlas = ExtResource("11_2nvyg")
+atlas = SubResource("CompressedTexture2D_ckmj2")
 region = Rect2(211.18085, 1076.7732, 488.73907, 655.82935)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qhlrp"]
-atlas = ExtResource("11_2nvyg")
+atlas = SubResource("CompressedTexture2D_ckmj2")
 region = Rect2(1593.4875, 1412.3336, 374.1543, 508.6161)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ydocw"]
-atlas = ExtResource("11_2nvyg")
+atlas = SubResource("CompressedTexture2D_ckmj2")
 region = Rect2(3367.7813, 3159.1943, 520.2583, 440.51074)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hoii4"]
-atlas = ExtResource("11_2nvyg")
+atlas = SubResource("CompressedTexture2D_ckmj2")
 region = Rect2(2657.4067, 3159.7012, 242.00049, 124.000244)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yi3uw"]
-atlas = ExtResource("11_2nvyg")
+atlas = SubResource("CompressedTexture2D_ckmj2")
 region = Rect2(3352.5464, 1636.0691, 90.90918, 80.00012)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rrojj"]
-atlas = ExtResource("11_2nvyg")
+atlas = SubResource("CompressedTexture2D_ckmj2")
 region = Rect2(4005.1887, 1139.5446, 72.52075, 79.73059)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_53w1n"]
-atlas = ExtResource("11_2nvyg")
+atlas = SubResource("CompressedTexture2D_ckmj2")
 region = Rect2(4115.844, 1160.2035, 91.60498, 96.69446)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wyxke"]
-atlas = ExtResource("11_2nvyg")
+atlas = SubResource("CompressedTexture2D_ckmj2")
 region = Rect2(3643.0334, 1192.2383, 112.89502, 159.182)
 
 [node name="SceneDeCrime" type="Node2D"]
@@ -138,7 +141,7 @@ texte_bd = "Un commercant"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="clueShopkeeper"]
 position = Vector2(6, 953)
-polygon = PackedVector2Array(209, 549, 273, 220, 186, 97, 159, 59, 156, 9, 136, -44, 88, -56, 47, -38, 23, 37, 45, 67, -6, 120, -92, 211, -52, 544, 46, 552, 96, 467, 128, 530)
+polygon = PackedVector2Array(209, 549, 221, 318, 273, 220, 186, 97, 159, 59, 158, 36, 159, 26, 146, 25, 148, 45, 123, 48, 113, 32, 112, 7, 121, 0, 141, 5, 146, 25, 159, 25, 152, 7, 150, -5, 143, -19, 124, -34, 88, -56, 47, -38, 23, 37, 45, 67, -6, 120, -92, 211, -31, 299, -52, 544, 46, 552, 61, 472, 109, 472, 128, 530)
 
 [node name="clueBlackEye" type="Area2D" parent="."]
 script = ExtResource("5_82bwi")
@@ -157,8 +160,8 @@ image_bd = SubResource("AtlasTexture_2lv5t")
 texte_bd = "Une boite à cash"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="clueMoneypot"]
-position = Vector2(362, 1077)
-polygon = PackedVector2Array(-14, -22, 6, -21, 20, -13, 19, 8, 17, 39, -31, 36, -29, -17)
+position = Vector2(333, 1195)
+polygon = PackedVector2Array(-26, -20, 6, -21, 76, -16, 80, 52, 79, 87, 27, 107, -84, 98, -84, 62, -39, 43)
 
 [node name="clueRecu" type="Area2D" parent="."]
 script = ExtResource("5_82bwi")
