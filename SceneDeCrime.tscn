@@ -16,7 +16,7 @@
 [ext_resource type="Script" uid="uid://dk2f4vgxjet7f" path="res://BoutonVueGlobale.gd" id="14_2nvyg"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ckmj2"]
-load_path = "res://.godot/imported/scene_7k.png-1941c31858474541204527e8a47da9e0.ctex"
+load_path = "res://.godot/imported/scene7kv3.png-7b1b021b61cd0f80753fa6a524f9c7f2.ctex"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2nvyg"]
 atlas = SubResource("CompressedTexture2D_ckmj2")
@@ -28,7 +28,7 @@ region = Rect2(1664.0001, 3099.5698, 182.72742, 145.45459)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2lv5t"]
 atlas = SubResource("CompressedTexture2D_ckmj2")
-region = Rect2(2179.9673, 3320.4973, 170.8877, 220.25513)
+region = Rect2(1999.0432, 3605.7646, 452.2478, 355.58423)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1t8x8"]
 atlas = SubResource("CompressedTexture2D_ckmj2")
@@ -84,7 +84,7 @@ region = Rect2(2657.4067, 3159.7012, 242.00049, 124.000244)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yi3uw"]
 atlas = SubResource("CompressedTexture2D_ckmj2")
-region = Rect2(3352.5464, 1636.0691, 90.90918, 80.00012)
+region = Rect2(3706.063, 1433.9225, 51.52246, 42.760254)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rrojj"]
 atlas = SubResource("CompressedTexture2D_ckmj2")
@@ -96,7 +96,7 @@ region = Rect2(4115.844, 1160.2035, 91.60498, 96.69446)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wyxke"]
 atlas = SubResource("CompressedTexture2D_ckmj2")
-region = Rect2(3643.0334, 1192.2383, 112.89502, 159.182)
+region = Rect2(5490.687, 3088.6868, 68.626465, 66.698975)
 
 [node name="SceneDeCrime" type="Node2D"]
 position = Vector2(-6, 21)
@@ -120,12 +120,13 @@ taille_post_it_vert = Vector2(250, 250)
 position = Vector2(968.00006, 630)
 scale = Vector2(0.44124347, 0.4391276)
 texture = ExtResource("11_2nvyg")
+metadata/_edit_lock_ = true
 
 [node name="ConteneurPostIts" type="Node2D" parent="."]
 
 [node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("cible_image")]
-position = Vector2(930, 565)
-zoom = Vector2(0.3, 0.3)
+position = Vector2(943, 622)
+zoom = Vector2(0.2, 0.2)
 script = ExtResource("4_v12hc")
 min_zoom = 0.2
 zoom_vue_globale = Vector2(0.2, 0.2)
@@ -156,7 +157,7 @@ polygon = PackedVector2Array(110, 18, 110, 2, 104, -12, 90, -18, 82, -17, 82, -2
 script = ExtResource("5_82bwi")
 id_indice = "Moneypot"
 image_bd = SubResource("AtlasTexture_2lv5t")
-texte_bd = "Une boite à cash"
+texte_bd = "Une caisse"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="clueMoneypot"]
 position = Vector2(333, 1195)
@@ -303,13 +304,13 @@ texte_bd = "Un sac de cash"
 position = Vector2(839, 304)
 polygon = PackedVector2Array(27, 2, 26, 16, 18, 23, 7, 24, 3, 2)
 
-[node name="clueGun" type="Area2D" parent="clueCashbag"]
+[node name="clueGun" type="Area2D" parent="."]
 script = ExtResource("5_82bwi")
 id_indice = "Gun"
 image_bd = SubResource("AtlasTexture_yi3uw")
 texte_bd = "Un sac de cash"
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="clueCashbag/clueGun"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="clueGun"]
 position = Vector2(996, 220)
 polygon = PackedVector2Array(13, 4, 10, 6, 6, 4, 4, 4, 2, 3, 0, 5, -3, 3, 2, -5)
 
@@ -384,10 +385,8 @@ anchor_bottom = 1.0
 offset_left = -138.0
 offset_top = 1.0
 offset_right = 262.0
-offset_bottom = 1016.0
 grow_horizontal = 0
 grow_vertical = 2
-metadata/_edit_lock_ = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="FeedbackUI/ColonneBD"]
 layout_mode = 2
@@ -409,7 +408,7 @@ layout_mode = 2
 [connection signal="input_event" from="clueDaughter" to="clueDaughter" method="_on_input_event"]
 [connection signal="input_event" from="clueName" to="clueName" method="_on_input_event"]
 [connection signal="input_event" from="clueCashbag" to="clueCashbag" method="_on_input_event"]
-[connection signal="input_event" from="clueCashbag/clueGun" to="clueCashbag/clueGun" method="_on_input_event"]
+[connection signal="input_event" from="clueGun" to="clueGun" method="_on_input_event"]
 [connection signal="input_event" from="clueEcoles" to="clueEcoles" method="_on_input_event"]
 [connection signal="input_event" from="clueBudget" to="clueBudget" method="_on_input_event"]
 [connection signal="input_event" from="cluePosterFoot" to="cluePosterFoot" method="_on_input_event"]
