@@ -3,9 +3,9 @@ extends PanelContainer
 @onready var label = $LabelTitre
 
 # Configuration
-var taille_max_police = 50
-var taille_min_police = 8
-var hauteur_max_disponible = 230 # 150px total - 20px de marges
+var taille_max_police = 150
+var taille_min_police = 40
+var hauteur_max_disponible = 400 # 150px total - 20px de marges
 
 var is_dragging : bool = false
 var drag_offset : Vector2 = Vector2.ZERO

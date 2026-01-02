@@ -1,5 +1,6 @@
-[gd_scene load_steps=36 format=3 uid="uid://c4hbk08v74jym"]
+[gd_scene load_steps=37 format=3 uid="uid://c4hbk08v74jym"]
 
+[ext_resource type="Texture2D" uid="uid://dt7a7bi15qop3" path="res://cork-board-cadre-bois.png" id="1_ckmj2"]
 [ext_resource type="Script" uid="uid://bayrl448ggk5o" path="res://EnqueteManager.gd" id="2_lgg38"]
 [ext_resource type="Script" uid="uid://cles6vrihk2an" path="res://DonneeDeduction.gd" id="2_vpewm"]
 [ext_resource type="Resource" uid="uid://cjhmjb0obix0l" path="res://ded_Fils.tres" id="3_ccf6n"]
@@ -102,6 +103,7 @@ region = Rect2(5490.687, 3088.6868, 68.626465, 66.698975)
 position = Vector2(-6, 21)
 
 [node name="TableBackground" type="ColorRect" parent="."]
+visible = false
 offset_left = -1497.0
 offset_top = -1415.0
 offset_right = 3468.3335
@@ -109,12 +111,18 @@ offset_bottom = 2309.0
 mouse_filter = 2
 color = Color(0.52614474, 0.4183511, 0.27959567, 1)
 
+[node name="TableBackground_CorkTexture" type="Sprite2D" parent="."]
+position = Vector2(832, 511)
+scale = Vector2(12.323151, 12.8097)
+texture = ExtResource("1_ckmj2")
+
 [node name="EnqueteManager" type="Node" parent="." node_paths=PackedStringArray("bouton_vue_globale")]
 script = ExtResource("2_lgg38")
 base_de_donnees_deductions = Array[ExtResource("2_vpewm")]([ExtResource("3_ccf6n"), ExtResource("4_2nvyg"), ExtResource("5_ckmj2"), ExtResource("6_2lv5t"), ExtResource("7_1t8x8"), ExtResource("8_jx5qw"), ExtResource("9_m6jtr"), ExtResource("10_2nvyg")])
 objectifs_initiaux = Array[String](["Pourquoi l'épicier a-t-il un oeil au beurre noir ?", "Qui sont ces hommes en noir ?"])
 bouton_vue_globale = NodePath("../FeedbackUI/BoutonVueGlobale")
-taille_post_it_vert = Vector2(250, 250)
+taille_post_it_jaune = Vector2(200, 200)
+taille_post_it_vert = Vector2(400, 400)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(968.00006, 630)
@@ -218,7 +226,7 @@ polygon = PackedVector2Array(369, 170, 363, 211, 365, 277, 397, 285, 445, 184)
 script = ExtResource("5_82bwi")
 id_indice = "TXTmessage"
 image_bd = SubResource("AtlasTexture_octlv")
-texte_bd = "Une liste"
+texte_bd = "Une liste de racket, Lopez n'a pas payé"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="clueListe"]
 position = Vector2(1472, 1053)
@@ -228,7 +236,7 @@ polygon = PackedVector2Array(763, 390, 760, 427, 781, 430, 800, 435, 803, 380)
 script = ExtResource("5_82bwi")
 id_indice = "Fils"
 image_bd = SubResource("AtlasTexture_1l2ey")
-texte_bd = "Un gamin"
+texte_bd = "Un gamin, il a pas l'air bien"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="clueFils"]
 position = Vector2(296, -404)

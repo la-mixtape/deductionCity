@@ -39,8 +39,8 @@ var cases_actives = {}
 var zones_occupees : Array[Rect2] = [] # On va stocker ici tout ce qui est déjà posé
 # Dimensions de votre image centrale (à ajuster selon votre image !)
 # Exemple pour une image 1920x1080
-var largeur_scene = 1920
-var hauteur_scene = 1080
+var largeur_scene = 7322
+var hauteur_scene = 4784
 var marge_table = 200 # Distance entre la photo et les post-its
 
 func _ready():
@@ -90,18 +90,18 @@ func spawner_post_its_objectifs():
 	var bord_gauche_image = sprite_scene.position.x - (taille_image.x / 2)
 	
 	# On se décale encore de 200 pixels vers la gauche pour ne pas toucher l'image
-	var x_cible = bord_gauche_image - 250.0 
+	var x_cible = bord_gauche_image - 400 
 	
 	# On commence un peu plus haut que le centre vertical
-	var y_depart = sprite_scene.position.y - 150.0
+	var y_depart = sprite_scene.position.y - 1200
 	
 	# 2. Création des post-its
 	for i in range(objectifs_initiaux.size()):
 		var question = objectifs_initiaux[i]
 		
 		# On calcule une position en colonne (l'un sous l'autre)
-		# On ajoute 180px verticalement entre chaque post-it
-		var pos_calculee = Vector2(x_cible, y_depart + (i * 180.0))
+		# On ajoute ???px verticalement entre chaque post-it
+		var pos_calculee = Vector2(x_cible, y_depart + (i * 700))
 		
 		# On ajoute un petit décalage aléatoire pour faire "naturel"
 		var decalage_random = Vector2(randf_range(-10, 10), randf_range(-10, 10))
