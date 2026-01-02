@@ -102,10 +102,10 @@ region = Rect2(3643.0334, 1192.2383, 112.89502, 159.182)
 position = Vector2(-6, 21)
 
 [node name="TableBackground" type="ColorRect" parent="."]
-offset_left = -1505.0
-offset_top = -1379.0
-offset_right = 3460.3335
-offset_bottom = 2345.0
+offset_left = -1497.0
+offset_top = -1415.0
+offset_right = 3468.3335
+offset_bottom = 2309.0
 mouse_filter = 2
 color = Color(0.52614474, 0.4183511, 0.27959567, 1)
 
@@ -334,6 +334,16 @@ texte_bd = "Un poster de foot"
 position = Vector2(969, 113)
 polygon = PackedVector2Array(40, -9, 40, 61, -9, 60, -8.163269, -9.693878)
 
+[node name="clueFeuilleNoms" type="Area2D" parent="."]
+script = ExtResource("5_82bwi")
+id_indice = "FeuilleNoms"
+image_bd = SubResource("AtlasTexture_wyxke")
+texte_bd = "Un poster de foot"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="clueFeuilleNoms"]
+position = Vector2(1781, 945)
+polygon = PackedVector2Array(26, -10, 22, 21, -7, 21, -8.163269, -9.693878)
+
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -392,3 +402,4 @@ layout_mode = 2
 [connection signal="input_event" from="clueEcoles" to="clueEcoles" method="_on_input_event"]
 [connection signal="input_event" from="clueBudget" to="clueBudget" method="_on_input_event"]
 [connection signal="input_event" from="cluePosterFoot" to="cluePosterFoot" method="_on_input_event"]
+[connection signal="input_event" from="clueFeuilleNoms" to="clueFeuilleNoms" method="_on_input_event"]
