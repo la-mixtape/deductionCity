@@ -98,6 +98,8 @@ func trouver_cible_sous_souris() -> Node:
 		if autre == self: continue # On ne se teste pas soi-même
 		if not (autre is PanelContainer): continue # Sécurité
 		if "est_objectif_vert" not in autre: continue # Sécurité type
+		if autre == enfant_post_it:
+			continue
 		
 		# RÈGLE : On ne peut s'attacher qu'à un Vert ou un Jaune qui est DÉJÀ dans une pile verte
 		# Si l'autre est jaune et n'a pas de parent, on ne peut pas commencer une pile dessus
