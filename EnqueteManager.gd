@@ -4,18 +4,18 @@ extends Node
 # Au lieu d'écrire le code ici, on glissera nos fiches dans cette liste via l'Inspecteur
 @export var base_de_donnees_deductions : Array[DonneeDeduction] = []
 
-@export_multiline var objectifs_initiaux : Array[String] = [
-	"Qui a tué la victime ?",
-	"Quelle est l'arme du crime ?"
-]
+@export var config_objectifs : Dictionary = {
+	"Shopkeeper": "Qui est le vendeur ?",
+	"Mafieux": "Quel est le mobile du fils ?", 
+	"Test": "test"
+}
 
 # --- VARIABLES D'ETAT ---
 var selection_actuelle : Array = []
 var tous_les_indices : Array = []
 var nombre_indices_survoles : int = 0
 var input_bloque : bool = false
-
-
+var nombre_objectifs_verts_affiches : int = 0
 
 
 @export var bouton_vue_globale : Button # Changez Control par Button si besoin
@@ -54,7 +54,7 @@ func _ready():
 	for fiche_existante in PartieGlobale.inventaire_deductions:
 			spawner_post_it(fiche_existante)
 			
-	call_deferred("spawner_post_its_objectifs")
+#	call_deferred("spawner_post_its_objectifs")
 
 # Version simplifiée pour créer un post-it juste avec du texte
 # On ajoute un deuxième argument optionnel "pos_forcee"
@@ -81,34 +81,40 @@ func spawner_post_it_virtuel(texte : String, taille_a_utiliser : Vector2, pos_fo
 	nouveau_post_it.rotation_degrees = randf_range(-3, 3)
 	return nouveau_post_it
 
-func spawner_post_its_objectifs():
+func spawner_un_objectif_vert(texte_question : String):
 	var vert_objectif = Color(0.6, 0.9, 0.6)
 	
-	# 1. Calculs de géométrie pour trouver le bord gauche
+	# --- CALCUL DE LA POSITION ---
+	# On veut qu'ils apparaissent de droite à gauche (partant de l'image)
+	# ou de gauche à droite selon ta préférence.
+	# Ici : Le 1er se colle à l'image, le 2ème se met à sa gauche, etc.
+	
 	var taille_image = sprite_scene.texture.get_size() * sprite_scene.scale
-	# On part du centre (position) et on retire la moitié de la largeur
 	var bord_gauche_image = sprite_scene.position.x - (taille_image.x / 2)
 	
-	# On se décale encore de 200 pixels vers la gauche pour ne pas toucher l'image
-	var x_cible = bord_gauche_image - 400 
+	var largeur_post_it = taille_post_it_vert.x
+	var marge_entre_post_its = 20.0
+	var marge_par_rapport_image = 200
 	
-	# On commence un peu plus haut que le centre vertical
-	var y_depart = sprite_scene.position.y - 1200
+	# Calcul de la position X (On recule vers la gauche à chaque nouveau post-it)
+	# (nombre_objectifs_verts_affiches + 1) car c'est le "n-ième" post-it
+	var decalage_total = (nombre_objectifs_verts_affiches + 1) * (largeur_post_it + marge_entre_post_its)
+	var x_cible = bord_gauche_image - decalage_total - marge_par_rapport_image 
+	# Note: Le "+ largeur_post_it" sert à ajuster le pivot si tes post-its sont centrés ou non.
+	# Ajuste simplement "x_cible" si tu trouves qu'ils sont trop loin/trop près.
 	
-	# 2. Création des post-its
-	for i in range(objectifs_initiaux.size()):
-		var question = objectifs_initiaux[i]
-		
-		# On calcule une position en colonne (l'un sous l'autre)
-		# On ajoute ???px verticalement entre chaque post-it
-		var pos_calculee = Vector2(x_cible, y_depart + (i * 700))
-		
-		# On ajoute un petit décalage aléatoire pour faire "naturel"
-		var decalage_random = Vector2(randf_range(-10, 10), randf_range(-10, 10))
-		
-		# Appel avec la position forcée
-		var post_it = spawner_post_it_virtuel(question, taille_post_it_vert, pos_calculee + decalage_random)
-		post_it.changer_couleur(vert_objectif)
+	var y_fixe = sprite_scene.position.y - 900
+	var pos_calculee = Vector2(x_cible, y_fixe)
+	
+	# Petit randomness
+	var decalage_random = Vector2(randf_range(-5, 5), randf_range(-5, 5))
+	
+	# --- SPAWN ---
+	var post_it = spawner_post_it_virtuel(texte_question, taille_post_it_vert, pos_calculee + decalage_random)
+	post_it.changer_couleur(vert_objectif)
+	
+	# On incrémente le compteur pour que le prochain se mette à côté
+	nombre_objectifs_verts_affiches += 1
 		
 func trouver_position_libre_sur_table(taille_objet : Vector2) -> Vector2:
 	# 1. On définit la zone interdite (l'image centrale)
@@ -200,6 +206,18 @@ func _on_indice_clique(indice_obj : Indice):
 	if input_bloque: return
 
 	var id = indice_obj.id_indice
+	
+	# Est-ce que cet ID est dans notre dictionnaire de configuration ?
+	if id in config_objectifs:
+		# Oui ! On récupère le texte associé
+		var texte_question = config_objectifs[id]
+		
+		# On fait apparaître le post-it
+		spawner_un_objectif_vert(texte_question)
+		
+		# IMPORTANT : On retire l'entrée du dictionnaire pour ne pas 
+		# faire apparaître le post-it deux fois si on reclique !
+		config_objectifs.erase(id)
 	
 	if indice_obj.est_selectionne:
 		# --- GESTION ANCIENNE (Logique déduction) ---

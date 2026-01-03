@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://c4hbk08v74jym"]
+[gd_scene load_steps=38 format=3 uid="uid://c4hbk08v74jym"]
 
 [ext_resource type="Texture2D" uid="uid://dt7a7bi15qop3" path="res://cork-board-cadre-bois.png" id="1_ckmj2"]
 [ext_resource type="Script" uid="uid://bayrl448ggk5o" path="res://EnqueteManager.gd" id="2_lgg38"]
@@ -14,6 +14,7 @@
 [ext_resource type="Resource" uid="uid://6rkvbcbpo7ak" path="res://ded_filleBraquage.tres" id="9_m6jtr"]
 [ext_resource type="Resource" uid="uid://dy1oiglhjcj74" path="res://ded_nomShopkeeper.tres" id="10_2nvyg"]
 [ext_resource type="Texture2D" uid="uid://baf6nmxtg5hi2" path="res://scene7kv3.png" id="11_2nvyg"]
+[ext_resource type="Resource" uid="uid://cvfn82bbygcsk" path="res://ded_college.tres" id="12_2lv5t"]
 [ext_resource type="Script" uid="uid://dk2f4vgxjet7f" path="res://BoutonVueGlobale.gd" id="14_2nvyg"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ckmj2"]
@@ -118,8 +119,11 @@ texture = ExtResource("1_ckmj2")
 
 [node name="EnqueteManager" type="Node" parent="." node_paths=PackedStringArray("bouton_vue_globale")]
 script = ExtResource("2_lgg38")
-base_de_donnees_deductions = Array[ExtResource("2_vpewm")]([ExtResource("3_ccf6n"), ExtResource("4_2nvyg"), ExtResource("5_ckmj2"), ExtResource("6_2lv5t"), ExtResource("7_1t8x8"), ExtResource("8_jx5qw"), ExtResource("9_m6jtr"), ExtResource("10_2nvyg")])
-objectifs_initiaux = Array[String](["Pourquoi l'épicier a-t-il un oeil au beurre noir ?", "Qui sont ces hommes en noir ?"])
+base_de_donnees_deductions = Array[ExtResource("2_vpewm")]([ExtResource("3_ccf6n"), ExtResource("4_2nvyg"), ExtResource("5_ckmj2"), ExtResource("6_2lv5t"), ExtResource("7_1t8x8"), ExtResource("8_jx5qw"), ExtResource("9_m6jtr"), ExtResource("10_2nvyg"), ExtResource("12_2lv5t")])
+config_objectifs = {
+"Mafieux": "Qui sont ces hommes ?",
+"Shopkeeper": "Pourquoi a-t-il un oeil au beurre noir ?"
+}
 bouton_vue_globale = NodePath("../FeedbackUI/BoutonVueGlobale")
 taille_post_it_jaune = Vector2(200, 200)
 taille_post_it_vert = Vector2(400, 400)
@@ -309,7 +313,7 @@ image_bd = SubResource("AtlasTexture_yi3uw")
 texte_bd = "Un sac de cash"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="clueCashbag"]
-position = Vector2(839, 304)
+position = Vector2(836, 304)
 polygon = PackedVector2Array(27, 2, 26, 16, 18, 23, 7, 24, 3, 2)
 
 [node name="clueGun" type="Area2D" parent="."]
@@ -395,6 +399,7 @@ offset_top = 1.0
 offset_right = 262.0
 grow_horizontal = 0
 grow_vertical = 2
+metadata/_edit_lock_ = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="FeedbackUI/ColonneBD"]
 layout_mode = 2

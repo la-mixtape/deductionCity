@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="DonneeDeduction" load_steps=2 format=3 uid="uid://cvfn82bbygcsk"]
+
+[ext_resource type="Script" uid="uid://cles6vrihk2an" path="res://DonneeDeduction.gd" id="1_u3y8l"]
+
+[resource]
+script = ExtResource("1_u3y8l")
+titre = "Il lui manque de l'argent pour aller à la fac"
+indices_requis = Array[String](["PosterEcoles", "PosterBudget"])
+description_victoire = "Il lui manque de l'argent pour aller à la fac"
+metadata/_custom_type_script = "uid://cles6vrihk2an"
