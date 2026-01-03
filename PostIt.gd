@@ -2,6 +2,12 @@ extends PanelContainer
 
 @onready var label = $LabelTitre
 
+# --- NOUVELLES VARIABLES DE STACKING ---
+var est_objectif_vert : bool = false # Pour savoir si c'est une base de pile
+var parent_post_it : Node = null     # Le post-it SUR lequel je suis posé
+var enfant_post_it : Node = null     # Le post-it QUI est posé sur moi
+
+var offset_stacking = Vector2(0, 50) # Le décalage visuel (50px plus bas)
 # Configuration
 var taille_max_police = 150
 var taille_min_police = 40
@@ -41,33 +47,111 @@ func est_trop_grand() -> bool:
 	
 	return hauteur_reelle > hauteur_max_disponible
 
+func attacher_a(nouvelle_cible : Node):
+	# Si la cible a déjà un enfant, on essaie de s'attacher à l'enfant (récursif vers le bas)
+	if nouvelle_cible.enfant_post_it != null:
+		attacher_a(nouvelle_cible.enfant_post_it)
+		return
+
+	# Configuration des liens
+	parent_post_it = nouvelle_cible
+	nouvelle_cible.enfant_post_it = self
+	
+	# Placement visuel
+	position_visuelle_sur_parent()
+	
+	# Gestion de l'ordre d'affichage (Z-index)
+	# On doit passer devant le parent
+	move_to_front() 
+
+func detacher():
+	if parent_post_it != null:
+		parent_post_it.enfant_post_it = null
+		parent_post_it = null
+
+func position_visuelle_sur_parent():
+	if parent_post_it:
+		# On se place à la position du parent + le décalage
+		# Note : Comme ils sont frères dans la scène, on utilise global_position
+		global_position = parent_post_it.global_position + offset_stacking
+
+func deplacer_pile(delta_mouvement : Vector2):
+	# Cette fonction est appelée par le parent quand il bouge
+	global_position += delta_mouvement
+	
+	# Si j'ai moi-même un enfant, je lui transmets le mouvement
+	if enfant_post_it:
+		enfant_post_it.deplacer_pile(delta_mouvement)
+
+func ramener_pile_au_premier_plan():
+	# Fonction récursive pour que toute la pile passe devant
+	move_to_front()
+	if enfant_post_it:
+		enfant_post_it.ramener_pile_au_premier_plan()
+
+func trouver_cible_sous_souris() -> Node:
+	# On cherche un Post-It valide sous la souris
+	var tous_les_post_its = get_parent().get_children()
+	var ma_zone = get_global_rect()
+	
+	for autre in tous_les_post_its:
+		if autre == self: continue # On ne se teste pas soi-même
+		if not (autre is PanelContainer): continue # Sécurité
+		if "est_objectif_vert" not in autre: continue # Sécurité type
+		
+		# RÈGLE : On ne peut s'attacher qu'à un Vert ou un Jaune qui est DÉJÀ dans une pile verte
+		# Si l'autre est jaune et n'a pas de parent, on ne peut pas commencer une pile dessus
+		if not autre.est_objectif_vert and autre.parent_post_it == null:
+			continue
+			
+		# Détection de collision simple
+		if autre.get_global_rect().intersects(ma_zone):
+			return autre
+			
+	return null
 func _gui_input(event):
-	# 1. Clic gauche enfoncé ou relâché
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			if event.pressed:
-				# Début du drag
+				# --- DÉBUT DU DRAG ---
 				is_dragging = true
-				
-				# On calcule l'écart entre le coin haut-gauche du post-it et la souris
 				drag_offset = global_position - get_global_mouse_position()
 				
-				# Visuel : On met ce post-it au premier plan (devant les autres)
-				move_to_front()
+				# 1. Si on est attaché, on se détache (on prend la carte en main)
+				if parent_post_it:
+					detacher()
 				
-				# Important : On dit au moteur "J'ai géré cet événement, ne le passe pas à la caméra"
+				# 2. Visuel : On met ce post-it et ses enfants au premier plan
+				ramener_pile_au_premier_plan()
+				
 				accept_event()
 				
 			else:
-				# Fin du drag
+				# --- FIN DU DRAG (RELÂCHEMENT) ---
 				is_dragging = false
+				
+				# 1. On cherche si on a lâché sur une pile valide
+				var cible = trouver_cible_sous_souris()
+				if cible:
+					attacher_a(cible)
+				
 				accept_event()
 
-	# 2. Mouvement de la souris
 	elif event is InputEventMouseMotion:
 		if is_dragging:
-			# On applique la nouvelle position en respectant l'écart d'origine
-			global_position = get_global_mouse_position() + drag_offset
+			# --- MOUVEMENT ---
+			var ancienne_pos = global_position
+			var nouvelle_pos = get_global_mouse_position() + drag_offset
+			
+			# Calcul du delta pour bouger les enfants
+			var delta = nouvelle_pos - ancienne_pos
+			
+			global_position = nouvelle_pos
+			
+			# Si j'ai des enfants accrochés à moi, je les tire aussi
+			if enfant_post_it:
+				enfant_post_it.deplacer_pile(delta)
+				
 			accept_event()
 			
 func changer_couleur(nouvelle_couleur : Color):

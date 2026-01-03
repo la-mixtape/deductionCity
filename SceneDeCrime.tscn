@@ -139,8 +139,8 @@ metadata/_edit_lock_ = true
 position = Vector2(943, 622)
 zoom = Vector2(0.2, 0.2)
 script = ExtResource("4_v12hc")
-min_zoom = 0.2
-zoom_vue_globale = Vector2(0.2, 0.2)
+min_zoom = 0.1
+zoom_vue_globale = Vector2(0.2, 0.1)
 zoom_palier_image = 0.35
 cible_image = NodePath("../Sprite2D")
 

@@ -136,7 +136,7 @@ func spawner_un_objectif_vert(texte_question : String):
 	# --- SPAWN ---
 	var post_it = spawner_post_it_virtuel(texte_question, taille_post_it_vert, pos_calculee + decalage_random)
 	post_it.changer_couleur(vert_objectif)
-	
+	post_it.est_objectif_vert = true  # C'est une BASE valide pour une pile	
 	# On incrémente le compteur pour que le prochain se mette à côté
 	nombre_objectifs_verts_affiches += 1
 		
@@ -183,6 +183,7 @@ func trouver_position_libre_sur_table(taille_objet : Vector2) -> Vector2:
 func spawner_post_it(fiche : DonneeDeduction) -> Node:
 	# On appelle le virtuel en passant la taille JAUNE et "null" pour la position forcée
 	var nouveau_post_it = spawner_post_it_virtuel(fiche.titre, taille_post_it_jaune, null)
+	nouveau_post_it.est_objectif_vert = false
 	return nouveau_post_it
 
 func ajouter_case_bd(id_indice: String, texture: Texture2D, texte: String):
