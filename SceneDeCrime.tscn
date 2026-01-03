@@ -120,10 +120,9 @@ texture = ExtResource("1_ckmj2")
 [node name="EnqueteManager" type="Node" parent="." node_paths=PackedStringArray("bouton_vue_globale")]
 script = ExtResource("2_lgg38")
 base_de_donnees_deductions = Array[ExtResource("2_vpewm")]([ExtResource("3_ccf6n"), ExtResource("4_2nvyg"), ExtResource("5_ckmj2"), ExtResource("6_2lv5t"), ExtResource("7_1t8x8"), ExtResource("8_jx5qw"), ExtResource("9_m6jtr"), ExtResource("10_2nvyg"), ExtResource("12_2lv5t")])
-config_objectifs = {
-"Mafieux": "Qui sont ces hommes ?",
-"Shopkeeper": "Pourquoi a-t-il un oeil au beurre noir ?"
-}
+objectifs_demarrage = Array[String](["Qui sont ces personnes ?"])
+ids_indices_caches = Array[String](["Shopkeeper", "Mafieux"])
+questions_caches = Array[String](["Pourquoi ce commerçant a-t-il un oeil au beurre noir?", "Qui sont ces mecs louches ?"])
 bouton_vue_globale = NodePath("../FeedbackUI/BoutonVueGlobale")
 taille_post_it_jaune = Vector2(200, 200)
 taille_post_it_vert = Vector2(400, 400)

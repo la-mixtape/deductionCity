@@ -4,11 +4,24 @@ extends Node
 # Au lieu d'écrire le code ici, on glissera nos fiches dans cette liste via l'Inspecteur
 @export var base_de_donnees_deductions : Array[DonneeDeduction] = []
 
-@export var config_objectifs : Dictionary = {
-	"Shopkeeper": "Qui est le vendeur ?",
-	"Mafieux": "Quel est le mobile du fils ?", 
-	"Test": "test"
-}
+@export_group("Configuration Scénario")
+
+# 1. Ceux qui apparaissent tout de suite (Liste simple)
+@export_multiline var objectifs_demarrage : Array[String] = [
+	"Qui a tué la victime ?",
+	"Quelle est l'arme du crime ?"
+]
+
+# 2. Ceux qui apparaissent au clic (Dictionnaire ID -> Question)
+@export_group("Configuration Objectifs Cachés")
+# Liste 1 : Les IDs des indices (ex: "clueShopkeeper")
+@export var ids_indices_caches : Array[String] = []
+# Liste 2 : Les questions correspondantes (ex: "Quel est le lien ?")
+@export_multiline var questions_caches : Array[String] = []
+
+# On garde le dictionnaire pour la logique interne, mais on ne l'exporte plus
+var objectifs_caches : Dictionary = {}
+
 
 # --- VARIABLES D'ETAT ---
 var selection_actuelle : Array = []
@@ -53,8 +66,19 @@ func _ready():
 			tous_les_indices.append(enfant)
 	for fiche_existante in PartieGlobale.inventaire_deductions:
 			spawner_post_it(fiche_existante)
-			
-#	call_deferred("spawner_post_its_objectifs")
+	# On fusionne les deux tableaux de l'inspecteur
+	for i in range(min(ids_indices_caches.size(), questions_caches.size())):
+		var id = ids_indices_caches[i]
+		var question = questions_caches[i]
+		
+		# Sécurité pour éviter les champs vides
+		if id != "" and question != "":
+			objectifs_caches[id] = question		
+	call_deferred("lancer_objectifs_debut")
+
+func lancer_objectifs_debut():
+	for question in objectifs_demarrage:
+		spawner_un_objectif_vert(question)
 
 # Version simplifiée pour créer un post-it juste avec du texte
 # On ajoute un deuxième argument optionnel "pos_forcee"
@@ -208,16 +232,12 @@ func _on_indice_clique(indice_obj : Indice):
 	var id = indice_obj.id_indice
 	
 	# Est-ce que cet ID est dans notre dictionnaire de configuration ?
-	if id in config_objectifs:
-		# Oui ! On récupère le texte associé
-		var texte_question = config_objectifs[id]
-		
-		# On fait apparaître le post-it
+	if id in objectifs_caches:
+		var texte_question = objectifs_caches[id]
 		spawner_un_objectif_vert(texte_question)
+		objectifs_caches.erase(id) # On l'enlève pour ne pas le déclencher 2 fois
 		
-		# IMPORTANT : On retire l'entrée du dictionnaire pour ne pas 
-		# faire apparaître le post-it deux fois si on reclique !
-		config_objectifs.erase(id)
+		
 	
 	if indice_obj.est_selectionne:
 		# --- GESTION ANCIENNE (Logique déduction) ---
