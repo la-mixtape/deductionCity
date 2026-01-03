@@ -71,9 +71,22 @@ func detacher():
 
 func position_visuelle_sur_parent():
 	if parent_post_it:
-		# On se place à la position du parent + le décalage
-		# Note : Comme ils sont frères dans la scène, on utilise global_position
-		global_position = parent_post_it.global_position + offset_stacking
+		# --- MODIFICATION ---
+		# Au lieu d'un offset fixe, on calcule la position relative à la taille du parent.
+		
+		# On récupère la hauteur du parent
+		var hauteur_parent = parent_post_it.size.y
+		
+		# On définit de combien de pixels on veut laisser dépasser le parent (la zone de texte visible)
+		# Ici, on laisse 70% du parent visible, l'enfant s'accroche dans les 30% du bas.
+		# Vous pouvez ajuster le ratio (0.7) ou mettre une valeur fixe (ex: hauteur_parent - 60)
+		var offset_y = hauteur_parent * 0.7 
+		
+		var offset_dynamique = Vector2(0, offset_y)
+		
+		# Application de la position
+		global_position = parent_post_it.global_position + offset_dynamique
+		# --------------------
 
 func deplacer_pile(delta_mouvement : Vector2):
 	# Cette fonction est appelée par le parent quand il bouge
@@ -90,6 +103,11 @@ func ramener_pile_au_premier_plan():
 		enfant_post_it.ramener_pile_au_premier_plan()
 
 func trouver_cible_sous_souris() -> Node:
+	# Si je suis une base (Vert), je ne peux m'attacher à rien.
+	# Cela m'empêche de me stacker sur un autre Vert, 
+	# et aussi de m'attacher par erreur à mes propres enfants (Jaunes).
+	if est_objectif_vert:
+		return null
 	# On cherche un Post-It valide sous la souris
 	var tous_les_post_its = get_parent().get_children()
 	var ma_zone = get_global_rect()
