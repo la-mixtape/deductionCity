@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://c4hbk08v74jym"]
+[gd_scene load_steps=46 format=3 uid="uid://c4hbk08v74jym"]
 
 [ext_resource type="Texture2D" uid="uid://dt7a7bi15qop3" path="res://cork-board-cadre-bois.png" id="1_ckmj2"]
 [ext_resource type="Script" uid="uid://bayrl448ggk5o" path="res://EnqueteManager.gd" id="2_lgg38"]
@@ -15,7 +15,9 @@
 [ext_resource type="Resource" uid="uid://dy1oiglhjcj74" path="res://ded_nomShopkeeper.tres" id="10_2nvyg"]
 [ext_resource type="Texture2D" uid="uid://baf6nmxtg5hi2" path="res://scene7kv3.png" id="11_2nvyg"]
 [ext_resource type="Resource" uid="uid://cvfn82bbygcsk" path="res://ded_college.tres" id="12_2lv5t"]
+[ext_resource type="Resource" uid="uid://cjuugdq0ajcq7" path="res://ded_anna.tres" id="13_jx5qw"]
 [ext_resource type="Script" uid="uid://dk2f4vgxjet7f" path="res://BoutonVueGlobale.gd" id="14_2nvyg"]
+[ext_resource type="Resource" uid="uid://ck70aiiwl0u5i" path="res://ded_funding.tres" id="14_m6jtr"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ckmj2"]
 load_path = "res://.godot/imported/scene7kv3.png-7b1b021b61cd0f80753fa6a524f9c7f2.ctex"
@@ -84,13 +86,21 @@ region = Rect2(3367.7813, 3159.1943, 520.2583, 440.51074)
 atlas = SubResource("CompressedTexture2D_ckmj2")
 region = Rect2(2657.4067, 3159.7012, 242.00049, 124.000244)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_3h4in"]
+atlas = ExtResource("11_2nvyg")
+region = Rect2(3354.3, 1637.8002, 74.80005, 73.70007)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_yi3uw"]
 atlas = SubResource("CompressedTexture2D_ckmj2")
 region = Rect2(3706.063, 1433.9225, 51.52246, 42.760254)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_rgpxx"]
+atlas = ExtResource("11_2nvyg")
+region = Rect2(4002, 1137.2988, 68, 81.00012)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_rrojj"]
 atlas = SubResource("CompressedTexture2D_ckmj2")
-region = Rect2(4005.1887, 1139.5446, 72.52075, 79.73059)
+region = Rect2(3906.9998, 1334.294, 51.000244, 69)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_53w1n"]
 atlas = SubResource("CompressedTexture2D_ckmj2")
@@ -98,7 +108,23 @@ region = Rect2(4115.844, 1160.2035, 91.60498, 96.69446)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wyxke"]
 atlas = SubResource("CompressedTexture2D_ckmj2")
-region = Rect2(5490.687, 3088.6868, 68.626465, 66.698975)
+region = Rect2(3638.7305, 1194.7701, 110.10986, 160.93005)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hymql"]
+atlas = ExtResource("11_2nvyg")
+region = Rect2(5485.3354, 3088.0532, 72.416016, 66.88623)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_brj3g"]
+atlas = ExtResource("11_2nvyg")
+region = Rect2(5059.8174, 993.9126, 497.47266, 478.48547)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_033nt"]
+atlas = ExtResource("11_2nvyg")
+region = Rect2(3162.525, 3652.4895, 235.61792, 253.33374)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_usjbe"]
+atlas = ExtResource("11_2nvyg")
+region = Rect2(273.30792, 3246.9517, 313.74384, 350.76953)
 
 [node name="SceneDeCrime" type="Node2D"]
 position = Vector2(-6, 21)
@@ -113,16 +139,16 @@ mouse_filter = 2
 color = Color(0.52614474, 0.4183511, 0.27959567, 1)
 
 [node name="TableBackground_CorkTexture" type="Sprite2D" parent="."]
-position = Vector2(832, 511)
+position = Vector2(828.00006, 497)
 scale = Vector2(12.323151, 12.8097)
 texture = ExtResource("1_ckmj2")
 
 [node name="EnqueteManager" type="Node" parent="." node_paths=PackedStringArray("bouton_vue_globale")]
 script = ExtResource("2_lgg38")
-base_de_donnees_deductions = Array[ExtResource("2_vpewm")]([ExtResource("3_ccf6n"), ExtResource("4_2nvyg"), ExtResource("5_ckmj2"), ExtResource("6_2lv5t"), ExtResource("7_1t8x8"), ExtResource("8_jx5qw"), ExtResource("9_m6jtr"), ExtResource("10_2nvyg"), ExtResource("12_2lv5t")])
+base_de_donnees_deductions = Array[ExtResource("2_vpewm")]([ExtResource("3_ccf6n"), ExtResource("4_2nvyg"), ExtResource("5_ckmj2"), ExtResource("6_2lv5t"), ExtResource("7_1t8x8"), ExtResource("8_jx5qw"), ExtResource("9_m6jtr"), ExtResource("10_2nvyg"), ExtResource("12_2lv5t"), ExtResource("13_jx5qw"), ExtResource("14_m6jtr")])
 objectifs_demarrage = Array[String](["Qui sont ces personnes ?"])
-ids_indices_caches = Array[String](["Shopkeeper", "Mafieux"])
-questions_caches = Array[String](["Pourquoi ce commerçant a-t-il un oeil au beurre noir?", "Qui sont ces mecs louches ?"])
+ids_indices_caches = Array[String](["Shopkeeper", "TXTmessage"])
+questions_caches = Array[String](["Pourquoi ce commerçant a-t-il un oeil au beurre noir?", "Qui a braqué ces mecs louches ?"])
 bouton_vue_globale = NodePath("../FeedbackUI/BoutonVueGlobale")
 taille_post_it_jaune = Vector2(400, 400)
 taille_post_it_vert = Vector2(400, 400)
@@ -140,7 +166,7 @@ position = Vector2(943, 622)
 zoom = Vector2(0.2, 0.2)
 script = ExtResource("4_v12hc")
 min_zoom = 0.1
-zoom_vue_globale = Vector2(0.2, 0.1)
+zoom_vue_globale = Vector2(0.2, -0.055)
 zoom_palier_image = 0.35
 cible_image = NodePath("../Sprite2D")
 
@@ -168,7 +194,7 @@ polygon = PackedVector2Array(110, 18, 110, 2, 104, -12, 90, -18, 82, -17, 82, -2
 script = ExtResource("5_82bwi")
 id_indice = "Moneypot"
 image_bd = SubResource("AtlasTexture_2lv5t")
-texte_bd = "Une caisse"
+texte_bd = "Une caisse vide"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="clueMoneypot"]
 position = Vector2(333, 1195)
@@ -227,21 +253,21 @@ polygon = PackedVector2Array(369, 170, 363, 211, 365, 277, 397, 285, 445, 184)
 
 [node name="clueListe" type="Area2D" parent="."]
 script = ExtResource("5_82bwi")
-id_indice = "TXTmessage"
+id_indice = "Liste"
 image_bd = SubResource("AtlasTexture_octlv")
 texte_bd = "Une liste de racket, Lopez n'a pas payé"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="clueListe"]
-position = Vector2(1472, 1053)
+position = Vector2(1468, 1054)
 polygon = PackedVector2Array(763, 390, 760, 427, 781, 430, 800, 435, 803, 380)
 
-[node name="clueFils" type="Area2D" parent="."]
+[node name="clueBen" type="Area2D" parent="."]
 script = ExtResource("5_82bwi")
-id_indice = "Fils"
+id_indice = "Ben"
 image_bd = SubResource("AtlasTexture_1l2ey")
 texte_bd = "Un gamin, il a pas l'air bien"
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="clueFils"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="clueBen"]
 position = Vector2(296, -404)
 polygon = PackedVector2Array(0, -4, 25, -20, 85, 2, 91, 61, 84, 102, 117, 111, 134, 157, -23, 163, 1, 94, -18, 30)
 
@@ -285,13 +311,13 @@ texte_bd = "Un masque de ski, parfait pour un braquage"
 position = Vector2(115, 223)
 polygon = PackedVector2Array(0, -4, 25, -13, 49, -5, 79, 29, 88, 148, 45, 190, -4, 193, -41, 132, -33, 50, -21, 21)
 
-[node name="clueDaughter" type="Area2D" parent="."]
+[node name="clueLisa" type="Area2D" parent="."]
 script = ExtResource("5_82bwi")
-id_indice = "Fille"
+id_indice = "Lisa"
 image_bd = SubResource("AtlasTexture_ydocw")
 texte_bd = "Une ado"
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="clueDaughter"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="clueLisa"]
 position = Vector2(938, 1011)
 polygon = PackedVector2Array(8, -19, 28, -24, 56, -19, 79, 5, 84, 44, 66, 80, 66, 86, 86, 114, 95, 162, 114, 214, 112, 303, 69, 164, 74, 233, 77, 271, 75, 308, 70, 323, 63, 386, 35, 468, 37, 529, 63, 569, 22, 551, -2, 543, -27, 522, -52, 453, -11, 405, -23, 320, 4, 285, 41, 242, 40, 221, 34, 206, 17, 183, -2, 176, -9, 176, -17, 172, -29, 172, -49, 211, -37, 289, -68, 295, -86, 241, -49, 119, -49, 93, -41, 61, -21, 48, -19, 36, -15, 34, -20, 28, -19, 17, -3.0612183, -4.591797)
 
@@ -308,7 +334,7 @@ polygon = PackedVector2Array(80, -1, 79, 35, -3, 35, -2, -1)
 [node name="clueCashbag" type="Area2D" parent="."]
 script = ExtResource("5_82bwi")
 id_indice = "Cashbag"
-image_bd = SubResource("AtlasTexture_yi3uw")
+image_bd = SubResource("AtlasTexture_3h4in")
 texte_bd = "Un sac de cash"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="clueCashbag"]
@@ -319,7 +345,7 @@ polygon = PackedVector2Array(27, 2, 26, 16, 18, 23, 7, 24, 3, 2)
 script = ExtResource("5_82bwi")
 id_indice = "Gun"
 image_bd = SubResource("AtlasTexture_yi3uw")
-texte_bd = "Un sac de cash"
+texte_bd = "Une arme à feu"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="clueGun"]
 position = Vector2(996, 220)
@@ -328,12 +354,22 @@ polygon = PackedVector2Array(13, 4, 10, 6, 6, 4, 4, 4, 2, 3, 0, 5, -3, 3, 2, -5)
 [node name="clueEcoles" type="Area2D" parent="."]
 script = ExtResource("5_82bwi")
 id_indice = "PosterEcole"
-image_bd = SubResource("AtlasTexture_rrojj")
+image_bd = SubResource("AtlasTexture_rgpxx")
 texte_bd = "Une liste de candidatures à des écoles de commerce"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="clueEcoles"]
 position = Vector2(1135, 96)
 polygon = PackedVector2Array(11, -17, 12, 17, -17, 17, -17, -17)
+
+[node name="clueMug" type="Area2D" parent="."]
+script = ExtResource("5_82bwi")
+id_indice = "TasseLisa"
+image_bd = SubResource("AtlasTexture_rrojj")
+texte_bd = "La tasse de Lisa"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="clueMug"]
+position = Vector2(1097, 179)
+polygon = PackedVector2Array(-1, -10, 1, 15, -15, 15, -15, -10)
 
 [node name="clueBudget" type="Area2D" parent="."]
 script = ExtResource("5_82bwi")
@@ -358,12 +394,42 @@ polygon = PackedVector2Array(40, -9, 40, 61, -9, 60, -8.163269, -9.693878)
 [node name="clueFeuilleNoms" type="Area2D" parent="."]
 script = ExtResource("5_82bwi")
 id_indice = "FeuilleNoms"
-image_bd = SubResource("AtlasTexture_wyxke")
+image_bd = SubResource("AtlasTexture_hymql")
 texte_bd = "Un poster de foot"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="clueFeuilleNoms"]
 position = Vector2(1781, 945)
 polygon = PackedVector2Array(26, -10, 22, 21, -7, 21, -8.163269, -9.693878)
+
+[node name="clueAnna" type="Area2D" parent="."]
+script = ExtResource("5_82bwi")
+id_indice = "Anna"
+image_bd = SubResource("AtlasTexture_brj3g")
+texte_bd = "Une ado, au téléphone, elle a l'air heureuse"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="clueAnna"]
+position = Vector2(1667, 493)
+polygon = PackedVector2Array(148, -324, 128, 29, -7, 21, 27, -147, -14, -211, -106, -230, -55, -439, 39, -462)
+
+[node name="clueSam" type="Area2D" parent="."]
+script = ExtResource("5_82bwi")
+id_indice = "Sam"
+image_bd = SubResource("AtlasTexture_033nt")
+texte_bd = "Un jeune enfant, il a l'air sérieux"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="clueSam"]
+position = Vector2(961, 1488)
+polygon = PackedVector2Array(-126, -277, -119, -249, -121, -199, -89, -98, -114, -94, -115, -20, -207, -23, -188, -61, -217, -109, -204, -200, -213, -263, -189, -284, -153, -290)
+
+[node name="clueTagAnna" type="Area2D" parent="."]
+script = ExtResource("5_82bwi")
+id_indice = "TagAnna"
+image_bd = SubResource("AtlasTexture_usjbe")
+texte_bd = "Un jeune enfant, il a l'air sérieux"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="clueTagAnna"]
+position = Vector2(92, 1135)
+polygon = PackedVector2Array(-475, -23, -571, 27, -608, -100, -512, -126)
 
 [node name="Area2D" type="Area2D" parent="."]
 
@@ -412,16 +478,20 @@ layout_mode = 2
 [connection signal="input_event" from="clueMobsters" to="clueMobsters" method="_on_input_event"]
 [connection signal="input_event" from="clueTXT" to="clueTXT" method="_on_input_event"]
 [connection signal="input_event" from="clueListe" to="clueListe" method="_on_input_event"]
-[connection signal="input_event" from="clueFils" to="clueFils" method="_on_input_event"]
+[connection signal="input_event" from="clueBen" to="clueBen" method="_on_input_event"]
 [connection signal="input_event" from="clueRobot" to="clueRobot" method="_on_input_event"]
 [connection signal="input_event" from="clueRobotAd" to="clueRobotAd" method="_on_input_event"]
 [connection signal="input_event" from="clueMafia" to="clueMafia" method="_on_input_event"]
 [connection signal="input_event" from="clueSkimask" to="clueSkimask" method="_on_input_event"]
-[connection signal="input_event" from="clueDaughter" to="clueDaughter" method="_on_input_event"]
+[connection signal="input_event" from="clueLisa" to="clueLisa" method="_on_input_event"]
 [connection signal="input_event" from="clueName" to="clueName" method="_on_input_event"]
 [connection signal="input_event" from="clueCashbag" to="clueCashbag" method="_on_input_event"]
 [connection signal="input_event" from="clueGun" to="clueGun" method="_on_input_event"]
 [connection signal="input_event" from="clueEcoles" to="clueEcoles" method="_on_input_event"]
+[connection signal="input_event" from="clueMug" to="clueMug" method="_on_input_event"]
 [connection signal="input_event" from="clueBudget" to="clueBudget" method="_on_input_event"]
 [connection signal="input_event" from="cluePosterFoot" to="cluePosterFoot" method="_on_input_event"]
 [connection signal="input_event" from="clueFeuilleNoms" to="clueFeuilleNoms" method="_on_input_event"]
+[connection signal="input_event" from="clueAnna" to="clueAnna" method="_on_input_event"]
+[connection signal="input_event" from="clueSam" to="clueSam" method="_on_input_event"]
+[connection signal="input_event" from="clueTagAnna" to="clueTagAnna" method="_on_input_event"]

@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_lp1vs")
-titre = "Les mafieux se sont fait braqué par quelqu'un de cette famille"
-indices_requis = Array[String](["TXTmessage", "Cashbag"])
-description_victoire = "Les mafieux se sont fait braqué par quelqu'un de cette famille"
+titre = "Le commerçant n'a pas payé les mafieux"
+indices_requis = Array[String](["Liste", "Moneypot"])
+description_victoire = "Le commerçant n'a pas payé les mafieux"
 metadata/_custom_type_script = "uid://cles6vrihk2an"

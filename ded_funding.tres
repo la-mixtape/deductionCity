@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="DonneeDeduction" load_steps=2 format=3 uid="uid://ck70aiiwl0u5i"]
+
+[ext_resource type="Script" uid="uid://cles6vrihk2an" path="res://DonneeDeduction.gd" id="1_m5g04"]
+
+[resource]
+script = ExtResource("1_m5g04")
+titre = "Ses parents lui ont donné l'argent de la caisse"
+indices_requis = Array[String](["PosterEcole", "PosterBudget", "Moneypot"])
+description_victoire = "Ses parents lui ont donné l'argent de la caisse"
+metadata/_custom_type_script = "uid://cles6vrihk2an"

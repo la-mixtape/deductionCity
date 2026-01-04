@@ -6,5 +6,5 @@
 script = ExtResource("1_rpchp")
 titre = "Ces hommes sont des mafieux"
 indices_requis = Array[String](["Mafieux", "TagMafia"])
-description_victoire = "Ces hommes sont des mafieux"
+description_victoire = "Ces mecs sont des mafieux"
 metadata/_custom_type_script = "uid://cles6vrihk2an"

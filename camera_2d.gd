@@ -3,7 +3,7 @@ extends Camera2D
 # --- Paramètres modifiables ---
 @export var zoom_speed : float = 0.1
 @export var min_zoom : float = 0.3
-@export var max_zoom : float = 3.0
+@export var max_zoom : float = 4.5
 @export var drag_button : MouseButton = MOUSE_BUTTON_RIGHT
 
 # La vue "Bureau Détective"

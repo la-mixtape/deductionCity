@@ -5,6 +5,6 @@
 [resource]
 script = ExtResource("1_tdyuv")
 titre = "Cette fille s'appel Julia Lopez"
-indices_requis = Array[String](["Fille", "Nom"])
-description_victoire = "Cette fille s'appel Julia Lopez"
+indices_requis = Array[String](["Lisa", "Nom"])
+description_victoire = "Cette fille s'appel Lisa Lopez"
 metadata/_custom_type_script = "uid://cles6vrihk2an"

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="DonneeDeduction" load_steps=2 format=3 uid="uid://cjuugdq0ajcq7"]
+
+[ext_resource type="Script" uid="uid://cles6vrihk2an" path="res://DonneeDeduction.gd" id="1_u8esx"]
+
+[resource]
+script = ExtResource("1_u8esx")
+titre = "Elle est contente du tag de son amoureux"
+indices_requis = Array[String](["Anna", "TagAnna"])
+description_victoire = "Elle est contente du tag de son amoureux"
+metadata/_custom_type_script = "uid://cles6vrihk2an"
