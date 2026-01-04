@@ -23,6 +23,7 @@ extends Node
 var post_its_actifs_par_titre : Dictionary = {} # Pour retrouver nos post-its.
 
 @export var texture_point_interrogation : Texture2D # Glissez votre image "?" ici dans l'inspecteur
+@export var texture_echec : Texture2D
 var case_mystere_active : Node = null # Pour garder une trace de la case "?"
 
 # On garde le dictionnaire pour la logique interne, mais on ne l'exporte plus
@@ -263,7 +264,28 @@ func _on_indice_clique(indice_obj : Indice):
 			verifier_hypotheses()
 		else:
 			print("Incohérence détectée avec l'objet : ", id)
+			# 1. On bloque tout pour que le joueur voie son erreur
+			input_bloque = true
+			
+			# 2. Si une case "?" est affichée, on la transforme en alerte
+			if is_instance_valid(case_mystere_active):
+				var tex_fail = texture_echec
+				# Sécurité si vous oubliez de mettre l'image
+				if tex_fail == null: tex_fail = preload("res://icon.svg") 
+				
+				# On réutilise setup_case : cela change l'image ET rejoue le petit "pop"
+				# Le clignotement continuera (en rouge), ce qui renforce l'effet d'alarme
+				case_mystere_active.setup_case(tex_fail, "Mmmh...")
+				
+				# Optionnel : Forcer la couleur en rouge si votre image est blanche
+				# case_mystere_active.modulate = Color.RED 
+			
+			# 3. On laisse le joueur contempler son erreur pendant 1 seconde
+			await get_tree().create_timer(1.0).timeout
+			
+			# 4. On nettoie tout et on rend la main
 			tout_reset()
+			input_bloque = false
 	else:
 		# --- CAS : RETRAIT D'UN INDICE ---
 		if id in selection_actuelle:

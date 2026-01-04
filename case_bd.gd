@@ -6,7 +6,9 @@ extends PanelContainer
 
 func demarrer_clignotement_mystere():
 	if anim_player:
-		anim_player.play("clignotement_lent")
+		anim_player.play("clignotement_lent") # Le nom doit être EXACTEMENT celui de l'éditeur
+	else:
+		print("ERREUR : Pas d'AnimationPlayer trouvé dans CaseBD")
 
 # Fonction pour configurer la case
 func setup_case(texture_image: Texture2D, texte: String):

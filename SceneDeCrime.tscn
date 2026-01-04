@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://c4hbk08v74jym"]
+[gd_scene load_steps=50 format=3 uid="uid://c4hbk08v74jym"]
 
 [ext_resource type="Texture2D" uid="uid://dt7a7bi15qop3" path="res://cork-board-cadre-bois.png" id="1_ckmj2"]
 [ext_resource type="Script" uid="uid://bayrl448ggk5o" path="res://EnqueteManager.gd" id="2_lgg38"]
@@ -19,10 +19,15 @@
 [ext_resource type="Script" uid="uid://dk2f4vgxjet7f" path="res://BoutonVueGlobale.gd" id="14_2nvyg"]
 [ext_resource type="Resource" uid="uid://ck70aiiwl0u5i" path="res://ded_funding.tres" id="14_m6jtr"]
 [ext_resource type="Texture2D" uid="uid://b1ggtowc01tgu" path="res://questionmark.png" id="15_m6jtr"]
+[ext_resource type="Texture2D" uid="uid://qxtly4hbao06" path="res://questionmark_red.png" id="16_vumj8"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_l1v2g"]
 atlas = ExtResource("15_m6jtr")
 region = Rect2(50.45514, 16.429901, 90.90924, 102.47951)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yfu36"]
+atlas = ExtResource("16_vumj8")
+region = Rect2(46.281525, 0, 89.25635, 127.39637)
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ckmj2"]
 load_path = "res://.godot/imported/scene7kv3.png-7b1b021b61cd0f80753fa6a524f9c7f2.ctex"
@@ -156,6 +161,7 @@ ids_indices_caches = Array[String](["Shopkeeper", "TXTmessage"])
 questions_caches = Array[String](["Pourquoi ce commerçant a-t-il un oeil au beurre noir?", "Qui a braqué ces mecs louches ?"])
 camera_scene = NodePath("../Camera2D")
 texture_point_interrogation = SubResource("AtlasTexture_l1v2g")
+texture_echec = SubResource("AtlasTexture_yfu36")
 bouton_vue_globale = NodePath("../FeedbackUI/BoutonVueGlobale")
 taille_post_it_jaune = Vector2(400, 400)
 taille_post_it_vert = Vector2(400, 400)
