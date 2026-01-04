@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://c4hbk08v74jym"]
+[gd_scene load_steps=48 format=3 uid="uid://c4hbk08v74jym"]
 
 [ext_resource type="Texture2D" uid="uid://dt7a7bi15qop3" path="res://cork-board-cadre-bois.png" id="1_ckmj2"]
 [ext_resource type="Script" uid="uid://bayrl448ggk5o" path="res://EnqueteManager.gd" id="2_lgg38"]
@@ -18,6 +18,11 @@
 [ext_resource type="Resource" uid="uid://cjuugdq0ajcq7" path="res://ded_anna.tres" id="13_jx5qw"]
 [ext_resource type="Script" uid="uid://dk2f4vgxjet7f" path="res://BoutonVueGlobale.gd" id="14_2nvyg"]
 [ext_resource type="Resource" uid="uid://ck70aiiwl0u5i" path="res://ded_funding.tres" id="14_m6jtr"]
+[ext_resource type="Texture2D" uid="uid://b1ggtowc01tgu" path="res://questionmark.png" id="15_m6jtr"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l1v2g"]
+atlas = ExtResource("15_m6jtr")
+region = Rect2(50.45514, 16.429901, 90.90924, 102.47951)
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ckmj2"]
 load_path = "res://.godot/imported/scene7kv3.png-7b1b021b61cd0f80753fa6a524f9c7f2.ctex"
@@ -143,12 +148,14 @@ position = Vector2(828.00006, 497)
 scale = Vector2(12.323151, 12.8097)
 texture = ExtResource("1_ckmj2")
 
-[node name="EnqueteManager" type="Node" parent="." node_paths=PackedStringArray("bouton_vue_globale")]
+[node name="EnqueteManager" type="Node" parent="." node_paths=PackedStringArray("camera_scene", "bouton_vue_globale")]
 script = ExtResource("2_lgg38")
 base_de_donnees_deductions = Array[ExtResource("2_vpewm")]([ExtResource("3_ccf6n"), ExtResource("4_2nvyg"), ExtResource("5_ckmj2"), ExtResource("6_2lv5t"), ExtResource("7_1t8x8"), ExtResource("8_jx5qw"), ExtResource("9_m6jtr"), ExtResource("10_2nvyg"), ExtResource("12_2lv5t"), ExtResource("13_jx5qw"), ExtResource("14_m6jtr")])
 objectifs_demarrage = Array[String](["Qui sont ces personnes ?"])
 ids_indices_caches = Array[String](["Shopkeeper", "TXTmessage"])
 questions_caches = Array[String](["Pourquoi ce commerçant a-t-il un oeil au beurre noir?", "Qui a braqué ces mecs louches ?"])
+camera_scene = NodePath("../Camera2D")
+texture_point_interrogation = SubResource("AtlasTexture_l1v2g")
 bouton_vue_globale = NodePath("../FeedbackUI/BoutonVueGlobale")
 taille_post_it_jaune = Vector2(400, 400)
 taille_post_it_vert = Vector2(400, 400)
@@ -166,7 +173,7 @@ position = Vector2(943, 622)
 zoom = Vector2(0.2, 0.2)
 script = ExtResource("4_v12hc")
 min_zoom = 0.1
-zoom_vue_globale = Vector2(0.2, -0.055)
+zoom_vue_globale = Vector2(0.2, 0.2)
 zoom_palier_image = 0.35
 cible_image = NodePath("../Sprite2D")
 

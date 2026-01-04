@@ -2,6 +2,11 @@ extends PanelContainer
 
 @onready var image_rect = $VBoxContainer/TextureRect
 @onready var label_texte = $VBoxContainer/Label
+@onready var anim_player = $AnimationPlayer
+
+func demarrer_clignotement_mystere():
+	if anim_player:
+		anim_player.play("clignotement_lent")
 
 # Fonction pour configurer la case
 func setup_case(texture_image: Texture2D, texte: String):

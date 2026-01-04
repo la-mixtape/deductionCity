@@ -19,6 +19,12 @@ extends Node
 # Liste 2 : Les questions correspondantes (ex: "Quel est le lien ?")
 @export_multiline var questions_caches : Array[String] = []
 
+@export var camera_scene : Camera2D # <--- GLISSEZ VOTRE CAMERA ICI DANS L'INSPECTEUR
+var post_its_actifs_par_titre : Dictionary = {} # Pour retrouver nos post-its.
+
+@export var texture_point_interrogation : Texture2D # Glissez votre image "?" ici dans l'inspecteur
+var case_mystere_active : Node = null # Pour garder une trace de la case "?"
+
 # On garde le dictionnaire pour la logique interne, mais on ne l'exporte plus
 var objectifs_caches : Dictionary = {}
 
@@ -180,10 +186,12 @@ func trouver_position_libre_sur_table(taille_objet : Vector2) -> Vector2:
 		rayon += increment_rayon * 0.1
 		
 	return Vector2.ZERO
+	
 func spawner_post_it(fiche : DonneeDeduction) -> Node:
 	# On appelle le virtuel en passant la taille JAUNE et "null" pour la position forcée
 	var nouveau_post_it = spawner_post_it_virtuel(fiche.titre, taille_post_it_jaune, null)
 	nouveau_post_it.est_objectif_vert = false
+	post_its_actifs_par_titre[fiche.titre] = nouveau_post_it
 	return nouveau_post_it
 
 func ajouter_case_bd(id_indice: String, texture: Texture2D, texte: String):
@@ -232,36 +240,40 @@ func _on_indice_clique(indice_obj : Indice):
 
 	var id = indice_obj.id_indice
 	
-	# Est-ce que cet ID est dans notre dictionnaire de configuration ?
+	# (Gestion objectifs cachés existante...)
 	if id in objectifs_caches:
 		var texte_question = objectifs_caches[id]
 		spawner_un_objectif_vert(texte_question)
-		objectifs_caches.erase(id) # On l'enlève pour ne pas le déclencher 2 fois
-		
-		
+		objectifs_caches.erase(id) 
 	
 	if indice_obj.est_selectionne:
-		# --- GESTION ANCIENNE (Logique déduction) ---
+		# --- CAS : AJOUT D'UN INDICE ---
 		var test_selection = selection_actuelle.duplicate()
 		test_selection.append(id)
 		
 		if est_combinaison_potentielle(test_selection):
 			selection_actuelle.append(id)
 			
-			# --- NOUVEAU : AFFICHER LA CASE BD ---
-			ajouter_case_bd(id, indice_obj.image_bd, indice_obj.texte_bd)			# -------------------------------------
+			# 1. D'abord on affiche la VRAIE case de l'indice cliqué
+			ajouter_case_bd(id, indice_obj.image_bd, indice_obj.texte_bd)
+			
+			# 2. Ensuite, on recalcule le "?" (qui se mettra EN DESSOUS)
+			mettre_a_jour_case_mystere()
 			
 			verifier_hypotheses()
 		else:
 			print("Incohérence détectée avec l'objet : ", id)
 			tout_reset()
 	else:
-		# Désélection
+		# --- CAS : RETRAIT D'UN INDICE ---
 		if id in selection_actuelle:
 			selection_actuelle.erase(id)
-			# --- NOUVEAU : RETIRER LA CASE BD ---
+			
+			# 1. On retire la vraie case
 			retirer_case_bd(id)
-			# ------------------------------------
+			
+			# 2. On met à jour le "?" (il peut réapparaître ou disparaître)
+			mettre_a_jour_case_mystere()
 
 func verifier_hypotheses():
 	# On parcourt nos fiches de données configurées dans l'inspecteur
@@ -274,7 +286,75 @@ func verifier_hypotheses():
 		if selection_actuelle == hypothese:
 			valider_deduction(fiche) # On passe la fiche entière pour avoir le titre !
 
+func mettre_a_jour_case_mystere():
+	# 1. On nettoie toujours l'ancienne case mystère pour éviter les doublons ou problèmes d'ordre
+	if is_instance_valid(case_mystere_active):
+		case_mystere_active.queue_free()
+		case_mystere_active = null
+	
+	# Si rien n'est sélectionné, on ne montre rien
+	if selection_actuelle.is_empty():
+		return
+
+	# 2. On cherche quelle déduction le joueur vise
+	var fiche_cible = trouver_deduction_cible(selection_actuelle)
+	
+	# Si la combinaison est invalide (ne mène à rien), on ne montre pas de suite
+	if fiche_cible == null:
+		return
+		
+	# 3. On compare : A-t-on tout trouvé ?
+	var nombre_requis = fiche_cible.indices_requis.size()
+	var nombre_actuel = selection_actuelle.size()
+	
+	if nombre_actuel < nombre_requis:
+		# Il manque des éléments -> On affiche le "?"
+		ajouter_case_mystere_visuelle()
+
+func ajouter_case_mystere_visuelle():
+	# Création de la case (comme une vraie case BD)
+	var nouvelle_case = scene_case_bd.instantiate()
+	conteneur_cases.add_child(nouvelle_case)
+	
+	# On la configure avec le "?" et un texte explicatif (ou vide)
+	# Note : Assurez-vous d'avoir assigné une texture dans l'inspecteur !
+	var tex = texture_point_interrogation
+	# Fallback si vous avez oublié de mettre l'image
+	if tex == null: tex = preload("res://icon.svg") 
+	
+	nouvelle_case.setup_case(tex, "?")
+	
+	# On appelle la fonction qu'on vient de créer dans le script de la case
+	if nouvelle_case.has_method("demarrer_clignotement_mystere"):
+		nouvelle_case.demarrer_clignotement_mystere()
+		
+	# On stocke la référence
+	case_mystere_active = nouvelle_case
+	
+	# Scroll auto vers le bas
+	await get_tree().process_frame
+	var scroll_container = conteneur_cases.get_parent()
+	if scroll_container is ScrollContainer:
+		scroll_container.scroll_vertical = scroll_container.get_v_scroll_bar().max_value
+
 func valider_deduction(fiche_gagnante : DonneeDeduction):
+	# On vérifie si cette déduction est déjà dans l'inventaire du joueur
+	if fiche_gagnante in PartieGlobale.inventaire_deductions:
+		print("Déduction déjà connue : ", fiche_gagnante.titre)
+		
+		# 1. On cherche si on a le post-it correspondant sur la table
+		if fiche_gagnante.titre in post_its_actifs_par_titre:
+			var post_it_existant = post_its_actifs_par_titre[fiche_gagnante.titre]
+			
+			# 2. Si on a trouvé le post-it et la caméra, on agit !
+			if is_instance_valid(post_it_existant) and camera_scene:
+				# La caméra bouge vers le post-it
+				camera_scene.focus_sur_position(post_it_existant.global_position)
+				# Le post-it clignote
+				post_it_existant.jouer_effet_focus()
+		
+		tout_reset() 
+		return
 	print("DÉDUCTION VALIDÉE : ", fiche_gagnante.titre)
 	PartieGlobale.ajouter_deduction(fiche_gagnante)
 	
@@ -300,6 +380,12 @@ func valider_deduction(fiche_gagnante : DonneeDeduction):
 
 func tout_reset():
 	selection_actuelle.clear()
+	
+	# Nettoyage case mystère
+	if is_instance_valid(case_mystere_active):
+		case_mystere_active.queue_free()
+		case_mystere_active = null
+		
 	for indice in tous_les_indices:
 		indice.deselectionner()
 		retirer_case_bd(indice.id_indice)
@@ -320,3 +406,10 @@ func est_sous_ensemble(petit_tab: Array, grand_tab: Array) -> bool:
 		if not element in grand_tab:
 			return false
 	return true
+	
+func trouver_deduction_cible(liste_test: Array) -> DonneeDeduction:
+	# On cherche quelle fiche contient tous les éléments actuellement sélectionnés
+	for fiche in base_de_donnees_deductions:
+		if est_sous_ensemble(liste_test, fiche.indices_requis):
+			return fiche
+	return null	

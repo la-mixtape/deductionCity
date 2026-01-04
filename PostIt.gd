@@ -192,3 +192,21 @@ func changer_couleur(nouvelle_couleur : Color):
 		else:
 			# Fallback : Si vous utilisez une image (Texture), on la teinte
 			self_modulate = nouvelle_couleur
+
+func jouer_effet_focus():
+	# On s'assure d'être au premier plan pour être vu
+	ramener_pile_au_premier_plan()
+	
+	var tween = create_tween()
+	# Petit effet de "pop" (agrandissement) + Flash couleur
+	tween.tween_property(self, "scale", Vector2(1.2, 1.2), 0.1)
+	tween.parallel().tween_property(self, "modulate", Color(1.5, 1.5, 1.5), 0.1) # Plus lumineux
+	
+	tween.tween_property(self, "scale", Vector2(1.0, 1.0), 0.2)
+	tween.parallel().tween_property(self, "modulate", Color.WHITE, 0.2)
+	
+	# On le fait 2 fois
+	tween.tween_property(self, "scale", Vector2(1.2, 1.2), 0.1)
+	tween.tween_property(self, "scale", Vector2(1.0, 1.0), 0.1)
+	tween.tween_property(self, "scale", Vector2(1.2, 1.2), 0.1)
+	tween.tween_property(self, "scale", Vector2(1.0, 1.0), 0.1)

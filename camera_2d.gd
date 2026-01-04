@@ -98,6 +98,20 @@ func snap_camera_sur_image():
 	if cible_image:
 		tween_snap.tween_property(self, "position", cible_image.global_position, 0.25)
 
+func focus_sur_position(cible_pos: Vector2):
+	# On tue le tween en cours s'il y en a un
+	if tween_snap: tween_snap.kill()
+	
+	tween_snap = create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	tween_snap.set_parallel(true)
+	
+	# 1. Déplacement vers la cible
+	tween_snap.tween_property(self, "position", cible_pos, 0.8)
+	
+	# 2. Zoom confortable (par exemple 1.0 pour lire le post-it)
+	# Vous pouvez ajuster ce 1.0 selon la taille de vos textes
+	tween_snap.tween_property(self, "zoom", Vector2(0.5, 0.5), 0.8)
+
 func activer_vue_globale(target_position : Vector2 = Vector2.ZERO):
 	if tween_snap: tween_snap.kill()
 	tween_snap = create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
