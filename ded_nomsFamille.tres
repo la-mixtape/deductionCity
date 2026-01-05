@@ -5,6 +5,7 @@
 [resource]
 script = ExtResource("1_u5w3s")
 titre = "Le commerçant s'appel Jean Lopez"
-indices_requis = Array[String](["Nom", "Shopkeeper"])
+indices_requis = Array[String](["Nom", "FeuilleNoms"])
+conclusions_jaunes = Array[String](["Jean Lopez", "Léah Lopez", "Lisa Lopez", "Anna Lopez", "Ben Lopez", "Sam Lopez"])
 description_victoire = "Le commerçant s'appel Jean Lopez"
 metadata/_custom_type_script = "uid://cles6vrihk2an"

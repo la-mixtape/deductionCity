@@ -20,7 +20,7 @@ extends Node
 @export_multiline var questions_caches : Array[String] = []
 
 @export var camera_scene : Camera2D # <--- GLISSEZ VOTRE CAMERA ICI DANS L'INSPECTEUR
-var post_its_actifs_par_titre : Dictionary = {} # Pour retrouver nos post-its.
+var post_its_actifs_par_titre : Dictionary = {}
 
 @export var texture_point_interrogation : Texture2D # Glissez votre image "?" ici dans l'inspecteur
 @export var texture_echec : Texture2D
@@ -72,7 +72,7 @@ func _ready():
 			enfant.mouse_exited.connect(_on_souris_sort_indice)
 			tous_les_indices.append(enfant)
 	for fiche_existante in PartieGlobale.inventaire_deductions:
-			spawner_post_it(fiche_existante)
+			generer_recompenses_deduction(fiche_existante)
 	# On fusionne les deux tableaux de l'inspecteur
 	for i in range(min(ids_indices_caches.size(), questions_caches.size())):
 		var id = ids_indices_caches[i]
@@ -146,6 +146,7 @@ func spawner_un_objectif_vert(texte_question : String):
 	post_it.est_objectif_vert = true  # C'est une BASE valide pour une pile	
 	# On incrémente le compteur pour que le prochain se mette à côté
 	nombre_objectifs_verts_affiches += 1
+	return post_it
 		
 func trouver_position_libre_sur_table(taille_objet : Vector2) -> Vector2:
 	# 1. On définit la zone interdite (l'image centrale)
@@ -188,12 +189,33 @@ func trouver_position_libre_sur_table(taille_objet : Vector2) -> Vector2:
 		
 	return Vector2.ZERO
 	
-func spawner_post_it(fiche : DonneeDeduction) -> Node:
-	# On appelle le virtuel en passant la taille JAUNE et "null" pour la position forcée
-	var nouveau_post_it = spawner_post_it_virtuel(fiche.titre, taille_post_it_jaune, null)
-	nouveau_post_it.est_objectif_vert = false
-	post_its_actifs_par_titre[fiche.titre] = nouveau_post_it
-	return nouveau_post_it
+func generer_recompenses_deduction(fiche : DonneeDeduction) -> Array:
+	var nouveaux_nodes : Array = []
+	
+	# 1. On vérifie s'il y a des récompenses définies, sinon on utilise le titre (rétro-compatibilité)
+	var textes_jaunes = fiche.conclusions_jaunes.duplicate()
+	var textes_verts = fiche.questions_vertes.duplicate()
+	
+	if textes_jaunes.is_empty() and textes_verts.is_empty():
+		textes_jaunes.append(fiche.titre) # Fallback : on crée un jaune avec le titre
+	
+	# 2. Génération des Jaunes (Conclusions)
+	for texte in textes_jaunes:
+		# Position auto (null) et taille jaune
+		var p = spawner_post_it_virtuel(texte, taille_post_it_jaune, null)
+		p.est_objectif_vert = false
+		nouveaux_nodes.append(p)
+		
+	# 3. Génération des Verts (Nouvelles Questions)
+	for texte in textes_verts:
+		# Utilise ta logique de placement à gauche
+		var p = spawner_un_objectif_vert(texte)
+		nouveaux_nodes.append(p)
+	
+	# 4. On enregistre tout ça sous le titre de la fiche
+	post_its_actifs_par_titre[fiche.titre] = nouveaux_nodes
+	
+	return nouveaux_nodes
 
 func ajouter_case_bd(id_indice: String, texture: Texture2D, texte: String):
 	# Si la case existe déjà ou si pas d'image définie, on ignore
@@ -390,7 +412,7 @@ func valider_deduction(fiche_gagnante : DonneeDeduction):
 	
 	# 2. SPAWN ET INDICATEUR
 	# On récupère l'instance du nouveau post-it pour la donner à la flèche
-	var nouveau_post_it = spawner_post_it(fiche_gagnante)
+	var nouveaux_post_its = generer_recompenses_deduction(fiche_gagnante)
 
 	if bouton_vue_globale:
 		bouton_vue_globale.declencher_feedback_positif()

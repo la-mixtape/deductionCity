@@ -1,18 +1,15 @@
-[gd_scene load_steps=50 format=3 uid="uid://c4hbk08v74jym"]
+[gd_scene load_steps=47 format=3 uid="uid://c4hbk08v74jym"]
 
 [ext_resource type="Texture2D" uid="uid://dt7a7bi15qop3" path="res://cork-board-cadre-bois.png" id="1_ckmj2"]
 [ext_resource type="Script" uid="uid://bayrl448ggk5o" path="res://EnqueteManager.gd" id="2_lgg38"]
 [ext_resource type="Script" uid="uid://cles6vrihk2an" path="res://DonneeDeduction.gd" id="2_vpewm"]
-[ext_resource type="Resource" uid="uid://cjhmjb0obix0l" path="res://ded_Fils.tres" id="3_ccf6n"]
-[ext_resource type="Resource" uid="uid://ct7dogfu7pucd" path="res://ded_Fille.tres" id="4_2nvyg"]
 [ext_resource type="Script" uid="uid://vxf03rhy3pb4" path="res://camera_2d.gd" id="4_v12hc"]
 [ext_resource type="Script" uid="uid://cothyd4jc55pm" path="res://Indice.gd" id="5_82bwi"]
-[ext_resource type="Resource" uid="uid://bnqb0camuodf7" path="res://ded_racket.tres" id="5_ckmj2"]
 [ext_resource type="Resource" uid="uid://blj6q76t82kyx" path="res://ded_Mafieux.tres" id="6_2lv5t"]
-[ext_resource type="Resource" uid="uid://baq2ue4n7q5xa" path="res://ded_braquage.tres" id="7_1t8x8"]
+[ext_resource type="Resource" uid="uid://baq2ue4n7q5xa" path="res://ded_racketMafieux.tres" id="7_1t8x8"]
 [ext_resource type="Resource" uid="uid://s3xl7bc1hsnw" path="res://ded_Foot.tres" id="8_jx5qw"]
 [ext_resource type="Resource" uid="uid://6rkvbcbpo7ak" path="res://ded_filleBraquage.tres" id="9_m6jtr"]
-[ext_resource type="Resource" uid="uid://dy1oiglhjcj74" path="res://ded_nomShopkeeper.tres" id="10_2nvyg"]
+[ext_resource type="Resource" uid="uid://dy1oiglhjcj74" path="res://ded_nomsFamille.tres" id="10_2nvyg"]
 [ext_resource type="Texture2D" uid="uid://baf6nmxtg5hi2" path="res://scene7kv3.png" id="11_2nvyg"]
 [ext_resource type="Resource" uid="uid://cvfn82bbygcsk" path="res://ded_college.tres" id="12_2lv5t"]
 [ext_resource type="Resource" uid="uid://cjuugdq0ajcq7" path="res://ded_anna.tres" id="13_jx5qw"]
@@ -155,7 +152,7 @@ texture = ExtResource("1_ckmj2")
 
 [node name="EnqueteManager" type="Node" parent="." node_paths=PackedStringArray("camera_scene", "bouton_vue_globale")]
 script = ExtResource("2_lgg38")
-base_de_donnees_deductions = Array[ExtResource("2_vpewm")]([ExtResource("3_ccf6n"), ExtResource("4_2nvyg"), ExtResource("5_ckmj2"), ExtResource("6_2lv5t"), ExtResource("7_1t8x8"), ExtResource("8_jx5qw"), ExtResource("9_m6jtr"), ExtResource("10_2nvyg"), ExtResource("12_2lv5t"), ExtResource("13_jx5qw"), ExtResource("14_m6jtr")])
+base_de_donnees_deductions = Array[ExtResource("2_vpewm")]([ExtResource("6_2lv5t"), ExtResource("7_1t8x8"), ExtResource("8_jx5qw"), ExtResource("9_m6jtr"), ExtResource("10_2nvyg"), ExtResource("12_2lv5t"), ExtResource("13_jx5qw"), ExtResource("14_m6jtr")])
 objectifs_demarrage = Array[String](["Qui sont ces personnes ?"])
 ids_indices_caches = Array[String](["Shopkeeper", "TXTmessage"])
 questions_caches = Array[String](["Pourquoi ce commerçant a-t-il un oeil au beurre noir?", "Qui a braqué ces mecs louches ?"])
