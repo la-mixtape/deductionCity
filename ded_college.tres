@@ -5,6 +5,6 @@
 [resource]
 script = ExtResource("1_u3y8l")
 titre = "Il lui manque de l'argent pour aller à la fac"
-indices_requis = Array[String](["PosterEcoles", "PosterBudget"])
+indices_requis = Array[String](["PosterEcole", "PosterBudget"])
 description_victoire = "Il lui manque de l'argent pour aller à la fac"
 metadata/_custom_type_script = "uid://cles6vrihk2an"

@@ -4,7 +4,9 @@
 
 [resource]
 script = ExtResource("1_htwv6")
-titre = "La fille a braqué le cercle de jeu des mafieux et caché l'argent sous sont lit"
-indices_requis = Array[String](["Lisa", "Skimask", "Cashbag", "Gun"])
-description_victoire = "La fille a braqué le cercle de jeu des mafieux et caché l'argent sous sont lit"
+titre = "C'est la chambre de la personne qui a braqué le cercle de jeu"
+indices_requis = Array[String](["Skimask", "Cashbag", "Gun"])
+conclusions_jaunes = Array[String](["C'est la chambre de la personne qui a braqué le cercle de jeu"])
+questions_vertes = Array[String](["Pourquoi a-t-elle braqué le cercle de jeu ?"])
+description_victoire = "C'est la chambre de la personne qui a braqué le cercle de jeu"
 metadata/_custom_type_script = "uid://cles6vrihk2an"

@@ -20,7 +20,10 @@ extends Node
 @export_multiline var questions_caches : Array[String] = []
 
 @export var liste_objectifs : Array[DonneeObjectif] = [] # Glisse tes .tres ici dans l'inspecteur
+@export var ecran_victoire : CanvasLayer
+
 var objectifs_resolus : Array[String] = []
+
 
 @export var camera_scene : Camera2D # <--- GLISSEZ VOTRE CAMERA ICI DANS L'INSPECTEUR
 var post_its_actifs_par_titre : Dictionary = {}
@@ -117,7 +120,7 @@ func spawner_post_it_virtuel(texte : String, taille_a_utiliser : Vector2, pos_fo
 	return nouveau_post_it
 
 func spawner_un_objectif_vert(texte_question : String):
-	var vert_objectif = Color(0.6, 0.9, 0.6)
+	var vert_objectif = Color(1.0, 0.488, 0.401, 1.0)
 	
 	# --- CALCUL DE LA POSITION ---
 	# Ici : Le 1er se colle à l'image, le 2ème se met à sa gauche, etc.
@@ -554,9 +557,26 @@ func verifier_victoire_stack(post_it_vert : Node):
 			objectifs_resolus.append(titre_question)
 			# Exemple : Verrouiller tous les enfants pour ne plus qu'on puisse les détacher
 			verrouiller_pile(post_it_vert)
+			verifier_victoire_globale()
 
 func verrouiller_pile(racine : Node):
 	# Empêche le drag & drop sur toute la pile gagnante
 	racine.set_process_input(false) # Désactive _gui_input
 	if racine.enfant_post_it:
 		verrouiller_pile(racine.enfant_post_it)
+
+func verifier_victoire_globale():
+	print("Progression : %d / %d" % [objectifs_resolus.size(), liste_objectifs.size()])
+	
+	# Si on a résolu autant d'objectifs qu'il y en a dans la liste totale
+	if objectifs_resolus.size() >= liste_objectifs.size():
+		declencher_fin_jeu()
+
+func declencher_fin_jeu():
+	print("BRAVO ! VICTOIRE TOTALE !")
+	
+	if ecran_victoire:
+		ecran_victoire.visible = true
+		
+	# Arrêter le jeu (Pause le moteur)
+	get_tree().paused = true

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="DonneeDeduction" load_steps=2 format=3 uid="uid://qnv0x4xqyon0"]
+
+[ext_resource type="Script" uid="uid://cles6vrihk2an" path="res://DonneeDeduction.gd" id="1_w3402"]
+
+[resource]
+script = ExtResource("1_w3402")
+titre = "Elle a besoin d'argent pour se payer une école de commerce"
+indices_requis = Array[String](["PosterEcole", "PosterBudget"])
+description_victoire = "Elle a besoin d'argent pour se payer une école de commerce"
+metadata/_custom_type_script = "uid://cles6vrihk2an"

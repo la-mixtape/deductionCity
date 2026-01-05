@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://c4hbk08v74jym"]
+[gd_scene load_steps=57 format=3 uid="uid://c4hbk08v74jym"]
 
 [ext_resource type="Texture2D" uid="uid://dt7a7bi15qop3" path="res://cork-board-cadre-bois.png" id="1_ckmj2"]
 [ext_resource type="Script" uid="uid://bayrl448ggk5o" path="res://EnqueteManager.gd" id="2_lgg38"]
@@ -18,8 +18,13 @@
 [ext_resource type="Resource" uid="uid://qdnd3iu6xcpb" path="res://Obj_noms.tres" id="13_vumj8"]
 [ext_resource type="Script" uid="uid://dk2f4vgxjet7f" path="res://BoutonVueGlobale.gd" id="14_2nvyg"]
 [ext_resource type="Resource" uid="uid://ck70aiiwl0u5i" path="res://ded_funding.tres" id="14_m6jtr"]
+[ext_resource type="Resource" uid="uid://pog8nouynyt8" path="res://Obj_mobile.tres" id="15_dkvav"]
 [ext_resource type="Texture2D" uid="uid://b1ggtowc01tgu" path="res://questionmark.png" id="15_m6jtr"]
+[ext_resource type="Resource" uid="uid://cpek2si1b4ajp" path="res://Obj_racket.tres" id="16_fgxhj"]
 [ext_resource type="Texture2D" uid="uid://qxtly4hbao06" path="res://questionmark_red.png" id="16_vumj8"]
+[ext_resource type="Resource" uid="uid://qul7r2t8nl4h" path="res://Obj_mafieux.tres" id="17_qhlrp"]
+[ext_resource type="Resource" uid="uid://c0in0beg0wt32" path="res://Obj_braquage.tres" id="18_ydocw"]
+[ext_resource type="Resource" uid="uid://bc188tgxjdj7a" path="res://Obj_caisseVide.tres" id="19_hoii4"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_l1v2g"]
 atlas = ExtResource("15_m6jtr")
@@ -140,6 +145,9 @@ region = Rect2(273.30792, 3246.9517, 313.74384, 350.76953)
 atlas = ExtResource("11_2nvyg")
 region = Rect2(533.5803, 3057.774, 436.2204, 502.24292)
 
+[sub_resource type="LabelSettings" id="LabelSettings_dkvav"]
+font_size = 100
+
 [node name="SceneDeCrime" type="Node2D"]
 position = Vector2(-6, 21)
 
@@ -153,17 +161,18 @@ mouse_filter = 2
 color = Color(0.52614474, 0.4183511, 0.27959567, 1)
 
 [node name="TableBackground_CorkTexture" type="Sprite2D" parent="."]
-position = Vector2(828.00006, 497)
+position = Vector2(-513, 1564)
 scale = Vector2(12.323151, 12.8097)
 texture = ExtResource("1_ckmj2")
 
-[node name="EnqueteManager" type="Node" parent="." node_paths=PackedStringArray("camera_scene", "bouton_vue_globale")]
+[node name="EnqueteManager" type="Node" parent="." node_paths=PackedStringArray("ecran_victoire", "camera_scene", "bouton_vue_globale")]
 script = ExtResource("2_lgg38")
 base_de_donnees_deductions = Array[ExtResource("2_vpewm")]([ExtResource("6_2lv5t"), ExtResource("7_1t8x8"), ExtResource("8_jx5qw"), ExtResource("9_m6jtr"), ExtResource("10_2nvyg"), ExtResource("12_2lv5t"), ExtResource("13_jx5qw"), ExtResource("14_m6jtr"), ExtResource("12_vumj8")])
-objectifs_demarrage = Array[String](["Qui sont ces personnes ?"])
+objectifs_demarrage = Array[String](["Qui sont les gens de cet immeuble ?", "Qui sont ces mecs louche en costard ?"])
 ids_indices_caches = Array[String](["Shopkeeper", "TXTmessage"])
 questions_caches = Array[String](["Pourquoi ce commerçant a-t-il un oeil au beurre noir?", "Qui a braqué ces mecs louches ?"])
-liste_objectifs = Array[ExtResource("12_m6jtr")]([ExtResource("13_vumj8")])
+liste_objectifs = Array[ExtResource("12_m6jtr")]([ExtResource("13_vumj8"), ExtResource("15_dkvav"), ExtResource("16_fgxhj"), ExtResource("17_qhlrp"), ExtResource("18_ydocw"), ExtResource("19_hoii4")])
+ecran_victoire = NodePath("../CanvasLayer2")
 camera_scene = NodePath("../Camera2D")
 texture_point_interrogation = SubResource("AtlasTexture_l1v2g")
 texture_echec = SubResource("AtlasTexture_yfu36")
@@ -495,6 +504,28 @@ metadata/_edit_lock_ = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="FeedbackUI/ColonneBD"]
 layout_mode = 2
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="EcranVictoire" type="Panel" parent="CanvasLayer2"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CanvasLayer2/EcranVictoire"]
+layout_mode = 0
+offset_left = 182.0
+offset_top = 95.0
+offset_right = 919.0
+offset_bottom = 512.0
+text = "BRAVO ! 
+VOUS AVEZ 
+TOUT COMPRIS"
+label_settings = SubResource("LabelSettings_dkvav")
+horizontal_alignment = 1
 
 [connection signal="input_event" from="clueShopkeeper" to="clueShopkeeper" method="_on_input_event"]
 [connection signal="input_event" from="clueBlackEye" to="clueBlackEye" method="_on_input_event"]

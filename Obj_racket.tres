@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="DonneeObjectif" load_steps=2 format=3 uid="uid://cpek2si1b4ajp"]
+
+[ext_resource type="Script" uid="uid://cglglpuwx5auv" path="res://DonneeObjectif.gd" id="1_5ks3f"]
+
+[resource]
+script = ExtResource("1_5ks3f")
+titre_question_verte = "Pourquoi ce commerçant a-t-il un oeil au beurre noir?"
+reponses_jaunes_requises = Array[String](["Ces hommes rackettent ce commerçant mais il n'a pas payé"])
+metadata/_custom_type_script = "uid://cles6vrihk2an"

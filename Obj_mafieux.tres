@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="DonneeObjectif" load_steps=2 format=3 uid="uid://qul7r2t8nl4h"]
+
+[ext_resource type="Script" uid="uid://cglglpuwx5auv" path="res://DonneeObjectif.gd" id="1_7idnw"]
+
+[resource]
+script = ExtResource("1_7idnw")
+titre_question_verte = "Qui sont ces mecs louche en costard ?"
+reponses_jaunes_requises = Array[String](["Ces hommes sont des mafieux"])
+metadata/_custom_type_script = "uid://cles6vrihk2an"

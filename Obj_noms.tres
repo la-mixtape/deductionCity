@@ -4,6 +4,6 @@
 
 [resource]
 script = ExtResource("1_pl5no")
-titre_question_verte = "Qui sont ces personnes ?"
+titre_question_verte = "Qui sont les gens de cet immeuble ?"
 reponses_jaunes_requises = Array[String](["Jean Lopez", "Léah Lopez", "Lisa Lopez", "Anna Lopez", "Ben Lopez", "Sam Lopez"])
 metadata/_custom_type_script = "uid://cles6vrihk2an"

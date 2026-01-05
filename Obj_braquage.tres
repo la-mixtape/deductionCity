@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="DonneeObjectif" load_steps=2 format=3 uid="uid://c0in0beg0wt32"]
+
+[ext_resource type="Script" uid="uid://cglglpuwx5auv" path="res://DonneeObjectif.gd" id="1_ycvvi"]
+
+[resource]
+script = ExtResource("1_ycvvi")
+titre_question_verte = "Qui a braqué ces mecs louches ?"
+reponses_jaunes_requises = Array[String](["Lisa Lopez"])
+metadata/_custom_type_script = "uid://cles6vrihk2an"

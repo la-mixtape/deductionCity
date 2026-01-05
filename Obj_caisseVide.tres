@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="DonneeObjectif" load_steps=2 format=3 uid="uid://bc188tgxjdj7a"]
+
+[ext_resource type="Script" uid="uid://cglglpuwx5auv" path="res://DonneeObjectif.gd" id="1_1rvjb"]
+
+[resource]
+script = ExtResource("1_1rvjb")
+titre_question_verte = "Pourquoi la caisse est-elle vide ?"
+reponses_jaunes_requises = Array[String](["Les 5k de la caisse servent à financer l'école de la fille"])
+metadata/_custom_type_script = "uid://cles6vrihk2an"
