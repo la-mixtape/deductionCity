@@ -116,8 +116,6 @@ func spawner_un_objectif_vert(texte_question : String):
 	var vert_objectif = Color(0.6, 0.9, 0.6)
 	
 	# --- CALCUL DE LA POSITION ---
-	# On veut qu'ils apparaissent de droite à gauche (partant de l'image)
-	# ou de gauche à droite selon ta préférence.
 	# Ici : Le 1er se colle à l'image, le 2ème se met à sa gauche, etc.
 	
 	var taille_image = sprite_scene.texture.get_size() * sprite_scene.scale
@@ -128,7 +126,6 @@ func spawner_un_objectif_vert(texte_question : String):
 	var marge_par_rapport_image = 200
 	
 	# Calcul de la position X (On recule vers la gauche à chaque nouveau post-it)
-	# (nombre_objectifs_verts_affiches + 1) car c'est le "n-ième" post-it
 	var decalage_total = (nombre_objectifs_verts_affiches + 1) * (largeur_post_it + marge_entre_post_its)
 	var x_cible = bord_gauche_image - decalage_total - marge_par_rapport_image 
 	# Note: Le "+ largeur_post_it" sert à ajuster le pivot si tes post-its sont centrés ou non.
@@ -144,22 +141,19 @@ func spawner_un_objectif_vert(texte_question : String):
 	var post_it = spawner_post_it_virtuel(texte_question, taille_post_it_vert, pos_calculee + decalage_random)
 	post_it.changer_couleur(vert_objectif)
 	post_it.est_objectif_vert = true  # C'est une BASE valide pour une pile	
-	# On incrémente le compteur pour que le prochain se mette à côté
 	nombre_objectifs_verts_affiches += 1
 	return post_it
 		
 func trouver_position_libre_sur_table(taille_objet : Vector2) -> Vector2:
 	# 1. On définit la zone interdite (l'image centrale)
-	# On doit recalculer sa zone précise en tenant compte de son échelle
 	var taille_image = sprite_scene.texture.get_size() * sprite_scene.scale
 	var pos_image = sprite_scene.position - (taille_image / 2) # Coin haut-gauche
 	var rect_image = Rect2(pos_image, taille_image)
 	
-	# Si c'est le premier appel, on initialise la liste avec l'image
 	if zones_occupees.is_empty():
 		zones_occupees.append(rect_image)
 
-# Algorithme spirale (inchangé sauf l'utilisation de taille_objet)
+# Algorithme spirale 
 	var centre_table = sprite_scene.position
 	var angle = 0.0
 	var rayon = (taille_image.x + taille_image.y) / 4
