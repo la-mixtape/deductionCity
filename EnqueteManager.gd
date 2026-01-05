@@ -113,6 +113,7 @@ func spawner_post_it_virtuel(texte : String, taille_a_utiliser : Vector2, pos_fo
 		nouveau_post_it.position = trouver_position_libre_sur_table(taille_a_utiliser)
 	
 	nouveau_post_it.rotation_degrees = randf_range(-3, 3)
+	nouveau_post_it.pile_modifiee.connect(_on_modification_pile)
 	return nouveau_post_it
 
 func spawner_un_objectif_vert(texte_question : String):
@@ -511,3 +512,51 @@ func trouver_deduction_cible(liste_test: Array) -> DonneeDeduction:
 		if est_sous_ensemble(liste_test, fiche.indices_requis):
 			return fiche
 	return null	
+
+func _on_modification_pile(post_it_racine : Node):
+	# On ne s'intéresse qu'aux piles qui commencent par un Objectif Vert
+	if not post_it_racine.est_objectif_vert:
+		return
+
+	verifier_victoire_stack(post_it_racine)
+
+func verifier_victoire_stack(post_it_vert : Node):
+	var titre_question = post_it_vert.label.text
+	
+	# 1. On cherche quel DonneeObjectif correspond à ce post-it vert
+	var objectif_cible : DonneeObjectif = null
+	for obj in liste_objectifs:
+		if obj.titre_question_verte == titre_question:
+			objectif_cible = obj
+			break
+	
+	if objectif_cible == null:
+		return # Ce post-it vert n'est pas un objectif enregistré
+
+	# 2. On récupère le contenu actuel de la pile (les post-its jaunes attachés)
+	var contenu_actuel = post_it_vert.recuperer_textes_enfants()
+	
+	# 3. On compare avec la solution requise
+	# Astuce : On trie (.sort()) les deux tableaux pour que l'ordre des post-its n'importe pas
+	var reponses_requises = objectif_cible.reponses_jaunes_requises.duplicate()
+	
+	contenu_actuel.sort()
+	reponses_requises.sort()
+	
+	if contenu_actuel == reponses_requises:
+		print("OBJECTIF RÉSOLU : " + titre_question)
+		
+		# Validation visuelle sur le post-it vert
+		post_it_vert.valider_visuellement_succes()
+		
+		# Tu peux aussi ajouter ici un son, ou débloquer la suite de l'enquête
+		if not titre_question in objectifs_resolus:
+			objectifs_resolus.append(titre_question)
+			# Exemple : Verrouiller tous les enfants pour ne plus qu'on puisse les détacher
+			verrouiller_pile(post_it_vert)
+
+func verrouiller_pile(racine : Node):
+	# Empêche le drag & drop sur toute la pile gagnante
+	racine.set_process_input(false) # Désactive _gui_input
+	if racine.enfant_post_it:
+		verrouiller_pile(racine.enfant_post_it)

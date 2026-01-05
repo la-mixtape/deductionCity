@@ -6,5 +6,7 @@
 script = ExtResource("1_qtuyp")
 titre = "Ces hommes ont racketé ce commerçant"
 indices_requis = Array[String](["Shopkeeper", "Liste", "Moneypot"])
+conclusions_jaunes = Array[String](["Ces hommes rackettent ce commerçant mais il n'a pas payé"])
+questions_vertes = Array[String](["Pourquoi la caisse est-elle vide ?"])
 description_victoire = "Ces hommes ont racketé ce commerçant"
 metadata/_custom_type_script = "uid://cles6vrihk2an"

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="DonneeDeduction" load_steps=2 format=3 uid="uid://bldc56gm34yrc"]
+
+[ext_resource type="Script" uid="uid://cles6vrihk2an" path="res://DonneeDeduction.gd" id="1_w63jw"]
+
+[resource]
+script = ExtResource("1_w63jw")
+titre = "Un mec random"
+indices_requis = Array[String](["RandomGuy"])
+conclusions_jaunes = Array[String](["Un mec random"])
+description_victoire = "Un mec random"
+metadata/_custom_type_script = "uid://cles6vrihk2an"

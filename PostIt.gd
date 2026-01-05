@@ -2,6 +2,8 @@ extends PanelContainer
 
 @onready var label = $LabelTitre
 
+signal pile_modifiee(racine_de_la_pile)
+
 # --- NOUVELLES VARIABLES DE STACKING ---
 var est_objectif_vert : bool = false # Pour savoir si c'est une base de pile
 var parent_post_it : Node = null     # Le post-it SUR lequel je suis posé
@@ -63,11 +65,18 @@ func attacher_a(nouvelle_cible : Node):
 	# Gestion de l'ordre d'affichage (Z-index)
 	# On doit passer devant le parent
 	move_to_front() 
+	notifier_changement_pile()
 
 func detacher():
 	if parent_post_it != null:
+		var ancien_parent = parent_post_it
 		parent_post_it.enfant_post_it = null
 		parent_post_it = null
+		# On notifie l'ancienne pile qu'elle a perdu un membre
+		ancien_parent.notifier_changement_pile()
+		
+		# On se notifie soi-même (on est maintenant une nouvelle racine)
+		notifier_changement_pile()
 
 func position_visuelle_sur_parent():
 	if parent_post_it:
@@ -130,7 +139,45 @@ func trouver_cible_sous_souris() -> Node:
 			
 	return null
 	
+func recuperer_textes_enfants() -> Array[String]:
+	var textes : Array[String] = []
 	
+	if enfant_post_it:
+		# 1. On récupère le texte de l'enfant direct
+		if enfant_post_it.label:
+			textes.append(enfant_post_it.label.text)
+		
+		# 2. On demande à l'enfant de nous donner la suite (récursion)
+		textes.append_array(enfant_post_it.recuperer_textes_enfants())
+		
+	return textes
+
+# Remonte la chaîne de parents pour trouver qui est tout en haut (ex: le Post-it Vert)
+func trouver_racine_pile() -> Node:
+	if parent_post_it:
+		return parent_post_it.trouver_racine_pile()
+	return self
+
+# Fonction pour prévenir qu'on a bougé
+func notifier_changement_pile():
+	var racine = trouver_racine_pile()
+	# On émet le signal depuis la racine pour faciliter la vie du Manager
+	racine.emit_signal("pile_modifiee", racine)
+
+func valider_visuellement_succes():
+	# Exemple de feedback : Bordure verte ou texte "VALIDÉ"
+	var style = get_theme_stylebox("panel").duplicate()
+	if style is StyleBoxFlat:
+		style.border_color = Color.GREEN
+		style.border_width_left = 10
+		style.border_width_right = 10
+		style.border_width_top = 10
+		style.border_width_bottom = 10
+		add_theme_stylebox_override("panel", style)
+	
+	# Optionnel : Bloquer le mouvement
+	# set_process_input(false)
+		
 func _gui_input(event):
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT:
