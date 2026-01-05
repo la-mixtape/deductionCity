@@ -129,6 +129,8 @@ func trouver_cible_sous_souris() -> Node:
 			return autre
 			
 	return null
+	
+	
 func _gui_input(event):
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT:
@@ -192,6 +194,7 @@ func changer_couleur(nouvelle_couleur : Color):
 		else:
 			# Fallback : Si vous utilisez une image (Texture), on la teinte
 			self_modulate = nouvelle_couleur
+
 
 func jouer_effet_focus():
 	# On s'assure d'être au premier plan pour être vu

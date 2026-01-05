@@ -32,3 +32,5 @@ text = "TEST TEXTE LONG"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
+
+[node name="Area2D" type="Area2D" parent="."]

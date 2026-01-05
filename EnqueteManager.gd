@@ -19,6 +19,9 @@ extends Node
 # Liste 2 : Les questions correspondantes (ex: "Quel est le lien ?")
 @export_multiline var questions_caches : Array[String] = []
 
+@export var liste_objectifs : Array[DonneeObjectif] = [] # Glisse tes .tres ici dans l'inspecteur
+var objectifs_resolus : Array[String] = []
+
 @export var camera_scene : Camera2D # <--- GLISSEZ VOTRE CAMERA ICI DANS L'INSPECTEUR
 var post_its_actifs_par_titre : Dictionary = {}
 
@@ -428,6 +431,63 @@ func tout_reset():
 		indice.deselectionner()
 		retirer_case_bd(indice.id_indice)
 	
+
+func tenter_assemblage(post_it_vert : Node, post_it_jaune : Node) -> bool:
+	var titre_vert = post_it_vert.texte_affiche.text # Assure-toi d'avoir accès au Label du post-it
+	var titre_jaune = post_it_jaune.texte_affiche.text
+	
+	# 1. On cherche la règle qui correspond à ce post-it vert
+	var objectif_concerne : DonneeObjectif = null
+	for obj in liste_objectifs:
+		if obj.titre_question_verte == titre_vert:
+			objectif_concerne = obj
+			break
+	
+	if objectif_concerne == null:
+		print("Ce post-it vert n'attend aucune réponse spécifique.")
+		return false
+
+	# 2. On vérifie si ce jaune fait partie des réponses attendues
+	if titre_jaune in objectif_concerne.reponses_jaunes_requises:
+		print("Bonne réponse !")
+		
+		# On "attache" logiquement et visuellement le jaune au vert
+		attacher_jaune_sur_vert(post_it_vert, post_it_jaune)
+		
+		# 3. On vérifie si l'objectif est COMPLET
+		verifier_completion_objectif(post_it_vert, objectif_concerne)
+		return true
+	else:
+		print("Mauvaise réponse, ça ne colle pas.")
+		return false
+
+func attacher_jaune_sur_vert(vert : Node, jaune : Node):
+	# On rend le jaune "enfant" du vert ou on le colle visuellement
+	# Pour faire simple ici : on le déplace et on le désactive
+	jaune.input_bloque = true # Empêcher de le bouger à nouveau
+	
+	# Petite animation pour le placer joliment sous le vert
+	var nbr_enfants = vert.get_meta("reponses_attachées", 0)
+	var decalage = Vector2(20, 50 + (nbr_enfants * 40)) # Décalage en cascade
+	
+	var tween = create_tween()
+	tween.tween_property(jaune, "global_position", vert.global_position + decalage, 0.3).set_trans(Tween.TRANS_CUBIC)
+	
+	# On stocke le compte
+	vert.set_meta("reponses_attachées", nbr_enfants + 1)
+	
+	# Optionnel : Ajouter le texte du jaune dans une liste interne au vert pour vérification future
+
+func verifier_completion_objectif(vert : Node, objectif : DonneeObjectif):
+	var nbr_reponses_actuelles = vert.get_meta("reponses_attachées", 0)
+	
+	if nbr_reponses_actuelles >= objectif.reponses_jaunes_requises.size():
+		print("OBJECTIF RÉSOLU : ", objectif.titre_question_verte)
+		objectifs_resolus.append(objectif.titre_question_verte)
+		
+		# Feedback visuel de victoire sur le post-it vert
+		vert.modulate = Color(0.3, 1.0, 0.3) # Devient vert très vif
+		# Tu pourrais ici lancer une pop-up, changer de scène, etc.
 
 # --- FONCTIONS UTILITAIRES ADAPTÉES ---
 

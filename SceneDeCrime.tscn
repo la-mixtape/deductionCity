@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://c4hbk08v74jym"]
+[gd_scene load_steps=49 format=3 uid="uid://c4hbk08v74jym"]
 
 [ext_resource type="Texture2D" uid="uid://dt7a7bi15qop3" path="res://cork-board-cadre-bois.png" id="1_ckmj2"]
 [ext_resource type="Script" uid="uid://bayrl448ggk5o" path="res://EnqueteManager.gd" id="2_lgg38"]
@@ -12,7 +12,9 @@
 [ext_resource type="Resource" uid="uid://dy1oiglhjcj74" path="res://ded_nomsFamille.tres" id="10_2nvyg"]
 [ext_resource type="Texture2D" uid="uid://baf6nmxtg5hi2" path="res://scene7kv3.png" id="11_2nvyg"]
 [ext_resource type="Resource" uid="uid://cvfn82bbygcsk" path="res://ded_college.tres" id="12_2lv5t"]
+[ext_resource type="Script" uid="uid://cglglpuwx5auv" path="res://DonneeObjectif.gd" id="12_m6jtr"]
 [ext_resource type="Resource" uid="uid://cjuugdq0ajcq7" path="res://ded_anna.tres" id="13_jx5qw"]
+[ext_resource type="Resource" uid="uid://qdnd3iu6xcpb" path="res://Obj_noms.tres" id="13_vumj8"]
 [ext_resource type="Script" uid="uid://dk2f4vgxjet7f" path="res://BoutonVueGlobale.gd" id="14_2nvyg"]
 [ext_resource type="Resource" uid="uid://ck70aiiwl0u5i" path="res://ded_funding.tres" id="14_m6jtr"]
 [ext_resource type="Texture2D" uid="uid://b1ggtowc01tgu" path="res://questionmark.png" id="15_m6jtr"]
@@ -156,6 +158,7 @@ base_de_donnees_deductions = Array[ExtResource("2_vpewm")]([ExtResource("6_2lv5t
 objectifs_demarrage = Array[String](["Qui sont ces personnes ?"])
 ids_indices_caches = Array[String](["Shopkeeper", "TXTmessage"])
 questions_caches = Array[String](["Pourquoi ce commerçant a-t-il un oeil au beurre noir?", "Qui a braqué ces mecs louches ?"])
+liste_objectifs = Array[ExtResource("12_m6jtr")]([ExtResource("13_vumj8")])
 camera_scene = NodePath("../Camera2D")
 texture_point_interrogation = SubResource("AtlasTexture_l1v2g")
 texture_echec = SubResource("AtlasTexture_yfu36")
