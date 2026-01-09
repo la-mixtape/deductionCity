@@ -512,6 +512,7 @@ offset_left = 1644.0
 offset_top = 990.0
 offset_right = 1730.0
 offset_bottom = 1021.0
+theme_override_colors/icon_normal_color = Color(0, 1, 1, 1)
 text = "Contiuner"
 
 [node name="CanvasLayer2" type="CanvasLayer" parent="."]

@@ -433,13 +433,23 @@ func valider_deduction(fiche_gagnante : DonneeDeduction):
 	if bouton_vue_globale:
 		bouton_vue_globale.declencher_feedback_positif()
 
-	if bouton_fermer:
+	if bouton_fermer and conteneur_cases:
+		# 1. On change le parent du bouton pour le mettre dans la VBoxContainer
+		# Il va se placer automatiquement après la dernière case BD !
+		if bouton_fermer.get_parent():
+			bouton_fermer.get_parent().remove_child(bouton_fermer)
+		
+		conteneur_cases.add_child(bouton_fermer)
+		
+		# 2. On l'affiche
 		bouton_fermer.visible = true
-	else:
-		# Sécurité si vous avez oublié de mettre le bouton dans l'inspecteur
-		print("ATTENTION : bouton_fermer non assigné dans EnqueteManager")
-		await get_tree().create_timer(3.0).timeout
-		_on_bouton_fermer_pressed()
+		
+		# 3. Petit scroll vers le bas pour être sûr que le joueur voit le bouton
+		await get_tree().process_frame
+		var scroll_container = conteneur_cases.get_parent()
+		if scroll_container is ScrollContainer:
+			# On scrolle jusqu'à la fin
+			scroll_container.scroll_vertical = scroll_container.get_v_scroll_bar().max_value
 
 func tout_reset():
 	selection_actuelle.clear()
