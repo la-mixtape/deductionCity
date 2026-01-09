@@ -165,14 +165,15 @@ position = Vector2(-513, 1564)
 scale = Vector2(12.323151, 12.8097)
 texture = ExtResource("1_ckmj2")
 
-[node name="EnqueteManager" type="Node" parent="." node_paths=PackedStringArray("ecran_victoire", "camera_scene", "bouton_vue_globale")]
+[node name="EnqueteManager" type="Node" parent="." node_paths=PackedStringArray("ecran_victoire", "bouton_fermer", "camera_scene", "bouton_vue_globale")]
 script = ExtResource("2_lgg38")
 base_de_donnees_deductions = Array[ExtResource("2_vpewm")]([ExtResource("6_2lv5t"), ExtResource("7_1t8x8"), ExtResource("8_jx5qw"), ExtResource("9_m6jtr"), ExtResource("10_2nvyg"), ExtResource("12_2lv5t"), ExtResource("13_jx5qw"), ExtResource("14_m6jtr"), ExtResource("12_vumj8")])
 objectifs_demarrage = Array[String](["Qui sont les gens de cet immeuble ?", "Qui sont ces mecs louche en costard ?"])
 ids_indices_caches = Array[String](["Shopkeeper", "TXTmessage"])
 questions_caches = Array[String](["Pourquoi ce commerçant a-t-il un oeil au beurre noir?", "Qui a braqué ces mecs louches ?"])
-liste_objectifs = Array[ExtResource("12_m6jtr")]([ExtResource("13_vumj8"), ExtResource("15_dkvav"), ExtResource("16_fgxhj"), ExtResource("17_qhlrp"), ExtResource("18_ydocw"), ExtResource("19_hoii4")])
+liste_objectifs = Array[ExtResource("12_m6jtr")]([ExtResource("13_vumj8"), ExtResource("15_dkvav"), ExtResource("16_fgxhj"), ExtResource("17_qhlrp"), ExtResource("18_ydocw"), ExtResource("19_hoii4"), null])
 ecran_victoire = NodePath("../CanvasLayer2")
+bouton_fermer = NodePath("../FeedbackUI/BoutonFermerDeduction")
 camera_scene = NodePath("../Camera2D")
 texture_point_interrogation = SubResource("AtlasTexture_l1v2g")
 texture_echec = SubResource("AtlasTexture_yfu36")
@@ -376,7 +377,7 @@ texte_bd = "Une arme à feu"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="clueGun"]
 position = Vector2(996, 220)
-polygon = PackedVector2Array(13, 4, 10, 6, 6, 4, 4, 4, 2, 3, 0, 5, -3, 3, 2, -5)
+polygon = PackedVector2Array(17, 1, 12, 8, 9, 8, 5, 6, 3, 6, 0, 7, -7, 3, 1, -11)
 
 [node name="clueEcoles" type="Area2D" parent="."]
 script = ExtResource("5_82bwi")
@@ -505,6 +506,14 @@ metadata/_edit_lock_ = true
 [node name="VBoxContainer" type="VBoxContainer" parent="FeedbackUI/ColonneBD"]
 layout_mode = 2
 
+[node name="BoutonFermerDeduction" type="Button" parent="FeedbackUI"]
+visible = false
+offset_left = 1644.0
+offset_top = 990.0
+offset_right = 1730.0
+offset_bottom = 1021.0
+text = "Contiuner"
+
 [node name="CanvasLayer2" type="CanvasLayer" parent="."]
 visible = false
 
@@ -526,6 +535,7 @@ VOUS AVEZ
 TOUT COMPRIS"
 label_settings = SubResource("LabelSettings_dkvav")
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="input_event" from="clueShopkeeper" to="clueShopkeeper" method="_on_input_event"]
 [connection signal="input_event" from="clueBlackEye" to="clueBlackEye" method="_on_input_event"]

@@ -24,6 +24,7 @@ extends Node
 
 var objectifs_resolus : Array[String] = []
 
+@export var bouton_fermer : Button # Glissez votre nouveau bouton ici dans l'inspecteur
 
 @export var camera_scene : Camera2D # <--- GLISSEZ VOTRE CAMERA ICI DANS L'INSPECTEUR
 var post_its_actifs_par_titre : Dictionary = {}
@@ -77,6 +78,9 @@ func _ready():
 			enfant.mouse_entered.connect(_on_souris_entre_indice)
 			enfant.mouse_exited.connect(_on_souris_sort_indice)
 			tous_les_indices.append(enfant)
+	if bouton_fermer:
+		bouton_fermer.pressed.connect(_on_bouton_fermer_pressed)
+		bouton_fermer.visible = false
 	for fiche_existante in PartieGlobale.inventaire_deductions:
 			generer_recompenses_deduction(fiche_existante)
 	# On fusionne les deux tableaux de l'inspecteur
@@ -236,6 +240,17 @@ func ajouter_case_bd(id_indice: String, texture: Texture2D, texte: String):
 	var scroll_container = conteneur_cases.get_parent()
 	if scroll_container is ScrollContainer:
 		scroll_container.scroll_vertical = scroll_container.get_v_scroll_bar().max_value
+
+func _on_bouton_fermer_pressed():
+	# 1. On cache le bouton
+	if bouton_fermer:
+		bouton_fermer.visible = false
+	
+	# 2. On nettoie le tableau (enlève les cases BD, désélectionne les indices)
+	tout_reset()
+	
+	# 3. On débloque le jeu pour permettre de nouvelles interactions
+	input_bloque = false
 
 func retirer_case_bd(id_indice: String):
 	if id_indice in cases_actives:
@@ -418,10 +433,13 @@ func valider_deduction(fiche_gagnante : DonneeDeduction):
 	if bouton_vue_globale:
 		bouton_vue_globale.declencher_feedback_positif()
 
-	await get_tree().create_timer(1.5).timeout
-	
-	tout_reset()
-	input_bloque = false
+	if bouton_fermer:
+		bouton_fermer.visible = true
+	else:
+		# Sécurité si vous avez oublié de mettre le bouton dans l'inspecteur
+		print("ATTENTION : bouton_fermer non assigné dans EnqueteManager")
+		await get_tree().create_timer(3.0).timeout
+		_on_bouton_fermer_pressed()
 
 func tout_reset():
 	selection_actuelle.clear()
