@@ -517,9 +517,11 @@ func verifier_completion_objectif(vert : Node, objectif : DonneeObjectif):
 		print("OBJECTIF RÉSOLU : ", objectif.titre_question_verte)
 		objectifs_resolus.append(objectif.titre_question_verte)
 		
-		# Feedback visuel de victoire sur le post-it vert
-		vert.modulate = Color(0.3, 1.0, 0.3) # Devient vert très vif
-		# Tu pourrais ici lancer une pop-up, changer de scène, etc.
+		if vert.has_method("changer_couleur"):
+			vert.changer_couleur(Color(0.3, 1.0, 0.3))
+		else:
+			# Fallback si jamais 'vert' n'est pas un Post-it standard
+			vert.modulate = Color(0.3, 1.0, 0.3)
 
 # --- FONCTIONS UTILITAIRES ADAPTÉES ---
 

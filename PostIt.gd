@@ -165,15 +165,7 @@ func notifier_changement_pile():
 	racine.emit_signal("pile_modifiee", racine)
 
 func valider_visuellement_succes():
-	# Exemple de feedback : Bordure verte ou texte "VALIDÉ"
-	var style = get_theme_stylebox("panel").duplicate()
-	if style is StyleBoxFlat:
-		style.border_color = Color.GREEN
-		style.border_width_left = 10
-		style.border_width_right = 10
-		style.border_width_top = 10
-		style.border_width_bottom = 10
-		add_theme_stylebox_override("panel", style)
+	changer_couleur(Color(0.0, 0.615, 0.054, 1.0))
 	
 	# Optionnel : Bloquer le mouvement
 	# set_process_input(false)
