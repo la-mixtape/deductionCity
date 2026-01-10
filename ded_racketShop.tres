@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="DonneeDeduction" load_steps=2 format=3 uid="uid://bnj7uiek7c3qf"]
+
+[ext_resource type="Script" uid="uid://cles6vrihk2an" path="res://DonneeDeduction.gd" id="1_rcrrh"]
+
+[resource]
+script = ExtResource("1_rcrrh")
+titre = "C'est la famille du commerçant"
+indices_requis = Array[String](["Shop", "Nom"])
+conclusions_jaunes = Array[String](["C'est la famille du commerçant"])
+description_victoire = "C'est la famille du commerçant"
+metadata/_custom_type_script = "uid://cles6vrihk2an"

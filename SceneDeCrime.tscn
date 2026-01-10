@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://c4hbk08v74jym"]
+[gd_scene load_steps=56 format=3 uid="uid://c4hbk08v74jym"]
 
 [ext_resource type="Texture2D" uid="uid://dt7a7bi15qop3" path="res://cork-board-cadre-bois.png" id="1_ckmj2"]
 [ext_resource type="Script" uid="uid://bayrl448ggk5o" path="res://EnqueteManager.gd" id="2_lgg38"]
@@ -40,10 +40,6 @@ load_path = "res://.godot/imported/scene7kv3.png-7b1b021b61cd0f80753fa6a524f9c7f
 [sub_resource type="AtlasTexture" id="AtlasTexture_2nvyg"]
 atlas = SubResource("CompressedTexture2D_ckmj2")
 region = Rect2(1280.37, 2929.0986, 822.86804, 1462.2588)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ckmj2"]
-atlas = SubResource("CompressedTexture2D_ckmj2")
-region = Rect2(1664.0001, 3099.5698, 182.72742, 145.45459)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2lv5t"]
 atlas = SubResource("CompressedTexture2D_ckmj2")
@@ -161,7 +157,7 @@ mouse_filter = 2
 color = Color(0.52614474, 0.4183511, 0.27959567, 1)
 
 [node name="TableBackground_CorkTexture" type="Sprite2D" parent="."]
-position = Vector2(-513, 1564)
+position = Vector2(-541, 1538)
 scale = Vector2(12.323151, 12.8097)
 texture = ExtResource("1_ckmj2")
 
@@ -206,17 +202,27 @@ texte_bd = "Un commercant"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="clueShopkeeper"]
 position = Vector2(6, 953)
-polygon = PackedVector2Array(209, 549, 221, 318, 273, 220, 186, 97, 159, 59, 158, 36, 159, 26, 146, 25, 148, 45, 123, 48, 113, 32, 112, 7, 121, 0, 141, 5, 146, 25, 159, 25, 152, 7, 150, -5, 143, -19, 124, -34, 88, -56, 47, -38, 23, 37, 45, 67, -6, 120, -92, 211, -31, 299, -52, 544, 46, 552, 61, 472, 109, 472, 128, 530)
+polygon = PackedVector2Array(209, 549, 221, 318, 273, 220, 186, 97, 159, 59, 158, 36, 159, 25, 152, 7, 150, -5, 143, -19, 124, -34, 88, -56, 47, -38, 23, 37, 45, 67, -6, 120, -92, 211, -31, 299, -52, 544, 46, 552, 61, 472, 109, 472, 128, 530)
 
-[node name="clueBlackEye" type="Area2D" parent="."]
+[node name="clueShop" type="Area2D" parent="."]
 script = ExtResource("5_82bwi")
-id_indice = "BlackEye"
-image_bd = SubResource("AtlasTexture_ckmj2")
-texte_bd = "Un oeil au beurre noir"
+id_indice = "Shop"
+image_bd = SubResource("AtlasTexture_2nvyg")
+texte_bd = "Un commercant"
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="clueBlackEye"]
-position = Vector2(39, 976)
-polygon = PackedVector2Array(110, 18, 110, 2, 104, -12, 90, -18, 82, -17, 82, -2, 89, 20, 100, 19)
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="clueShop"]
+position = Vector2(-14, 609)
+polygon = PackedVector2Array(502, 210, 516, 35, -181, 33, -177, 209)
+
+[node name="clueDaronne" type="Area2D" parent="."]
+script = ExtResource("5_82bwi")
+id_indice = "Daronne"
+image_bd = SubResource("AtlasTexture_2nvyg")
+texte_bd = "Un commercant"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="clueDaronne"]
+position = Vector2(223, 83)
+polygon = PackedVector2Array(29, 97, 49, 58, 46, -40, 1, -58, -63, -60, -73, 2, -84, 56, -72, 111, 13, 130)
 
 [node name="clueMoneypot" type="Area2D" parent="."]
 script = ExtResource("5_82bwi")
@@ -336,8 +342,8 @@ image_bd = SubResource("AtlasTexture_qhlrp")
 texte_bd = "Un masque de ski, parfait pour un braquage"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="clueSkimask"]
-position = Vector2(115, 223)
-polygon = PackedVector2Array(0, -4, 25, -13, 49, -5, 79, 29, 88, 148, 45, 190, -4, 193, -41, 132, -33, 50, -21, 21)
+position = Vector2(113, 217)
+polygon = PackedVector2Array(0, -4, 23, 2, 56, 15, 68, 41, 88, 148, 45, 190, -4, 193, -41, 132, -33, 50, -21, 21)
 
 [node name="clueLisa" type="Area2D" parent="."]
 script = ExtResource("5_82bwi")
@@ -491,20 +497,18 @@ camera_scene = NodePath("../../Camera2D")
 cible_a_centrer = NodePath("../../Sprite2D")
 
 [node name="ColonneBD" type="ScrollContainer" parent="FeedbackUI"]
-custom_minimum_size = Vector2(400, 0)
+custom_minimum_size = Vector2(250, 0)
 anchors_preset = 11
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -138.0
-offset_top = 1.0
-offset_right = 262.0
 grow_horizontal = 0
 grow_vertical = 2
-metadata/_edit_lock_ = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="FeedbackUI/ColonneBD"]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="BoutonFermerDeduction" type="Button" parent="FeedbackUI"]
 visible = false
@@ -513,7 +517,7 @@ offset_top = 990.0
 offset_right = 1730.0
 offset_bottom = 1021.0
 theme_override_colors/icon_normal_color = Color(0, 1, 1, 1)
-text = "Contiuner"
+text = "Continuer"
 
 [node name="CanvasLayer2" type="CanvasLayer" parent="."]
 visible = false
@@ -539,7 +543,8 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [connection signal="input_event" from="clueShopkeeper" to="clueShopkeeper" method="_on_input_event"]
-[connection signal="input_event" from="clueBlackEye" to="clueBlackEye" method="_on_input_event"]
+[connection signal="input_event" from="clueShop" to="clueShop" method="_on_input_event"]
+[connection signal="input_event" from="clueDaronne" to="clueDaronne" method="_on_input_event"]
 [connection signal="input_event" from="clueMoneypot" to="clueMoneypot" method="_on_input_event"]
 [connection signal="input_event" from="clueRecu" to="clueRecu" method="_on_input_event"]
 [connection signal="input_event" from="clueBallon" to="clueBallon" method="_on_input_event"]

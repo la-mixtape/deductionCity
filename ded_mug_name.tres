@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="DonneeDeduction" load_steps=2 format=3 uid="uid://bd2ladji071ba"]
+
+[ext_resource type="Script" uid="uid://cles6vrihk2an" path="res://DonneeDeduction.gd" id="1_pflrd"]
+
+[resource]
+script = ExtResource("1_pflrd")
+titre = "Lisa Lopez"
+indices_requis = Array[String](["Name", "TasseLisa"])
+description_victoire = "Ses parents lui ont donné l'argent de la caisse"
+metadata/_custom_type_script = "uid://cles6vrihk2an"

@@ -12,6 +12,21 @@ shadow_color = Color(0, 0, 0, 0.6745098)
 shadow_size = 5
 shadow_offset = Vector2(3, 3)
 
+[sub_resource type="Animation" id="Animation_nrxv1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("VBoxContainer/TextureRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
 [sub_resource type="Animation" id="Animation_tnfgf"]
 resource_name = "clignotement_lent"
 loop_mode = 1
@@ -28,21 +43,6 @@ tracks/0/keys = {
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.2941177), Color(1, 1, 1, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_nrxv1"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("VBoxContainer/TextureRect:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5bb75"]
 _data = {
 &"RESET": SubResource("Animation_nrxv1"),
@@ -50,8 +50,8 @@ _data = {
 }
 
 [node name="CaseBD" type="PanelContainer"]
-offset_right = 55.0
-offset_bottom = 138.0
+offset_right = 300.0
+offset_bottom = 300.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_vyobm")
 script = ExtResource("1_tnfgf")
 
@@ -60,7 +60,7 @@ layout_mode = 2
 theme_override_constants/separation = 5
 
 [node name="TextureRect" type="TextureRect" parent="VBoxContainer"]
-custom_minimum_size = Vector2(0, 100)
+custom_minimum_size = Vector2(0, 300)
 layout_mode = 2
 size_flags_vertical = 3
 expand_mode = 2
