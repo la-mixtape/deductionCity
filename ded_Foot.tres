@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_vixtp")
-titre = "C'est la chambre de Lisa"
-indices_requis = Array[String](["Ballon", "PosterFoot", "TasseLisa"])
-description_victoire = "C'est la chambre de la Lisa"
+titre = "C'est la chambre de la fille en bas"
+indices_requis = Array[String](["Ballon", "PosterFoot"])
+description_victoire = "C'est la chambre de la fille en bas"
 metadata/_custom_type_script = "uid://cles6vrihk2an"

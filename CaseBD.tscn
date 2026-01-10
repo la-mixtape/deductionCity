@@ -50,8 +50,8 @@ _data = {
 }
 
 [node name="CaseBD" type="PanelContainer"]
-offset_right = 300.0
-offset_bottom = 300.0
+offset_right = 250.0
+offset_bottom = 288.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_vyobm")
 script = ExtResource("1_tnfgf")
 
@@ -60,7 +60,7 @@ layout_mode = 2
 theme_override_constants/separation = 5
 
 [node name="TextureRect" type="TextureRect" parent="VBoxContainer"]
-custom_minimum_size = Vector2(0, 300)
+custom_minimum_size = Vector2(0, 250)
 layout_mode = 2
 size_flags_vertical = 3
 expand_mode = 2
