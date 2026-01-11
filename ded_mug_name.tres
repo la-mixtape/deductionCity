@@ -5,6 +5,6 @@
 [resource]
 script = ExtResource("1_pflrd")
 titre = "Lisa Lopez"
-indices_requis = Array[String](["Name", "TasseLisa"])
+indices_requis = Array[String](["Nom", "TasseLisa"])
 description_victoire = "Ses parents lui ont donné l'argent de la caisse"
 metadata/_custom_type_script = "uid://cles6vrihk2an"

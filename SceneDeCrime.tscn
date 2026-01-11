@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=3 uid="uid://c4hbk08v74jym"]
+[gd_scene load_steps=61 format=3 uid="uid://c4hbk08v74jym"]
 
 [ext_resource type="Texture2D" uid="uid://dt7a7bi15qop3" path="res://cork-board-cadre-bois.png" id="1_ckmj2"]
 [ext_resource type="Script" uid="uid://bayrl448ggk5o" path="res://EnqueteManager.gd" id="2_lgg38"]
@@ -13,15 +13,19 @@
 [ext_resource type="Texture2D" uid="uid://baf6nmxtg5hi2" path="res://scene7kv3.png" id="11_2nvyg"]
 [ext_resource type="Resource" uid="uid://cvfn82bbygcsk" path="res://ded_college.tres" id="12_2lv5t"]
 [ext_resource type="Script" uid="uid://cglglpuwx5auv" path="res://DonneeObjectif.gd" id="12_m6jtr"]
-[ext_resource type="Resource" uid="uid://bldc56gm34yrc" path="res://ded_randomGuy.tres" id="12_vumj8"]
 [ext_resource type="Resource" uid="uid://cjuugdq0ajcq7" path="res://ded_anna.tres" id="13_jx5qw"]
+[ext_resource type="Resource" uid="uid://bd2ladji071ba" path="res://ded_mug_name.tres" id="13_qhlrp"]
 [ext_resource type="Resource" uid="uid://qdnd3iu6xcpb" path="res://Obj_noms.tres" id="13_vumj8"]
 [ext_resource type="Script" uid="uid://dk2f4vgxjet7f" path="res://BoutonVueGlobale.gd" id="14_2nvyg"]
 [ext_resource type="Resource" uid="uid://ck70aiiwl0u5i" path="res://ded_funding.tres" id="14_m6jtr"]
+[ext_resource type="Resource" uid="uid://bnj7uiek7c3qf" path="res://ded_racketShop.tres" id="14_ydocw"]
 [ext_resource type="Resource" uid="uid://pog8nouynyt8" path="res://Obj_mobile.tres" id="15_dkvav"]
+[ext_resource type="Resource" uid="uid://dlt3uclnn4sla" path="res://ded_skimask.tres" id="15_hoii4"]
 [ext_resource type="Texture2D" uid="uid://b1ggtowc01tgu" path="res://questionmark.png" id="15_m6jtr"]
 [ext_resource type="Resource" uid="uid://cpek2si1b4ajp" path="res://Obj_racket.tres" id="16_fgxhj"]
+[ext_resource type="Texture2D" uid="uid://bc226hqaygwpg" path="res://osef.png" id="16_hoii4"]
 [ext_resource type="Texture2D" uid="uid://qxtly4hbao06" path="res://questionmark_red.png" id="16_vumj8"]
+[ext_resource type="Resource" uid="uid://ds6nrftchudcn" path="res://ded_money.tres" id="16_yi3uw"]
 [ext_resource type="Resource" uid="uid://qul7r2t8nl4h" path="res://Obj_mafieux.tres" id="17_qhlrp"]
 [ext_resource type="Resource" uid="uid://c0in0beg0wt32" path="res://Obj_braquage.tres" id="18_ydocw"]
 [ext_resource type="Resource" uid="uid://bc188tgxjdj7a" path="res://Obj_caisseVide.tres" id="19_hoii4"]
@@ -34,12 +38,16 @@ region = Rect2(50.45514, 16.429901, 90.90924, 102.47951)
 atlas = ExtResource("16_vumj8")
 region = Rect2(46.281525, 0, 89.25635, 127.39637)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_o60cw"]
+atlas = ExtResource("11_2nvyg")
+region = Rect2(1451.6414, 2962.7102, 478.0205, 482.30786)
+
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ckmj2"]
 load_path = "res://.godot/imported/scene7kv3.png-7b1b021b61cd0f80753fa6a524f9c7f2.ctex"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2nvyg"]
 atlas = SubResource("CompressedTexture2D_ckmj2")
-region = Rect2(1280.37, 2929.0986, 822.86804, 1462.2588)
+region = Rect2(1138.7693, 2419.6453, 1216, 401.43604)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2lv5t"]
 atlas = SubResource("CompressedTexture2D_ckmj2")
@@ -161,19 +169,21 @@ position = Vector2(-541, 1538)
 scale = Vector2(12.323151, 12.8097)
 texture = ExtResource("1_ckmj2")
 
-[node name="EnqueteManager" type="Node" parent="." node_paths=PackedStringArray("ecran_victoire", "bouton_fermer", "camera_scene", "bouton_vue_globale")]
+[node name="EnqueteManager" type="Node" parent="." node_paths=PackedStringArray("ecran_victoire", "bouton_fermer", "camera_scene", "bouton_vue_globale", "spawn_point_jaune")]
 script = ExtResource("2_lgg38")
-base_de_donnees_deductions = Array[ExtResource("2_vpewm")]([ExtResource("6_2lv5t"), ExtResource("7_1t8x8"), ExtResource("8_jx5qw"), ExtResource("9_m6jtr"), ExtResource("10_2nvyg"), ExtResource("12_2lv5t"), ExtResource("13_jx5qw"), ExtResource("14_m6jtr"), ExtResource("12_vumj8")])
+base_de_donnees_deductions = Array[ExtResource("2_vpewm")]([ExtResource("6_2lv5t"), ExtResource("7_1t8x8"), ExtResource("8_jx5qw"), ExtResource("9_m6jtr"), ExtResource("10_2nvyg"), ExtResource("12_2lv5t"), ExtResource("13_jx5qw"), ExtResource("14_m6jtr"), ExtResource("13_qhlrp"), ExtResource("14_ydocw"), ExtResource("15_hoii4"), ExtResource("16_yi3uw")])
 objectifs_demarrage = Array[String](["Qui sont les gens de cet immeuble ?", "Qui sont ces mecs louche en costard ?"])
+texture_objet_inutile = ExtResource("16_hoii4")
 ids_indices_caches = Array[String](["Shopkeeper", "TXTmessage"])
 questions_caches = Array[String](["Pourquoi ce commerçant a-t-il un oeil au beurre noir?", "Qui a braqué ces mecs louches ?"])
-liste_objectifs = Array[ExtResource("12_m6jtr")]([ExtResource("13_vumj8"), ExtResource("15_dkvav"), ExtResource("16_fgxhj"), ExtResource("17_qhlrp"), ExtResource("18_ydocw"), ExtResource("19_hoii4"), null])
+liste_objectifs = Array[ExtResource("12_m6jtr")]([ExtResource("13_vumj8"), ExtResource("15_dkvav"), ExtResource("16_fgxhj"), ExtResource("17_qhlrp"), ExtResource("18_ydocw"), ExtResource("19_hoii4")])
 ecran_victoire = NodePath("../CanvasLayer2")
 bouton_fermer = NodePath("../FeedbackUI/BoutonFermerDeduction")
 camera_scene = NodePath("../Camera2D")
 texture_point_interrogation = SubResource("AtlasTexture_l1v2g")
 texture_echec = SubResource("AtlasTexture_yfu36")
 bouton_vue_globale = NodePath("../FeedbackUI/BoutonVueGlobale")
+spawn_point_jaune = NodePath("../ZoneSpawnJaunes")
 taille_post_it_jaune = Vector2(400, 400)
 taille_post_it_vert = Vector2(400, 400)
 
@@ -184,6 +194,10 @@ texture = ExtResource("11_2nvyg")
 metadata/_edit_lock_ = true
 
 [node name="ConteneurPostIts" type="Node2D" parent="."]
+position = Vector2(13, 0)
+
+[node name="ZoneSpawnJaunes" type="Marker2D" parent="."]
+position = Vector2(772, 2712)
 
 [node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("cible_image")]
 position = Vector2(943, 622)
@@ -197,8 +211,8 @@ cible_image = NodePath("../Sprite2D")
 [node name="clueShopkeeper" type="Area2D" parent="."]
 script = ExtResource("5_82bwi")
 id_indice = "Shopkeeper"
-image_bd = SubResource("AtlasTexture_2nvyg")
-texte_bd = "Un commercant"
+image_bd = SubResource("AtlasTexture_o60cw")
+texte_bd = "Un commercant avec un oeil au beurre noir"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="clueShopkeeper"]
 position = Vector2(6, 953)
@@ -208,7 +222,7 @@ polygon = PackedVector2Array(209, 549, 221, 318, 273, 220, 186, 97, 159, 59, 158
 script = ExtResource("5_82bwi")
 id_indice = "Shop"
 image_bd = SubResource("AtlasTexture_2nvyg")
-texte_bd = "Un commercant"
+texte_bd = "Il y'a Lopez dans le nom du magasin"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="clueShop"]
 position = Vector2(-14, 609)
@@ -218,7 +232,7 @@ polygon = PackedVector2Array(502, 210, 516, 35, -181, 33, -177, 209)
 script = ExtResource("5_82bwi")
 id_indice = "Daronne"
 image_bd = SubResource("AtlasTexture_2nvyg")
-texte_bd = "Un commercant"
+texte_bd = "Encore une femme qui s'occupe du linge de tout le monde"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="clueDaronne"]
 position = Vector2(223, 83)
@@ -228,7 +242,7 @@ polygon = PackedVector2Array(29, 97, 49, 58, 46, -40, 1, -58, -63, -60, -73, 2, 
 script = ExtResource("5_82bwi")
 id_indice = "Moneypot"
 image_bd = SubResource("AtlasTexture_2lv5t")
-texte_bd = "Une caisse vide"
+texte_bd = "La caisse du magasin. Elle est vide"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="clueMoneypot"]
 position = Vector2(333, 1195)
@@ -248,7 +262,7 @@ polygon = PackedVector2Array(421.93878, 233.67346, 447, 255, 455, 269, 473, 262,
 script = ExtResource("5_82bwi")
 id_indice = "Ballon"
 image_bd = SubResource("AtlasTexture_jx5qw")
-texte_bd = "Un ballon de foot"
+texte_bd = "Un ballon de foot, elle part jouer ?"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="clueBallon"]
 position = Vector2(532, 1041)
@@ -329,7 +343,7 @@ polygon = PackedVector2Array(18, 23, 31, 391, -89, 428, -87, 27)
 script = ExtResource("5_82bwi")
 id_indice = "TagMafia"
 image_bd = SubResource("AtlasTexture_fgxhj")
-texte_bd = "Un tag anti-mafia"
+texte_bd = "Un tag anti-mafia. Il doit y avoir des mafieux dans le quartier."
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="clueMafia"]
 position = Vector2(-497.00006, 100)
@@ -369,7 +383,7 @@ polygon = PackedVector2Array(80, -1, 79, 35, -3, 35, -2, -1)
 script = ExtResource("5_82bwi")
 id_indice = "Cashbag"
 image_bd = SubResource("AtlasTexture_3h4in")
-texte_bd = "Un sac de cash"
+texte_bd = "Un sac de cash. D'où vient-il ?"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="clueCashbag"]
 position = Vector2(836, 304)
@@ -379,7 +393,7 @@ polygon = PackedVector2Array(27, 2, 26, 16, 18, 23, 7, 24, 3, 2)
 script = ExtResource("5_82bwi")
 id_indice = "Gun"
 image_bd = SubResource("AtlasTexture_yi3uw")
-texte_bd = "Une arme à feu"
+texte_bd = "Une arme à feu sous un oreiller. WTF! "
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="clueGun"]
 position = Vector2(996, 220)
@@ -409,7 +423,7 @@ polygon = PackedVector2Array(-1, -10, 1, 15, -15, 15, -15, -10)
 script = ExtResource("5_82bwi")
 id_indice = "PosterBudget"
 image_bd = SubResource("AtlasTexture_53w1n")
-texte_bd = "Un budget pour payer quelque chose. Il manque 18k€."
+texte_bd = "Un budget pour payer quelque chose. Il manque 18 000€."
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="clueBudget"]
 position = Vector2(1178, 103)
@@ -419,7 +433,7 @@ polygon = PackedVector2Array(18, -10, 18, 22, -10, 21, -8.163269, -9.693878)
 script = ExtResource("5_82bwi")
 id_indice = "PosterFoot"
 image_bd = SubResource("AtlasTexture_wyxke")
-texte_bd = "Un poster de foot"
+texte_bd = "Un poster de foot féminin."
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="cluePosterFoot"]
 position = Vector2(966, 113)
@@ -429,7 +443,7 @@ polygon = PackedVector2Array(40, -9, 40, 61, -9, 60, -8.163269, -9.693878)
 script = ExtResource("5_82bwi")
 id_indice = "FeuilleNoms"
 image_bd = SubResource("AtlasTexture_hymql")
-texte_bd = "Une répartition de taches doméstique. Et le weekend ils ont des domestiques ?"
+texte_bd = "Une liste de prénoms avec un planning. Peut être qu'ils répartissent bien les tâches doméstique. "
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="clueFeuilleNoms"]
 position = Vector2(1781, 945)
@@ -469,6 +483,7 @@ polygon = PackedVector2Array(-475, -23, -571, 27, -608, -100, -512, -126)
 script = ExtResource("5_82bwi")
 id_indice = "RandomGuy"
 image_bd = SubResource("AtlasTexture_mxx8h")
+texte_bd = "Un mec random"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="MecRandom"]
 polygon = PackedVector2Array(-403, 944, -343, 1163, -441, 1194, -387, 1391, -466, 1680, -366, 1674, -283, 1485, -143, 1687, -98, 1668, -47, 1620, -189, 1437, -135, 1337, -129, 1249, -195, 1106, -281, 924)

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="DonneeDeduction" load_steps=2 format=3 uid="uid://dlt3uclnn4sla"]
+
+[ext_resource type="Script" uid="uid://cles6vrihk2an" path="res://DonneeDeduction.gd" id="1_p56ms"]
+
+[resource]
+script = ExtResource("1_p56ms")
+titre = "Est-ce que le braqueur habite içi ?"
+indices_requis = Array[String](["Skimask", "TXTmessage"])
+conclusions_jaunes = Array[String](["Est-ce que le braqueur habite içi ?"])
+metadata/_custom_type_script = "uid://cles6vrihk2an"

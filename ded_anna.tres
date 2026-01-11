@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_u8esx")
-titre = "Elle est contente du tag de son amoureux"
+titre = "Une des fille est contente du tag de son amoureux"
 indices_requis = Array[String](["Anna", "TagAnna"])
-description_victoire = "Elle est contente du tag de son amoureux"
+description_victoire = "Une des fille est contente du tag de son amoureux"
 metadata/_custom_type_script = "uid://cles6vrihk2an"

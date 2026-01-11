@@ -4,8 +4,8 @@
 
 [resource]
 script = ExtResource("1_rcrrh")
-titre = "C'est la famille du commerçant"
+titre = "Le commerçant et sa famille habitent dans l'immeuble"
 indices_requis = Array[String](["Shop", "Nom"])
-conclusions_jaunes = Array[String](["C'est la famille du commerçant"])
+conclusions_jaunes = Array[String](["Le commerçant et sa famille habitent dans l'immeuble"])
 description_victoire = "C'est la famille du commerçant"
 metadata/_custom_type_script = "uid://cles6vrihk2an"

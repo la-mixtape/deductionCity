@@ -6,12 +6,15 @@ extends Node
 
 @export_group("Configuration Scénario")
 
+
 # 1. Ceux qui apparaissent tout de suite (Liste simple)
 @export_multiline var objectifs_demarrage : Array[String] = [
 	"Qui a tué la victime ?",
 	"Quelle est l'arme du crime ?"
 ]
-
+@export_group("Feedback Objets Inutiles")
+@export var texture_objet_inutile : Texture2D # Glissez une image générique (ex: un perso qui hausse les épaules)
+@export var texte_objet_inutile : String = "..."
 # 2. Ceux qui apparaissent au clic (Dictionnaire ID -> Question)
 @export_group("Configuration Objectifs Cachés")
 # Liste 1 : Les IDs des indices (ex: "clueShopkeeper")
@@ -32,9 +35,10 @@ var post_its_actifs_par_titre : Dictionary = {}
 @export var texture_point_interrogation : Texture2D # Glissez votre image "?" ici dans l'inspecteur
 @export var texture_echec : Texture2D
 var case_mystere_active : Node = null # Pour garder une trace de la case "?"
-
+var tween_pulse : Tween # Pour stocker l'animation de pulsation
 # On garde le dictionnaire pour la logique interne, mais on ne l'exporte plus
 var objectifs_caches : Dictionary = {}
+
 
 
 # --- VARIABLES D'ETAT ---
@@ -60,6 +64,7 @@ var scene_case_bd = preload("res://CaseBD.tscn")
 var cases_actives = {}
 # Configuration pour le placement
 @export_group("Configuration Post-Its")
+@export var spawn_point_jaune : Node2D
 @export var taille_post_it_jaune : Vector2 = Vector2(160, 160)
 @export var taille_post_it_vert : Vector2 = Vector2(250, 100) # Souvent plus large pour les questions
 
@@ -158,30 +163,44 @@ func spawner_un_objectif_vert(texte_question : String):
 func trouver_position_libre_sur_table(taille_objet : Vector2) -> Vector2:
 	# 1. On définit la zone interdite (l'image centrale)
 	var taille_image = sprite_scene.texture.get_size() * sprite_scene.scale
-	var pos_image = sprite_scene.position - (taille_image / 2) # Coin haut-gauche
+	var pos_image = sprite_scene.position - (taille_image / 2)
 	var rect_image = Rect2(pos_image, taille_image)
 	
 	if zones_occupees.is_empty():
 		zones_occupees.append(rect_image)
 
-# Algorithme spirale 
-	var centre_table = sprite_scene.position
-	var angle = 0.0
-	var rayon = (taille_image.x + taille_image.y) / 4
-	var increment_rayon = 10.0
-	var increment_angle = 0.5
+	# 2. Configuration du départ
+	var centre_recherche = sprite_scene.position
+	var rayon_depart = (taille_image.x + taille_image.y) / 4
 	
-	for i in range(500):
-		var offset = Vector2(cos(angle), sin(angle)) * rayon
-		var pos_candidate = centre_table + offset
+	# Si un point de spawn est défini, on part de là avec un rayon nul
+	if spawn_point_jaune != null:
+		centre_recherche = spawn_point_jaune.position
+		rayon_depart = 0.0
+
+	# 3. Paramètres de la Spirale d'Archimède
+	var angle = 0.0
+	var pas_angle = 0.2 
+	
+	# CORRECTION ICI : On utilise bien le nom complet de la variable
+	var ecart_entre_tours = min(taille_objet.x, taille_objet.y) * 0.6
+	var b = ecart_entre_tours / (2 * PI) # <--- C'était ici l'erreur
+	
+	# 4. Boucle de recherche
+	var max_steps = 4000 
+	
+	for i in range(max_steps):
+		var rayon_actuel = rayon_depart + (b * angle)
 		
-		# ICI : On utilise la taille spécifique passée en argument
+		var offset = Vector2(cos(angle), sin(angle)) * rayon_actuel
+		var pos_candidate = centre_recherche + offset
+		
 		var pos_haut_gauche = pos_candidate - (taille_objet / 2)
 		var rect_candidat = Rect2(pos_haut_gauche, taille_objet)
 		
 		var collision = false
 		for zone in zones_occupees:
-			if rect_candidat.intersects(zone):
+			if rect_candidat.grow(-5).intersects(zone):
 				collision = true
 				break
 		
@@ -189,10 +208,10 @@ func trouver_position_libre_sur_table(taille_objet : Vector2) -> Vector2:
 			zones_occupees.append(rect_candidat)
 			return pos_haut_gauche
 			
-		angle += increment_angle
-		rayon += increment_rayon * 0.1
-		
-	return Vector2.ZERO
+		angle += pas_angle
+	
+	print("ALERTE : Pas de place trouvée après 4000 essais.")
+	return centre_recherche
 	
 func generer_recompenses_deduction(fiche : DonneeDeduction) -> Array:
 	var nouveaux_nodes : Array = []
@@ -242,6 +261,9 @@ func ajouter_case_bd(id_indice: String, texture: Texture2D, texte: String):
 		scroll_container.scroll_vertical = scroll_container.get_v_scroll_bar().max_value
 
 func _on_bouton_fermer_pressed():
+	if tween_pulse: tween_pulse.kill()
+	bouton_fermer.scale = Vector2.ONE
+	bouton_fermer.rotation = 0
 	# 1. On cache le bouton
 	if bouton_fermer:
 		bouton_fermer.visible = false
@@ -267,15 +289,38 @@ func _on_souris_sort_indice():
 	nombre_indices_survoles -= 1
 
 func _unhandled_input(event):
-	if input_bloque: return
+	if input_bloque:
+		# On vérifie que c'est un clic souris (pour pas que ça tremble si on appuie sur une touche clavier)
+		if event is InputEventMouseButton and event.pressed:
+			anim_secousse_bouton() # <--- AJOUTEZ CETTE LIGNE
+		return
 
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 			if nombre_indices_survoles == 0:
 				tout_reset()
 
+func anim_secousse_bouton():
+	if not bouton_fermer or not bouton_fermer.visible: return
+	
+	# On s'assure que le pivot est bien au centre pour que la rotation se fasse sur elle-même
+	bouton_fermer.pivot_offset = bouton_fermer.size / 2
+	
+	var tween = create_tween()
+	# Petite secousse de rotation (gauche -> droite -> gauche -> centre)
+	tween.tween_property(bouton_fermer, "rotation_degrees", 5, 0.05).set_trans(Tween.TRANS_SINE)
+	tween.tween_property(bouton_fermer, "rotation_degrees", -5, 0.05).set_trans(Tween.TRANS_SINE)
+	tween.tween_property(bouton_fermer, "rotation_degrees", 5, 0.05).set_trans(Tween.TRANS_SINE)
+	tween.tween_property(bouton_fermer, "rotation_degrees", 0, 0.05).set_trans(Tween.TRANS_SINE)
+	
+	# Optionnel : On peut aussi le faire flasher en rouge
+	tween.parallel().tween_property(bouton_fermer, "modulate", Color(1, 0.5, 0.5), 0.1)
+	tween.chain().tween_property(bouton_fermer, "modulate", Color.WHITE, 0.1)
+
 func _on_indice_clique(indice_obj : Indice):
-	if input_bloque: return
+	if input_bloque: 
+		anim_secousse_bouton() # <--- AJOUTEZ CETTE LIGNE
+		return
 
 	var id = indice_obj.id_indice
 	
@@ -286,6 +331,27 @@ func _on_indice_clique(indice_obj : Indice):
 		objectifs_caches.erase(id) 
 	
 	if indice_obj.est_selectionne:
+		if not est_indice_pertinent(id):
+			# 1. On bloque les inputs pour que le joueur lise le message
+			input_bloque = true
+			
+			# 2. On affiche la case "Inutile"
+			# On utilise l'ID de l'objet pour l'identifier dans le système de cases
+			var tex_show = texture_objet_inutile
+			if tex_show == null: tex_show = preload("res://icon.svg") # Fallback de sécurité
+			
+			ajouter_case_bd(id, tex_show, texte_objet_inutile)
+			
+			# 3. On attend un peu (ex: 1.5 secondes)
+			await get_tree().create_timer(1).timeout
+			
+			# 4. On nettoie : on retire la case et on désélectionne l'objet
+			retirer_case_bd(id)
+			indice_obj.deselectionner()
+			
+			# 5. On rend la main et ON S'ARRÊTE LÀ (return)
+			input_bloque = false
+			return
 		# --- CAS : AJOUT D'UN INDICE ---
 		var test_selection = selection_actuelle.duplicate()
 		test_selection.append(id)
@@ -443,7 +509,15 @@ func valider_deduction(fiche_gagnante : DonneeDeduction):
 		
 		# 2. On l'affiche
 		bouton_fermer.visible = true
+		if tween_pulse: tween_pulse.kill()
+		bouton_fermer.rotation = 0
+		bouton_fermer.modulate = Color.WHITE
+		bouton_fermer.pivot_offset = bouton_fermer.size / 2
 		
+		# 2. Lancement de la pulsation (Loop infini)
+		tween_pulse = create_tween().set_loops()
+		tween_pulse.tween_property(bouton_fermer, "scale", Vector2(1.05, 1.05), 0.6).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+		tween_pulse.tween_property(bouton_fermer, "scale", Vector2(1.0, 1.0), 0.6).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 		# 3. Petit scroll vers le bas pour être sûr que le joueur voit le bouton
 		await get_tree().process_frame
 		var scroll_container = conteneur_cases.get_parent()
@@ -524,6 +598,16 @@ func verifier_completion_objectif(vert : Node, objectif : DonneeObjectif):
 			vert.modulate = Color(0.3, 1.0, 0.3)
 
 # --- FONCTIONS UTILITAIRES ADAPTÉES ---
+
+func est_indice_pertinent(id_indice: String) -> bool:
+	# On parcourt toutes les fiches de déduction possibles
+	for fiche in base_de_donnees_deductions:
+		# Si l'ID est nécessaire pour cette fiche, alors l'objet est utile !
+		if id_indice in fiche.indices_requis:
+			return true
+	
+	# Si on a parcouru toutes les fiches sans le trouver, c'est un objet décoratif/inutile
+	return false
 
 func est_combinaison_potentielle(liste_test: Array) -> bool:
 	# On vérifie chaque fiche de la base de données

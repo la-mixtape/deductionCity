@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="DonneeDeduction" load_steps=2 format=3 uid="uid://ds6nrftchudcn"]
+
+[ext_resource type="Script" uid="uid://cles6vrihk2an" path="res://DonneeDeduction.gd" id="1_cvs28"]
+
+[resource]
+script = ExtResource("1_cvs28")
+titre = "Est-ce que c'est le cash qui a été braqué ?"
+indices_requis = Array[String](["Cashbag", "TXTmessage"])
+conclusions_jaunes = Array[String](["Est-ce que c'est le cash qui a été braqué ?"])
+metadata/_custom_type_script = "uid://cles6vrihk2an"
