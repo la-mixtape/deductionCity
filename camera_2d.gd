@@ -27,12 +27,30 @@ func _unhandled_input(event):
 				tween_snap.kill()
 
 	# 2. Gestion du ZOOM
+	# 1. Gestion Souris Classique (Ton code actuel)
 	if event is InputEventMouseButton:
 		if event.is_pressed():
 			if event.button_index == MOUSE_BUTTON_WHEEL_UP:
-				apply_zoom(zoom_speed) # Zoom Avant
+				apply_zoom(zoom_speed)
 			elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
-				apply_zoom(-zoom_speed) # Zoom Arrière
+				apply_zoom(-zoom_speed)
+	
+	# 2. Gestion du "Pincement" (Pinch to zoom)
+	# C'est la façon la plus naturelle de zoomer au trackpad
+	elif event is InputEventMagnifyGesture:
+		# event.factor est > 1 pour un zoom avant, < 1 pour un zoom arrière
+		# On ajuste le facteur pour qu'il corresponde à ta logique de zoom
+		var zoom_amount = (event.factor - 1.0) * zoom_speed
+		apply_zoom(zoom_amount)
+
+	# 3. Gestion du Défilement Trackpad (Pan Gesture)
+	# Si l'utilisateur scrolle à 2 doigts au lieu de pincer
+	elif event is InputEventPanGesture:
+		# delta.y contient le mouvement vertical des doigts
+		# On multiplie par une petite valeur car le Pan est très sensible
+		var pan_zoom = event.delta.y * 0.1 
+		# Attention : sur trackpad Mac, le sens peut être inversé selon les réglages "Naturel"
+		apply_zoom(-pan_zoom * zoom_speed)
 
 func apply_zoom(amount: float):
 	var old_zoom_val = zoom.x
